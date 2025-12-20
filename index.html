@@ -32,7 +32,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Filter Animations */
-        .itinerary-item, .weather-card { transition: all 0.3s ease; }
+        .filterable-item { transition: all 0.3s ease; }
         .hidden-item { display: none !important; }
 
         /* Specific Component Styles */
@@ -80,26 +80,25 @@
     <main class="flex-1 overflow-y-auto no-scrollbar pb-24 relative" id="main-scroll">
         <div class="max-w-3xl mx-auto p-4 min-h-full">
 
+            <!-- Global Filter Controls (Sticky) -->
+            <div class="sticky top-0 z-40 bg-slate-100 pb-4 pt-1 mb-2">
+                <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500">
+                    <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 rounded-md transition bg-slate-100 text-slate-800 shadow-sm" id="btn-all">
+                        全員視角
+                    </button>
+                    <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 rounded-md transition hover:bg-slate-50" id="btn-a">
+                        <span class="text-blue-600">A組先發</span>
+                    </button>
+                    <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 rounded-md transition hover:bg-slate-50" id="btn-b">
+                        <span class="text-emerald-600">B組增援</span>
+                    </button>
+                </div>
+            </div>
+
             <!-- TAB 1: 行程 (ITINERARY) - DEFAULT ACTIVE -->
             <div id="tab-itinerary" class="tab-content active space-y-6">
-                
-                <!-- Filter Controls (Itinerary) -->
-                <div class="sticky top-0 z-40 bg-slate-100 pb-2 pt-1">
-                    <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500">
-                        <button onclick="filterGroup('ALL')" class="filter-btn-all flex-1 py-1.5 rounded-md transition bg-slate-100 text-slate-800 shadow-sm">
-                            全員視角
-                        </button>
-                        <button onclick="filterGroup('A')" class="filter-btn-a flex-1 py-1.5 rounded-md transition hover:bg-slate-50">
-                            <span class="text-blue-600">A組先發</span>
-                        </button>
-                        <button onclick="filterGroup('B')" class="filter-btn-b flex-1 py-1.5 rounded-md transition hover:bg-slate-50">
-                            <span class="text-emerald-600">B組增援</span>
-                        </button>
-                    </div>
-                </div>
-
                 <!-- D1 -->
-                <div class="relative pl-8 itinerary-item" data-group="A">
+                <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D1</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 border-blue-400">
@@ -117,7 +116,7 @@
                 </div>
 
                 <!-- D2 -->
-                <div class="relative pl-8 itinerary-item" data-group="A">
+                <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D2</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -141,7 +140,7 @@
                 </div>
 
                 <!-- D3 -->
-                <div class="relative pl-8 itinerary-item" data-group="A">
+                <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D3</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -161,7 +160,7 @@
                 </div>
 
                 <!-- D4 -->
-                <div class="relative pl-8 itinerary-item" data-group="A">
+                <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D4</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -181,7 +180,7 @@
                 </div>
 
                 <!-- D5 -->
-                <div class="relative pl-8 itinerary-item" data-group="A">
+                <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D5</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -198,7 +197,7 @@
                 </div>
 
                 <!-- D6 -->
-                <div class="relative pl-8 itinerary-item">
+                <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10 ring-4 ring-purple-100">D6</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 border-purple-500">
@@ -206,11 +205,11 @@
                             <h3 class="font-bold text-lg">2/17 (二)</h3>
                             <span class="text-[10px] font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded">感動會合日！</span>
                         </div>
-                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 itinerary-item" data-group="A">
+                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 filterable-item" data-group="A">
                             <span class="text-xs font-bold text-blue-500">A組</span>
                             <p class="text-sm text-slate-600 mt-1">上午補眠 / 榮商圈逛街</p>
                         </div>
-                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 itinerary-item" data-group="B">
+                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 filterable-item" data-group="B">
                             <span class="text-xs font-bold text-emerald-500">B組</span>
                             <p class="text-sm text-slate-600 mt-1">13:00 抵達機場 ➔ 15:00 飯店 Check-in</p>
                         </div>
@@ -225,7 +224,7 @@
                 </div>
 
                 <!-- D7 -->
-                <div class="relative pl-8 itinerary-item">
+                <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-slate-700 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D7</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -237,7 +236,7 @@
                         <!-- Split Cards -->
                         <div class="grid grid-cols-1 gap-3">
                             <!-- A Card -->
-                            <div class="bg-blue-50 rounded-lg p-3 border border-blue-100 itinerary-item" data-group="A">
+                            <div class="bg-blue-50 rounded-lg p-3 border border-blue-100 filterable-item" data-group="A">
                                 <div class="font-bold text-blue-600 mb-2 text-sm">A組：市區悠閒</div>
                                 <ul class="text-sm space-y-1 text-slate-700 mb-2">
                                     <li>• 名古屋城 / 熱田神宮</li>
@@ -249,7 +248,7 @@
                                 </div>
                             </div>
                             <!-- B Card (Updated) -->
-                            <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100 itinerary-item" data-group="B">
+                            <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100 filterable-item" data-group="B">
                                 <div class="font-bold text-emerald-600 mb-2 text-sm">B組：雪地一日遊 (合掌村+牧歌之里)</div>
                                 <div class="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-1 rounded mb-2 inline-block">行程時間：約 10 小時</div>
                                 <ul class="text-sm space-y-3 text-slate-700">
@@ -283,7 +282,7 @@
                 </div>
 
                 <!-- D8 -->
-                <div class="relative pl-8 itinerary-item">
+                <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D8</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -320,7 +319,7 @@
                 </div>
 
                 <!-- D9 -->
-                <div class="relative pl-8 itinerary-item">
+                <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D9</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -340,7 +339,7 @@
                 </div>
 
                 <!-- D10 -->
-                <div class="relative pl-8 itinerary-item">
+                <div class="relative pl-8 filterable-item">
                     <div class="timeline-line bg-transparent"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-slate-800 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D10</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -371,7 +370,7 @@
                     
                     <div class="flight-board p-0">
                         <!-- A Group -->
-                        <div class="flight-row p-4 relative" data-date="2026-02-12">
+                        <div class="flight-row p-4 relative filterable-item" data-group="A" data-date="2026-02-12">
                             <div class="flex justify-between items-start mb-3">
                                 <div class="flex items-center">
                                     <span class="text-[10px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded mr-2">A組去程</span>
@@ -402,7 +401,7 @@
                         </div>
 
                         <!-- B Group -->
-                        <div class="flight-row p-4 relative" data-date="2026-02-17">
+                        <div class="flight-row p-4 relative filterable-item" data-group="B" data-date="2026-02-17">
                             <div class="flex justify-between items-start mb-3">
                                 <div class="flex items-center">
                                     <span class="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded mr-2">B組去程</span>
@@ -432,7 +431,7 @@
                         </div>
 
                         <!-- Return -->
-                        <div class="flight-row p-4 relative bg-slate-800/50" data-date="2026-02-21">
+                        <div class="flight-row p-4 relative bg-slate-800/50 filterable-item" data-date="2026-02-21">
                             <div class="flex justify-between items-start mb-3">
                                 <div class="flex items-center">
                                     <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded mr-2">全員回程</span>
@@ -479,7 +478,7 @@
                     <h2 class="text-lg font-bold mb-4 text-slate-800">住宿清單</h2>
                     <div class="space-y-4">
                         <!-- Hotel 1 -->
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 relative">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 relative filterable-item" data-group="A">
                             <div class="absolute top-4 right-4 text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded">A組 1晚</div>
                             <h3 class="font-bold text-slate-800 pr-16 text-sm">名古屋新幹線口大和ROYNET</h3>
                             <p class="text-xs text-slate-500 mt-1">Daiwa Roynet Hotel Nagoya</p>
@@ -490,7 +489,7 @@
                         </div>
 
                         <!-- Hotel 2 -->
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 relative">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 relative filterable-item" data-group="A">
                             <div class="absolute top-4 right-4 text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded">A組 3晚</div>
                             <h3 class="font-bold text-slate-800 pr-16 text-sm">Tokyu Stay 飛驒高山 結之湯</h3>
                             <p class="text-xs text-slate-500 mt-1">Tokyu Stay Hida Takayama</p>
@@ -501,7 +500,7 @@
                         </div>
 
                         <!-- Hotel 3 -->
-                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 relative">
+                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 relative filterable-item">
                             <div class="absolute top-4 right-4 text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded">全員合宿</div>
                             <h3 class="font-bold text-slate-800 pr-20 text-sm">名古屋名站南舒適飯店</h3>
                             <p class="text-xs text-slate-500 mt-1">Comfort Hotel Nagoya Meiekiminami</p>
@@ -520,19 +519,6 @@
             <!-- TAB 4: 準備 (PREP/INFO) -->
             <div id="tab-info" class="tab-content space-y-4">
                 
-                <!-- Filter Controls (Prep) -->
-                <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500 mb-2">
-                    <button onclick="filterGroup('ALL')" class="filter-btn-all flex-1 py-1.5 rounded-md transition bg-slate-100 text-slate-800 shadow-sm">
-                        全員視角
-                    </button>
-                    <button onclick="filterGroup('A')" class="filter-btn-a flex-1 py-1.5 rounded-md transition hover:bg-slate-50">
-                        <span class="text-blue-600">A組先發</span>
-                    </button>
-                    <button onclick="filterGroup('B')" class="filter-btn-b flex-1 py-1.5 rounded-md transition hover:bg-slate-50">
-                        <span class="text-emerald-600">B組增援</span>
-                    </button>
-                </div>
-
                 <!-- Weather Widget -->
                 <div class="bg-white rounded-2xl p-5 shadow-sm">
                     <div class="flex justify-between items-center mb-4">
@@ -555,7 +541,7 @@
                         <i class="fa-solid fa-triangle-exclamation mr-2 text-yellow-400"></i> 重要備忘錄
                     </h2>
                     <div class="space-y-4 text-sm">
-                        <div class="flex items-start">
+                        <div class="flex items-start filterable-item">
                             <div class="bg-white/10 p-2 rounded mr-3 shrink-0">
                                 <i class="fa-solid fa-shoe-prints text-blue-300"></i>
                             </div>
@@ -564,7 +550,7 @@
                                 <p class="opacity-80 text-xs mt-1">高山、合掌村、牧歌之里為雪地，務必穿著<span class="text-yellow-300 font-bold">防滑防水靴子</span>。</p>
                             </div>
                         </div>
-                        <div class="flex items-start">
+                        <div class="flex items-start filterable-item" data-group="B">
                             <div class="bg-white/10 p-2 rounded mr-3 shrink-0">
                                 <i class="fa-solid fa-users-viewfinder text-emerald-300"></i>
                             </div>
@@ -616,20 +602,31 @@
         // Filter Logic
         function filterGroup(group) {
             currentFilterGroup = group;
-            const items = document.querySelectorAll('.itinerary-item');
+            const items = document.querySelectorAll('.filterable-item'); // Using the common class
             const weatherCards = document.querySelectorAll('.weather-card');
             
-            // Sync UI Buttons (Both sets)
-            updateFilterButtons('all', group === 'ALL');
-            updateFilterButtons('a', group === 'A');
-            updateFilterButtons('b', group === 'B');
+            // Sync UI Buttons
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
+                btn.classList.add('text-slate-500');
+            });
+            
+            const activeBtnId = group === 'ALL' ? 'btn-all' : (group === 'A' ? 'btn-a' : 'btn-b');
+            const activeBtn = document.getElementById(activeBtnId);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
+                activeBtn.classList.remove('text-slate-500');
+            }
 
-            // Logic for Itinerary Items
+            // Logic for Items (Itinerary, Flight, Hotel, Notes)
             items.forEach(item => {
                 const itemGroup = item.getAttribute('data-group');
+                
                 if (group === 'ALL') {
                     item.classList.remove('hidden-item');
                 } else {
+                    // Show item if it has matching group OR no group (common items)
                     if (!itemGroup || itemGroup === group) {
                         item.classList.remove('hidden-item');
                     } else {
@@ -641,26 +638,11 @@
             // Logic for Weather Cards
             weatherCards.forEach(card => {
                 const cardGroup = card.getAttribute('data-group');
-                // A group should see everything (since A is there from start)
                 // B group should NOT see 'A' only days (D1-D5)
-                // 'ALL' sees everything
                 if (group === 'B' && cardGroup === 'A') {
                     card.classList.add('hidden-item');
                 } else {
                     card.classList.remove('hidden-item');
-                }
-            });
-        }
-
-        function updateFilterButtons(type, isActive) {
-            const btns = document.querySelectorAll(`.filter-btn-${type}`);
-            btns.forEach(btn => {
-                if (isActive) {
-                    btn.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
-                    btn.classList.remove('text-slate-500');
-                } else {
-                    btn.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
-                    btn.classList.add('text-slate-500');
                 }
             });
         }
@@ -773,8 +755,20 @@
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             initWeather();
-            // Default filter to ALL
-            filterGroup('ALL');
+            
+            // Auto-switch based on URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const groupParam = urlParams.get('group');
+            
+            let initialGroup = 'ALL';
+            if (groupParam) {
+                const upperGroup = groupParam.toUpperCase();
+                if (['A', 'B'].includes(upperGroup)) {
+                    initialGroup = upperGroup;
+                }
+            }
+            
+            filterGroup(initialGroup);
         });
     </script>
 </body>
