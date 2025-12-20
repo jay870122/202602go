@@ -2,8 +2,17 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2026 名古屋・北陸冬之旅</title>
+    
+    <!-- 網頁圖示 (Favicon) - 使用雪花 Emoji -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❄️</text></svg>">
+    
+    <!-- iOS / Android Web App 設定 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2563eb">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -30,6 +39,9 @@
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Fix for bottom nav safe area on iPhone X+ */
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 
         /* Flight Board */
         .flight-board { background-color: #1e293b; color: #e2e8f0; }
@@ -44,11 +56,13 @@
 <body class="text-slate-700 bg-slate-100 h-screen flex flex-col overflow-hidden">
 
     <!-- Header (Fixed) -->
-    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 shadow-lg shrink-0 z-50">
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 shadow-lg shrink-0 z-50 pt-safe-top">
         <div class="max-w-3xl mx-auto flex justify-between items-center">
             <div>
-                <h1 class="text-lg font-bold">2026 名古屋・北陸冬之旅 ❄️</h1>
-                <p class="text-blue-100 text-xs mt-0.5">2/12 (四) ~ 2/21 (六)｜共 10 天</p>
+                <h1 class="text-lg font-bold flex items-center">
+                    <span class="mr-2 text-xl">❄️</span> 2026 名古屋・北陸
+                </h1>
+                <p class="text-blue-100 text-xs mt-0.5 ml-8">2/12 (四) ~ 2/21 (六)｜共 10 天</p>
             </div>
             <div class="text-right">
                 <div class="bg-white/20 px-2 py-1 rounded text-xs">
@@ -186,9 +200,6 @@
                                 <li><i class="fa-regular fa-clock text-slate-400 mr-1"></i> 16:00~17:00 飯店或榮商圈會合</li>
                                 <li><i class="fa-solid fa-beer-mug-empty text-orange-400 mr-1"></i> 晚餐：全員歡迎會 (手羽先)</li>
                             </ul>
-                        </div>
-                        <div class="mt-2 block bg-purple-50 text-purple-700 text-xs py-2 rounded text-center border border-purple-200 font-bold">
-                            <i class="fa-solid fa-utensils mr-1"></i> 世界的山將 (建議)
                         </div>
                     </div>
                 </div>
