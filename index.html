@@ -31,6 +31,10 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Filter Animations */
+        .itinerary-item { transition: all 0.3s ease; }
+        .hidden-item { display: none !important; }
+
         /* Specific Component Styles */
         .map-btn { transition: all 0.2s; }
         .map-btn:active { transform: scale(0.95); }
@@ -78,8 +82,24 @@
 
             <!-- TAB 1: 行程 (ITINERARY) - DEFAULT ACTIVE -->
             <div id="tab-itinerary" class="tab-content active space-y-6">
+                
+                <!-- Filter Controls -->
+                <div class="sticky top-0 z-40 bg-slate-100 pb-2 pt-1">
+                    <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500">
+                        <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 rounded-md transition bg-slate-100 text-slate-800 shadow-sm" id="btn-all">
+                            全員視角
+                        </button>
+                        <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 rounded-md transition hover:bg-slate-50" id="btn-a">
+                            <span class="text-blue-600">A組先發</span>
+                        </button>
+                        <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 rounded-md transition hover:bg-slate-50" id="btn-b">
+                            <span class="text-emerald-600">B組增援</span>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- D1 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D1</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 border-blue-400">
@@ -97,7 +117,7 @@
                 </div>
 
                 <!-- D2 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D2</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -121,7 +141,7 @@
                 </div>
 
                 <!-- D3 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D3</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -141,7 +161,7 @@
                 </div>
 
                 <!-- D4 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D4</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -161,7 +181,7 @@
                 </div>
 
                 <!-- D5 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D5</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -178,7 +198,7 @@
                 </div>
 
                 <!-- D6 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10 ring-4 ring-purple-100">D6</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 border-purple-500">
@@ -186,12 +206,12 @@
                             <h3 class="font-bold text-lg">2/17 (二)</h3>
                             <span class="text-[10px] font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded">感動會合日！</span>
                         </div>
-                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200">
-                            <span class="text-xs font-bold text-blue-500">A組 (老鳥)</span>
+                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 itinerary-item" data-group="A">
+                            <span class="text-xs font-bold text-blue-500">A組</span>
                             <p class="text-sm text-slate-600 mt-1">上午補眠 / 榮商圈逛街</p>
                         </div>
-                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200">
-                            <span class="text-xs font-bold text-emerald-500">B組 (菜鳥)</span>
+                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 itinerary-item" data-group="B">
+                            <span class="text-xs font-bold text-emerald-500">B組</span>
                             <p class="text-sm text-slate-600 mt-1">13:00 抵達機場 ➔ 15:00 飯店 Check-in</p>
                         </div>
                         <div>
@@ -205,7 +225,7 @@
                 </div>
 
                 <!-- D7 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-slate-700 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D7</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -217,7 +237,7 @@
                         <!-- Split Cards -->
                         <div class="grid grid-cols-1 gap-3">
                             <!-- A Card -->
-                            <div class="bg-blue-50 rounded-lg p-3 border border-blue-100">
+                            <div class="bg-blue-50 rounded-lg p-3 border border-blue-100 itinerary-item" data-group="A">
                                 <div class="font-bold text-blue-600 mb-2 text-sm">A組：市區悠閒</div>
                                 <ul class="text-sm space-y-1 text-slate-700 mb-2">
                                     <li>• 名古屋城 / 熱田神宮</li>
@@ -229,7 +249,7 @@
                                 </div>
                             </div>
                             <!-- B Card -->
-                            <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+                            <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100 itinerary-item" data-group="B">
                                 <div class="font-bold text-emerald-600 mb-2 text-sm">B組：雪地一日遊 (合掌村+牧歌之里)</div>
                                 <ul class="text-sm space-y-1 text-slate-700">
                                     <li><i class="fa-solid fa-clock mr-1 text-emerald-500"></i> <b>07:50</b> 集合 (08:00 準時出發)</li>
@@ -247,7 +267,7 @@
                 </div>
 
                 <!-- D8 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D8</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -284,7 +304,7 @@
                 </div>
 
                 <!-- D9 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D9</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -304,7 +324,7 @@
                 </div>
 
                 <!-- D10 -->
-                <div class="relative pl-8">
+                <div class="relative pl-8 itinerary-item">
                     <div class="timeline-line bg-transparent"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-slate-800 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D10</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
@@ -561,26 +581,51 @@
 
     <!-- Scripts -->
     <script>
+        // Filter Logic
+        function filterGroup(group) {
+            const items = document.querySelectorAll('.itinerary-item');
+            
+            // UI Button State
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
+                btn.classList.add('text-slate-500');
+            });
+            const activeBtn = document.getElementById(`btn-${group.toLowerCase()}`);
+            activeBtn.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
+            activeBtn.classList.remove('text-slate-500');
+
+            // Logic
+            items.forEach(item => {
+                const itemGroup = item.getAttribute('data-group');
+                
+                if (group === 'ALL') {
+                    item.classList.remove('hidden-item');
+                } else {
+                    // Show item if it has matching group OR no group (common items)
+                    if (!itemGroup || itemGroup === group) {
+                        item.classList.remove('hidden-item');
+                    } else {
+                        item.classList.add('hidden-item');
+                    }
+                }
+            });
+        }
+
         // Tab Switching Logic
         function switchTab(tabId, index) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            // Show selected tab
             document.getElementById(`tab-${tabId}`).classList.add('active');
             
-            // Update Nav Icons
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-item')[index].classList.add('active');
 
-            // Move Indicator
             const indicator = document.getElementById('nav-indicator');
             indicator.style.left = `${index * 25}%`;
 
-            // Scroll to top
             document.getElementById('main-scroll').scrollTop = 0;
         }
 
-        // Weather Logic (Same as before)
+        // Weather Logic
         const weatherCodes = {
             0: { text: "晴天", icon: "fa-sun", color: "text-orange-500" },
             1: { text: "多雲", icon: "fa-cloud-sun", color: "text-orange-400" },
@@ -611,7 +656,6 @@
 
         async function initWeather() {
             const container = document.getElementById('weather-container');
-            const statusLabel = document.getElementById('forecast-status');
             container.innerHTML = '';
 
             const today = new Date();
@@ -656,29 +700,17 @@
                 container.appendChild(card);
             }
             if (usedLive) {
+                const statusLabel = document.getElementById('forecast-status');
                 statusLabel.innerText = "即時預報更新中";
                 statusLabel.className = "text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded-full font-bold animate-pulse";
             }
         }
 
-        function updateFlightStatus() {
-            const cards = document.querySelectorAll('.flight-row');
-            const todayStr = new Date().toISOString().split('T')[0];
-            cards.forEach(card => {
-                const flightDate = card.getAttribute('data-date');
-                const statusText = card.querySelector('.flight-status-text');
-                if (flightDate === todayStr) {
-                    statusText.innerHTML = '<span class="status-light bg-green-400 status-blink"></span>BOARDING';
-                    statusText.classList.add('status-active-text', 'status-blink');
-                } else if (flightDate < todayStr) {
-                    statusText.innerHTML = '<span class="status-light bg-slate-600"></span>ARRIVED';
-                }
-            });
-        }
-
+        // Init
         document.addEventListener('DOMContentLoaded', () => {
             initWeather();
-            updateFlightStatus();
+            // Default filter to ALL
+            filterGroup('ALL');
         });
     </script>
 </body>
