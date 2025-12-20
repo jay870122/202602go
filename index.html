@@ -248,14 +248,29 @@
                                     <a href="https://www.google.com/maps/search/?api=1&query=Atsuta+Jingu" target="_blank" class="flex-1 bg-white text-blue-600 border border-blue-200 text-xs py-1.5 rounded text-center font-medium">熱田神宮</a>
                                 </div>
                             </div>
-                            <!-- B Card -->
+                            <!-- B Card (Updated) -->
                             <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100 itinerary-item" data-group="B">
                                 <div class="font-bold text-emerald-600 mb-2 text-sm">B組：雪地一日遊 (合掌村+牧歌之里)</div>
-                                <ul class="text-sm space-y-1 text-slate-700">
-                                    <li><i class="fa-solid fa-clock mr-1 text-emerald-500"></i> <b>07:50</b> 集合 (08:00 準時出發)</li>
-                                    <li><i class="fa-solid fa-map-pin mr-1 text-emerald-500"></i> JR名古屋太閣通口 (西口交番前)</li>
+                                <div class="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-1 rounded mb-2 inline-block">行程時間：約 10 小時</div>
+                                <ul class="text-sm space-y-3 text-slate-700">
+                                    <li>
+                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-clock mr-1 text-emerald-500"></i> 07:50 集合 (08:00 準時出發)</div>
+                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">地點：JR名古屋站 太閣通口 (西口交番前)</div>
+                                    </li>
+                                    <li>
+                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-house-chimney mr-1 text-emerald-500"></i> 白川鄉合掌村</div>
+                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">含自由午餐時間 (約130-150分)</div>
+                                    </li>
+                                    <li>
+                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-snowflake mr-1 text-emerald-500"></i> 牧歌之里 (C方案)</div>
+                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">雪上活動：橡皮艇/甜甜圈/雪盆 (約110-130分)</div>
+                                    </li>
+                                    <li>
+                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-bus mr-1 text-emerald-500"></i> 歸途</div>
+                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">約 18:00-19:00 抵達名古屋站解散</div>
+                                    </li>
                                 </ul>
-                                <a href="https://www.google.com/maps/search/?api=1&query=Nagoya+Station+West+Police+Box" target="_blank" class="mt-2 block bg-white text-emerald-600 text-xs py-2 rounded text-center border border-emerald-200 font-bold hover:bg-emerald-50">
+                                <a href="https://www.google.com/maps?ll=35.170345,136.880617&z=17&t=m&hl=zh-TW&gl=US&mapclient=embed&cid=10564406049312809853" target="_blank" class="mt-3 block bg-white text-emerald-600 text-xs py-2 rounded text-center border border-emerald-200 font-bold hover:bg-emerald-50">
                                     <i class="fa-solid fa-location-dot mr-1"></i> 集合點地圖 (西口交番)
                                 </a>
                                 <div class="mt-2 bg-red-50 text-red-600 text-[10px] p-2 rounded border border-red-100 leading-tight">
@@ -263,6 +278,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="text-center text-sm text-slate-500 py-1">晚上兩組會合晚餐</div>
                     </div>
                 </div>
 
@@ -503,6 +519,7 @@
 
             <!-- TAB 4: 準備 (PREP/INFO) -->
             <div id="tab-info" class="tab-content space-y-4">
+                
                 <!-- Weather Widget -->
                 <div class="bg-white rounded-2xl p-5 shadow-sm">
                     <div class="flex justify-between items-center mb-4">
@@ -656,6 +673,7 @@
 
         async function initWeather() {
             const container = document.getElementById('weather-container');
+            const statusLabel = document.getElementById('forecast-status');
             container.innerHTML = '';
 
             const today = new Date();
