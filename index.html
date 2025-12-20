@@ -32,7 +32,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Filter Animations */
-        .itinerary-item { transition: all 0.3s ease; }
+        .itinerary-item, .weather-card { transition: all 0.3s ease; }
         .hidden-item { display: none !important; }
 
         /* Specific Component Styles */
@@ -83,16 +83,16 @@
             <!-- TAB 1: 行程 (ITINERARY) - DEFAULT ACTIVE -->
             <div id="tab-itinerary" class="tab-content active space-y-6">
                 
-                <!-- Filter Controls -->
+                <!-- Filter Controls (Itinerary) -->
                 <div class="sticky top-0 z-40 bg-slate-100 pb-2 pt-1">
                     <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500">
-                        <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 rounded-md transition bg-slate-100 text-slate-800 shadow-sm" id="btn-all">
+                        <button onclick="filterGroup('ALL')" class="filter-btn-all flex-1 py-1.5 rounded-md transition bg-slate-100 text-slate-800 shadow-sm">
                             全員視角
                         </button>
-                        <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 rounded-md transition hover:bg-slate-50" id="btn-a">
+                        <button onclick="filterGroup('A')" class="filter-btn-a flex-1 py-1.5 rounded-md transition hover:bg-slate-50">
                             <span class="text-blue-600">A組先發</span>
                         </button>
-                        <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 rounded-md transition hover:bg-slate-50" id="btn-b">
+                        <button onclick="filterGroup('B')" class="filter-btn-b flex-1 py-1.5 rounded-md transition hover:bg-slate-50">
                             <span class="text-emerald-600">B組增援</span>
                         </button>
                     </div>
@@ -520,6 +520,19 @@
             <!-- TAB 4: 準備 (PREP/INFO) -->
             <div id="tab-info" class="tab-content space-y-4">
                 
+                <!-- Filter Controls (Prep) -->
+                <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500 mb-2">
+                    <button onclick="filterGroup('ALL')" class="filter-btn-all flex-1 py-1.5 rounded-md transition bg-slate-100 text-slate-800 shadow-sm">
+                        全員視角
+                    </button>
+                    <button onclick="filterGroup('A')" class="filter-btn-a flex-1 py-1.5 rounded-md transition hover:bg-slate-50">
+                        <span class="text-blue-600">A組先發</span>
+                    </button>
+                    <button onclick="filterGroup('B')" class="filter-btn-b flex-1 py-1.5 rounded-md transition hover:bg-slate-50">
+                        <span class="text-emerald-600">B組增援</span>
+                    </button>
+                </div>
+
                 <!-- Weather Widget -->
                 <div class="bg-white rounded-2xl p-5 shadow-sm">
                     <div class="flex justify-between items-center mb-4">
@@ -598,32 +611,56 @@
 
     <!-- Scripts -->
     <script>
+        let currentFilterGroup = 'ALL';
+
         // Filter Logic
         function filterGroup(group) {
+            currentFilterGroup = group;
             const items = document.querySelectorAll('.itinerary-item');
+            const weatherCards = document.querySelectorAll('.weather-card');
             
-            // UI Button State
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
-                btn.classList.add('text-slate-500');
-            });
-            const activeBtn = document.getElementById(`btn-${group.toLowerCase()}`);
-            activeBtn.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
-            activeBtn.classList.remove('text-slate-500');
+            // Sync UI Buttons (Both sets)
+            updateFilterButtons('all', group === 'ALL');
+            updateFilterButtons('a', group === 'A');
+            updateFilterButtons('b', group === 'B');
 
-            // Logic
+            // Logic for Itinerary Items
             items.forEach(item => {
                 const itemGroup = item.getAttribute('data-group');
-                
                 if (group === 'ALL') {
                     item.classList.remove('hidden-item');
                 } else {
-                    // Show item if it has matching group OR no group (common items)
                     if (!itemGroup || itemGroup === group) {
                         item.classList.remove('hidden-item');
                     } else {
                         item.classList.add('hidden-item');
                     }
+                }
+            });
+
+            // Logic for Weather Cards
+            weatherCards.forEach(card => {
+                const cardGroup = card.getAttribute('data-group');
+                // A group should see everything (since A is there from start)
+                // B group should NOT see 'A' only days (D1-D5)
+                // 'ALL' sees everything
+                if (group === 'B' && cardGroup === 'A') {
+                    card.classList.add('hidden-item');
+                } else {
+                    card.classList.remove('hidden-item');
+                }
+            });
+        }
+
+        function updateFilterButtons(type, isActive) {
+            const btns = document.querySelectorAll(`.filter-btn-${type}`);
+            btns.forEach(btn => {
+                if (isActive) {
+                    btn.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
+                    btn.classList.remove('text-slate-500');
+                } else {
+                    btn.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
+                    btn.classList.add('text-slate-500');
                 }
             });
         }
@@ -706,8 +743,14 @@
                 const weatherInfo = weatherCodes[code] || { text: "未知", icon: "fa-question", color: "text-slate-400" };
                 const borderColor = item.loc === 'Takayama' ? 'border-blue-200 bg-blue-50' : 'border-orange-100 bg-orange-50';
                 
+                // Determine group for filtering weather cards
+                const isGroupAOnly = (item.day === 'D1' || item.day === 'D2' || item.day === 'D3' || item.day === 'D4' || item.day === 'D5');
+                const groupAttr = isGroupAOnly ? 'A' : 'ALL';
+
                 const card = document.createElement('div');
-                card.className = `flex-none w-28 p-3 rounded-xl border ${borderColor} flex flex-col items-center justify-between snap-center`;
+                card.className = `flex-none w-28 p-3 rounded-xl border ${borderColor} flex flex-col items-center justify-between snap-center weather-card`;
+                card.setAttribute('data-group', groupAttr); // Add data attribute
+                
                 card.innerHTML = `
                     <div class="text-xs font-bold text-slate-500">${item.label} <span class="opacity-50">(${item.day})</span></div>
                     <div class="font-bold text-sm text-slate-700 my-1">${item.name}</div>
@@ -722,6 +765,9 @@
                 statusLabel.innerText = "即時預報更新中";
                 statusLabel.className = "text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded-full font-bold animate-pulse";
             }
+            
+            // Re-apply filter after generation to ensure consistent state
+            filterGroup(currentFilterGroup);
         }
 
         // Init
