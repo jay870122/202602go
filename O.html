@@ -2,10 +2,10 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>2026 名古屋・北陸冬之旅 (圖文手冊)</title>
+    <title>2026 名古屋・北陸冬之旅 (雜誌風手冊)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Shippori+Mincho:wght@400;700&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
@@ -15,504 +15,836 @@
             color: #333;
         }
 
-        /* A4 Paper Styling */
+        /* A4 Paper Styling - Minimal Margins */
         .a4-page {
-            background: white;
+            background: #fff;
+            background-image: radial-gradient(#f1f5f9 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
             width: 210mm;
             height: 297mm;
             margin: 0 auto 20px auto;
-            padding: 15mm 15mm;
+            /* Top/Bottom: 8mm, Side: 10mm */
+            padding: 8mm 10mm 12mm 10mm; 
             box-sizing: border-box;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-        }
-
-        /* Components */
-        h1 { font-size: 24pt; font-weight: 800; color: #1e3a8a; line-height: 1.2; }
-        h2 { font-size: 14pt; font-weight: bold; border-left: 5px solid #1e3a8a; padding-left: 10px; margin: 20px 0 10px 0; color: #1e3a8a; display: flex; align-items: center; }
-        h3 { font-size: 11pt; font-weight: bold; margin: 0 0 2px 0; color: #374151; }
-        
-        .section-tag { font-size: 8pt; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: bold; }
-
-        /* Tables */
-        .info-table { width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 10px; }
-        .info-table th { text-align: left; color: #64748b; font-weight: normal; padding: 4px; border-bottom: 2px solid #e2e8f0; width: 80px; }
-        .info-table td { padding: 6px 4px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
-        .info-table strong { color: #1e293b; }
-
-        /* Flight Box */
-        .flight-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px; font-size: 9pt; display: flex; justify-content: space-between; align-items: center; }
-        .flight-code { font-family: 'Share Tech Mono', monospace; font-weight: bold; color: #0f172a; font-size: 11pt; }
-        .flight-time { font-weight: bold; color: #1e3a8a; }
-
-        /* Day Block */
-        .day-container { display: flex; gap: 15px; margin-bottom: 15px; break-inside: avoid; }
-        .day-sidebar { width: 50px; flex-shrink: 0; text-align: center; }
-        .day-badge { background: #1e3a8a; color: white; font-weight: bold; font-size: 10pt; padding: 4px 0; border-radius: 6px 6px 0 0; }
-        .day-date { background: #f1f5f9; color: #1e3a8a; font-size: 8pt; font-weight: bold; padding: 4px 0; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 6px 6px; }
-        .day-content { flex-grow: 1; border-left: 2px solid #e2e8f0; padding-left: 15px; position: relative; }
-        .day-content::before { content: ''; position: absolute; left: -6px; top: 10px; width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; border: 2px solid white; }
-        
-        .timeline-time { font-family: 'Share Tech Mono', monospace; color: #64748b; font-size: 8pt; margin-right: 5px; }
-        .timeline-row { margin-bottom: 4px; font-size: 9pt; display: flex; align-items: baseline; }
-        
-        /* Interactive Image Placeholders */
-        .img-placeholder { 
-            width: 100%; 
-            height: 120px; 
-            background-color: #f1f5f9; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            margin-bottom: 10px; 
-            position: relative;
-            border: 1px solid #e2e8f0;
-            cursor: pointer; /* Clickable */
             transition: all 0.3s ease;
         }
-        .img-placeholder:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+
+        /* Fonts & Typography - ENLARGED */
+        h1 { font-family: 'Shippori Mincho', serif; font-size: 26pt; font-weight: 800; color: #1e3a8a; line-height: 1.1; margin-bottom: 5px; }
+        h2 { font-family: 'Noto Sans TC', sans-serif; font-size: 14pt; font-weight: 700; border-bottom: 3px solid #1e3a8a; padding-bottom: 4px; margin: 10px 0 8px 0; color: #1e3a8a; display: flex; align-items: center; }
+        h3 { font-size: 11.5pt; font-weight: 700; margin: 0 0 4px 0; color: #334155; display: flex; align-items: center; }
+        
+        .eng-title { font-family: 'Oswald', sans-serif; font-size: 9pt; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2px; }
+        .section-badge { background: #1e3a8a; color: white; padding: 2px 8px; font-size: 9pt; border-radius: 3px; margin-right: 8px; font-family: 'Oswald', sans-serif; letter-spacing: 1px; }
+
+        /* Flight Box - Larger */
+        .flight-card { 
+            background: white; 
+            border: 1px solid #cbd5e1; 
+            border-left: 5px solid #3b82f6; 
+            border-radius: 6px; 
+            padding: 6px 12px; 
+            margin-bottom: 6px; 
+            font-size: 10pt; /* Increased from 8pt */
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
-        .img-placeholder::after {
-            content: '\f030  點擊更換圖片'; /* FontAwesome Camera Icon */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
+        .flight-card.return { border-left-color: #7c3aed; }
+        .flight-card.group-b { border-left-color: #10b981; }
+        .flight-label { font-size: 8pt; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; }
+        .flight-time { font-family: 'Oswald', sans-serif; font-size: 12pt; color: #0f172a; font-weight: 600; }
+
+        /* Accommodation Table - Larger */
+        .hotel-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: 10pt; /* Increased */ }
+        .hotel-table th { text-align: center; background: #e0f2fe; color: #0369a1; font-weight: bold; padding: 8px 5px; width: 65px; border-radius: 4px 0 0 4px; font-size: 9pt; vertical-align: middle; }
+        .hotel-table td { background: white; border: 1px solid #e2e8f0; border-left: none; padding: 6px 10px; border-radius: 0 4px 4px 0; vertical-align: middle; }
+
+        /* Timeline Design - Adjusted for Size */
+        .day-container { display: flex; gap: 10px; margin-bottom: 12px; break-inside: avoid; }
+        .day-sidebar { width: 40px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+        .day-circle { width: 34px; height: 34px; background: #1e3a8a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Oswald', sans-serif; font-size: 12pt; font-weight: 500; box-shadow: 0 2px 4px rgba(30, 58, 138, 0.3); z-index: 10; }
+        .day-date-label { font-size: 8pt; font-weight: bold; color: #64748b; margin-top: 3px; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; }
+        .day-line { width: 2px; background: #e2e8f0; flex-grow: 1; margin-top: 3px; margin-bottom: -12px; }
+        
+        .day-content { flex-grow: 1; background: white; border: 1px solid #f1f5f9; padding: 10px 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+        
+        .timeline-item { display: flex; align-items: baseline; margin-bottom: 4px; font-size: 10pt; color: #334155; /* Darker text */ }
+        .t-time { font-family: 'Oswald', sans-serif; color: #1e3a8a; font-weight: 600; width: 36px; flex-shrink: 0; font-size: 9pt; text-align: right; margin-right: 8px; }
+        .t-text { flex-grow: 1; line-height: 1.35; }
+        .t-text strong { color: #0f172a; font-weight: 700; }
+
+        /* Visual Elements */
+        .img-square { 
+            width: 70px; 
+            height: 70px; 
+            background-color: #f1f5f9; 
+            border-radius: 6px; 
+            overflow: hidden; 
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .img-square img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* QR Code */
+        .qr-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        .qr-box {
+            width: 65px; 
+            padding: 2px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+        }
+        .qr-box img { width: 100%; height: auto; display: block; }
+        .qr-caption { font-size: 7.5pt; color: #64748b; margin-top: 2px; text-align: center; font-weight: 600; white-space: nowrap; }
+
+        /* Checklist */
+        .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .check-item { 
+            background: #f8fafc; 
+            border: 1px dashed #cbd5e1; 
+            padding: 6px 10px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            display: flex; 
+            align-items: center; 
+            cursor: pointer; 
+            transition: background-color 0.2s;
+            position: relative;
+        }
+        .check-item:hover { background: #e0f2fe; border-color: #3b82f6; }
+        .check-box { width: 14px; height: 14px; border: 1.5px solid #94a3b8; border-radius: 3px; margin-right: 8px; flex-shrink: 0; }
+        .delete-btn {
             position: absolute;
+            right: 5px;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 10pt;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+            transform: translateY(-50%);
+            color: #ef4444;
+            font-weight: bold;
+            padding: 0 5px;
+            display: none;
         }
-        .img-placeholder:hover::after {
-            opacity: 1;
+        .check-item:hover .delete-btn { display: block; }
+        .add-btn {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 6px;
+            border: 1px dashed #94a3b8;
+            color: #64748b;
+            border-radius: 4px;
+            font-size: 9pt;
+            cursor: pointer;
+            background: #f1f5f9;
         }
+        .add-btn:hover { background: #e2e8f0; color: #3b82f6; border-color: #3b82f6; }
 
-        .img-placeholder img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
-        .img-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; font-size: 8pt; padding: 8px 8px 4px 8px; text-shadow: 0 1px 2px rgba(0,0,0,0.8); pointer-events: none; }
+        /* App Card */
+        .app-card { display: flex; flex-direction: column; align-items: center; background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+        .app-icon { width: 32px; height: 32px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #3b82f6; margin-bottom: 4px; }
+        .app-name { font-weight: bold; font-size: 9pt; color: #334155; }
+        .app-desc { font-size: 7.5pt; color: #94a3b8; margin-bottom: 2px; }
 
-        /* Footer */
-        .page-footer { position: absolute; bottom: 10mm; left: 15mm; right: 15mm; border-top: 1px solid #e2e8f0; padding-top: 5px; display: flex; justify-content: space-between; font-size: 8pt; color: #94a3b8; }
+        /* Footer - Fixed Position */
+        .page-footer { position: absolute; bottom: 6mm; left: 10mm; right: 10mm; display: flex; justify-content: space-between; border-top: 1px solid #e2e8f0; padding-top: 4px; font-family: 'Oswald', sans-serif; font-size: 8pt; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Print Settings */
+        /* Helper Classes for Filtering */
+        .hidden-layout { display: none !important; }
+
         @media print {
             body { background: none; padding: 0; margin: 0; }
             .a4-page { margin: 0; box-shadow: none; page-break-after: always; width: 210mm; height: 297mm; }
-            .no-print, .img-placeholder::after { display: none !important; }
-            .img-placeholder { cursor: default; box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+            .no-print { display: none !important; }
+            .img-square { border: 1px solid #ddd; }
+            /* Force hidden elements to stay hidden in print */
+            .hidden-layout { display: none !important; }
         }
     </style>
 </head>
 <body>
 
-    <div class="no-print" style="text-align: center; margin-bottom: 20px; color: white; background: #333; padding: 15px; border-radius: 10px; max-width: 210mm; margin-left: auto; margin-right: auto;">
-        <h3 style="color:white; margin-bottom: 10px;">🖨️ 列印與設定控制台</h3>
-        <div style="display: flex; justify-content: center; gap: 10px;">
-            <button onclick="window.print()" style="padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center;">
-                <i class="fa-solid fa-print mr-2"></i> 列印手冊 (A4)
+    <div class="no-print" style="text-align: center; margin-bottom: 20px; color: white; background: #1f2937; padding: 15px; border-radius: 10px; max-width: 210mm; margin-left: auto; margin-right: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.3); position: sticky; top: 10px; z-index: 50;">
+        <h3 style="color:white; margin-bottom: 10px; display: flex; align-items: center; justify-content: center;">
+            <i class="fa-solid fa-sliders mr-2"></i> 排版與列印控制 (大字滿版)
+        </h3>
+        
+        <!-- Group Filters -->
+        <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 15px; background: #374151; padding: 5px; border-radius: 8px; display: inline-flex;">
+            <button onclick="setGroup('ALL')" id="btn-all" style="padding: 6px 15px; background: #3b82f6; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">全員 (ALL)</button>
+            <button onclick="setGroup('A')" id="btn-a" style="padding: 6px 15px; background: transparent; color: #9ca3af; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">只看 A 組</button>
+            <button onclick="setGroup('B')" id="btn-b" style="padding: 6px 15px; background: transparent; color: #9ca3af; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">只看 B 組</button>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 10px; border-top: 1px solid #374151; padding-top: 10px;">
+            <button onclick="window.print()" style="padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; font-size: 13px;">
+                <i class="fa-solid fa-print mr-2"></i> 列印手冊
             </button>
-            <button onclick="resetImages()" style="padding: 10px 20px; background: #ef4444; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center;">
-                <i class="fa-solid fa-rotate-left mr-2"></i> 重置所有圖片
+            <button onclick="resetAll()" style="padding: 8px 16px; background: #4b5563; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; font-size: 13px;">
+                <i class="fa-solid fa-rotate-left mr-2"></i> 重置所有設定
             </button>
         </div>
-        <p style="margin-top: 10px; font-size: 13px; opacity: 0.8; color: #cbd5e1;">
-            💡 <b>換圖教學：</b> 直接點擊下方的照片，貼上新的圖片網址 (URL) 即可更換。<br>
-            設定建議：紙張 A4、無邊界、單面或雙面列印皆可。
-        </p>
+        <p style="margin-top: 10px; font-size: 13px; opacity: 0.7; color: #e5e7eb;">💡 提示：點擊「照片」或「檢查表文字」即可修改。滑鼠移到檢查項目可刪除。</p>
     </div>
 
-    <!-- PAGE 1: COVER & INFO -->
-    <div class="a4-page">
-        <!-- Cover Header -->
-        <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #1e3a8a; margin-bottom: 20px;">
-            <div style="font-size: 12pt; color: #64748b; letter-spacing: 2px; margin-bottom: 5px;">JAPAN TRAVEL GUIDE</div>
-            <h1>2026 名古屋・北陸<br><span style="font-size: 16pt; color: #3b82f6;">❄️ 冬の旅 10日間 ❄️</span></h1>
-            <div style="font-size: 10pt; margin-top: 10px; color: #475569;">
-                <i class="fa-regular fa-calendar-days"></i> 2026/02/12 (四) ~ 02/21 (六) &nbsp;|&nbsp; <i class="fa-solid fa-users"></i> 共 6 人
+    <!-- PAGE 1: COVER & OVERVIEW -->
+    <div class="a4-page page-countable">
+        <!-- Magazine Cover Header -->
+        <div style="text-align: center; margin-bottom: 12px;">
+            <div class="eng-title">NAGOYA & HOKURIKU TRAVEL GUIDE</div>
+            <h1>2026 名古屋・北陸<br><span style="font-size: 16pt; color: #64748b; font-weight: 300; display: block; margin-top: 5px;">Winter Journey in Japan</span></h1>
+            <div style="display: inline-block; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; padding: 4px 20px; margin-top: 10px; color: #475569; font-size: 8.5pt; letter-spacing: 1px;">
+                2026.02.12 - 02.21 &nbsp;•&nbsp; 10 DAYS &nbsp;•&nbsp; 6 PEOPLE
             </div>
         </div>
 
-        <!-- Cover Image -->
-        <div class="img-placeholder" style="height: 180px;" onclick="changeImage('cover')">
-            <img id="img-cover" src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Shirakawago_village_and_snowy_mountain_%2813087582315%29.jpg" alt="Cover">
-            <div class="img-caption">📍 白川鄉合掌村 (Shirakawa-go)</div>
+        <!-- Cover Visual -->
+        <div class="img-square" style="width: 100%; height: 160px; margin-bottom: 15px;" onclick="changeImage('cover')">
+            <img id="img-cover" src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Shirakawago_village_and_snowy_mountain_%2813087582315%29.jpg" style="width:100%; height:100%; object-fit:cover;">
         </div>
 
-        <div style="display: flex; gap: 20px;">
-            <!-- Left Column: Flights -->
-            <div style="flex: 1;">
-                <h2>航班資訊 <span style="font-size:10pt; color:#64748b; margin-left:auto; font-weight:normal;">泰獅航 (Lion Air)</span></h2>
-                <div class="flight-box">
-                    <div>
-                        <div style="font-size:8pt; color:#64748b;">A組去程 | 2/12 (四)</div>
-                        <div class="flight-code">SL1398</div>
-                    </div>
-                    <div style="text-align:right;">
-                        <div class="flight-time">09:20 TPE</div>
-                        <div class="flight-time">13:00 NGO</div>
-                    </div>
+        <!-- Flight Section -->
+        <h2 style="margin-top: 0;"><i class="fa-solid fa-plane-departure mr-2"></i> FLIGHTS 航班資訊</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="flight-card group-a-content">
+                <div>
+                    <div class="flight-label">A組 (先發) • 2/12 (四)</div>
+                    <div class="flight-time">SL1398</div>
                 </div>
-                <div class="flight-box">
-                    <div>
-                        <div style="font-size:8pt; color:#64748b;">B組去程 | 2/17 (二)</div>
-                        <div class="flight-code">SL1398</div>
-                    </div>
-                    <div style="text-align:right;">
-                        <div class="flight-time">09:20 TPE</div>
-                        <div class="flight-time">13:00 NGO</div>
-                    </div>
-                </div>
-                <div class="flight-box" style="background: #eff6ff; border-color: #bfdbfe;">
-                    <div>
-                        <div style="font-size:8pt; color:#64748b;">全員回程 | 2/21 (六)</div>
-                        <div class="flight-code">SL1399</div>
-                    </div>
-                    <div style="text-align:right;">
-                        <div class="flight-time">16:55 NGO</div>
-                        <div class="flight-time">19:35 TPE</div>
-                    </div>
+                <div style="text-align: right;">
+                    <div style="font-size:8.5pt; color:#64748b;">09:20 TPE</div>
+                    <div style="font-size:8.5pt; color:#64748b;">13:00 NGO</div>
                 </div>
             </div>
-
-            <!-- Right Column: Hotels -->
-            <div style="flex: 1;">
-                <h2>住宿確認</h2>
-                <table class="info-table">
-                    <tr>
-                        <th>A組首晚</th>
-                        <td>
-                            <strong>大和 ROYNET (新幹線口)</strong><br>
-                            Daiwa Roynet Hotel Nagoya Taiko<br>
-                            <span style="font-size:8pt; color:#666;">2/12 入住 (1晚)</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>A組高山</th>
-                        <td>
-                            <strong>Tokyu Stay 飛驒高山</strong><br>
-                            Musubinoyu<br>
-                            <span style="font-size:8pt; color:#666;">2/13 ~ 2/16 (3晚)</span>
-                        </td>
-                    </tr>
-                    <tr style="background: #fdf4ff;">
-                        <th style="border-bottom:none;">全員合宿</th>
-                        <td style="border-bottom:none;">
-                            <strong>名站南 Comfort Hotel</strong><br>
-                            Comfort Hotel Nagoya Meiekiminami<br>
-                            <span style="font-size:8pt; color:#666;">A組: 2/16起 (5晚) / B組: 2/17起 (4晚)</span>
-                            
-                            <!-- QR Code -->
-                            <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px; background: white; padding: 5px; border: 1px solid #e2e8f0; border-radius: 4px;">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://maps.app.goo.gl/uX8xJ" style="width: 40px; height: 40px;">
-                                <div style="font-size: 7pt; color: #64748b; line-height: 1.2;">掃描導航<br>Comfort Hotel</div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+            <div class="flight-card group-b group-b-content">
+                <div>
+                    <div class="flight-label" style="color: #059669;">B組 (增援) • 2/17 (二)</div>
+                    <div class="flight-time">SL1398</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size:8.5pt; color:#64748b;">09:20 TPE</div>
+                    <div style="font-size:8.5pt; color:#64748b;">13:00 NGO</div>
+                </div>
+            </div>
+        </div>
+        <div class="flight-card return">
+            <div>
+                <div class="flight-label" style="color: #7c3aed;">全員回程 • 2/21 (六)</div>
+                <div class="flight-time">SL1399</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size:11pt; font-weight:bold;">16:55 NGO ➔ 19:35 TPE</div>
             </div>
         </div>
 
-        <div style="margin-top: auto; background: #fffbeb; border: 1px solid #fcd34d; padding: 15px; border-radius: 8px;">
-            <h3 style="color: #b45309; margin-bottom: 5px;"><i class="fa-solid fa-triangle-exclamation"></i> 行前備忘錄</h3>
-            <ul style="font-size: 9pt; color: #78350f; padding-left: 20px; margin: 0; line-height: 1.6;">
-                <li><b>氣溫警示：</b>2月山區 (高山/合掌村) 氣溫約 -6°C ~ 3°C，容易下雪。請務必穿著<b>防滑防水靴子</b>、手套與毛帽。</li>
-                <li><b>網路：</b>請確認每個人的漫遊或網卡已開通。</li>
-                <li><b>保險：</b>建議投保旅遊不便險與旅平險。</li>
-            </ul>
+        <!-- Hotel Section -->
+        <h2><i class="fa-solid fa-bed mr-2"></i> ACCOMMODATION 住宿</h2>
+        <table class="hotel-table">
+            <tr class="group-a-content">
+                <th>A組<br>首晚</th>
+                <td>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong style="color:#1e3a8a;">大和 ROYNET (新幹線口)</strong>
+                            <div style="color:#64748b; font-size:8pt;">Daiwa Roynet Hotel Nagoya Taiko • 2/12 (1晚)</div>
+                        </div>
+                        <div class="qr-wrapper">
+                            <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://maps.app.goo.gl/example1"></div>
+                            <div class="qr-caption">導航</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="group-a-content">
+                <th>A組<br>高山</th>
+                <td>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong style="color:#1e3a8a;">Tokyu Stay 飛驒高山</strong>
+                            <div style="color:#64748b; font-size:8pt;">Musubinoyu (結之湯) • 2/13-16 (3晚)</div>
+                        </div>
+                        <div class="qr-wrapper">
+                            <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://maps.app.goo.gl/example2"></div>
+                            <div class="qr-caption">導航</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th style="background:#fdf4ff; color:#7e22ce;">全員<br>合宿</th>
+                <td style="border-color:#f3e8ff;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong style="color:#7e22ce;">名站南 Comfort Hotel</strong>
+                            <div style="color:#64748b; font-size:8pt;">Nagoya Meiekiminami • A(5晚) / B(4晚)</div>
+                        </div>
+                        <div class="qr-wrapper">
+                            <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://maps.app.goo.gl/uX8xJ"></div>
+                            <div class="qr-caption">導航</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Weather & Tips Section -->
+        <div style="margin-top:auto; display: flex; gap: 12px;">
+            <!-- Weather -->
+            <div style="flex: 1; background: #f0f9ff; border: 1px solid #bae6fd; padding: 10px; border-radius: 4px;">
+                <div style="font-weight: bold; color: #0284c7; font-size: 9pt; margin-bottom: 6px; border-bottom: 1px dashed #7dd3fc; padding-bottom: 4px;">
+                    <i class="fa-solid fa-cloud-sun mr-1"></i> 2月天氣預報
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 8.5pt;">
+                    <div style="text-align: center;">
+                        <div style="color: #64748b; font-size: 7.5pt;">名古屋市區</div>
+                        <div style="font-weight: bold; color: #f59e0b;"><i class="fa-solid fa-sun"></i> 1° ~ 10°C</div>
+                    </div>
+                    <div style="border-left: 1px solid #bae6fd;"></div>
+                    <div style="text-align: center;">
+                        <div style="color: #64748b; font-size: 7.5pt;">高山/合掌村</div>
+                        <div style="font-weight: bold; color: #3b82f6;"><i class="fa-regular fa-snowflake"></i> -6° ~ 3°C</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Clothing Tips -->
+            <div style="flex: 1; background: #fff7ed; border: 1px solid #fed7aa; padding: 10px; border-radius: 4px;">
+                <div style="font-weight: bold; color: #c2410c; font-size: 9pt; margin-bottom: 6px; border-bottom: 1px dashed #fdba74; padding-bottom: 4px;">
+                    <i class="fa-solid fa-shirt mr-1"></i> 穿搭建議
+                </div>
+                <div style="font-size: 8.5pt; color: #7c2d12; line-height: 1.4;">
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li>• <b>市區：</b>洋蔥式穿搭 (暖氣強)</li>
+                        <li>• <b>山區：</b>必備 <b>雪靴</b>、手套</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="page-footer">
-            <span>2026 Nagoya Trip</span>
-            <span>Page 1 / 4</span>
+            <span>Nagoya & Hokuriku 2026</span>
+            <span class="page-num">01</span>
         </div>
     </div>
 
-    <!-- PAGE 2: DAYS 1-4 (A Group Mountain) -->
-    <div class="a4-page">
-        <div class="section-tag">ITINERARY PART 1</div>
-        <h2>A組：飛驒高山與合掌村 <span style="font-size:10pt; background:#eff6ff; color:#2563eb; padding:2px 8px; border-radius:99px; margin-left:10px;">先發部隊</span></h2>
+    <!-- PAGE 2: MOUNTAIN TRIP (Group A Only) -->
+    <div class="a4-page page-countable group-a-content" id="page-mountain">
+        <div class="eng-title">PART 1: MOUNTAIN & SNOW</div>
+        <h2 style="margin-top:0;"><span class="section-badge">A組</span> 飛驒高山與合掌村</h2>
 
         <!-- D1 -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge">D1</div>
-                <div class="day-date">2/12</div>
+                <div class="day-circle">D1</div>
+                <div class="day-date-label">2/12</div>
+                <div class="day-line"></div>
             </div>
             <div class="day-content">
-                <h3>抵達名古屋</h3>
-                <div class="timeline-row"><span class="timeline-time">13:00</span> 抵達中部國際機場 (NGO)</div>
-                <div class="timeline-row"><span class="timeline-time">14:30</span> 搭乘 μSKY 列車前往名古屋車站</div>
-                <div class="timeline-row"><span class="timeline-time">16:00</span> 飯店 Check-in (太閣通口大和 Roynet)</div>
-                <div class="timeline-row"><span class="timeline-time">18:00</span> 晚餐：車站周邊美食 / 欣賞夜景</div>
+                <h3><i class="fa-solid fa-plane-arrival mr-2 text-blue-500"></i> 抵達名古屋</h3>
+                <div class="timeline-item"><span class="t-time">13:00</span> <span class="t-text">抵達中部國際機場 (NGO)</span></div>
+                <div class="timeline-item"><span class="t-time">14:30</span> <span class="t-text">搭乘 <b>μSKY 列車</b> 前往名古屋車站</span></div>
+                <div class="timeline-item"><span class="t-time">16:00</span> <span class="t-text">飯店 Check-in (大和 Roynet 太閣通口)</span></div>
+                <div class="timeline-item"><span class="t-time">18:00</span> <span class="t-text">晚餐：車站周邊美食 / 欣賞夜景</span></div>
             </div>
         </div>
 
         <!-- D2 -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge">D2</div>
-                <div class="day-date">2/13</div>
+                <div class="day-circle">D2</div>
+                <div class="day-date-label">2/13</div>
+                <div class="day-line"></div>
             </div>
-            <div class="day-content">
-                <h3>前進高山</h3>
-                <div class="img-placeholder" style="height: 100px;" onclick="changeImage('d2')">
-                    <img id="img-d2" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Takayama_Old_Town_%28Sanmachi_Suji%29_%2835819349621%29.jpg" alt="Takayama">
-                    <div class="img-caption">高山老街 (三之町)</div>
+            <div class="day-content" style="display:flex; gap:12px;">
+                <div class="img-square" onclick="changeImage('d2')">
+                    <img id="img-d2" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Takayama_Old_Town_%28Sanmachi_Suji%29_%2835819349621%29.jpg">
                 </div>
-                <div class="timeline-row"><span class="timeline-time">上午</span> 搭乘 JR 飛驒號 (Hida Wide View) 前往高山</div>
-                <div class="timeline-row"><span class="timeline-time">14:00</span> 飯店寄放行李 (Tokyu Stay 結之湯)</div>
-                <div class="timeline-row"><span class="timeline-time">15:00</span> <b>高山老街散策</b>：品嚐飛驒牛握壽司、清酒</div>
-                <div class="timeline-row"><span class="timeline-time">18:00</span> 晚餐：<b>飛驒牛燒肉</b> (記得預約)</div>
+                <div style="flex:1;">
+                    <h3>前進高山</h3>
+                    <div class="timeline-item"><span class="t-time">上午</span> <span class="t-text">搭乘 <b>JR 飛驒號</b> (Hida) 前往高山</span></div>
+                    <div class="timeline-item"><span class="t-time">14:00</span> <span class="t-text">飯店寄放行李</span></div>
+                    <div class="timeline-item"><span class="t-time">15:00</span> <span class="t-text"><b>高山老街散策</b> (三之町)：飛驒牛握壽司</span></div>
+                    <div class="timeline-item"><span class="t-time">18:00</span> <span class="t-text">晚餐：<b>飛驒牛燒肉</b> (記得預約)</span></div>
+                </div>
+                <div class="qr-wrapper">
+                    <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://goo.gl/maps/TakayamaOldTown"></div>
+                    <div class="qr-caption">老街</div>
+                </div>
             </div>
         </div>
 
         <!-- D3 -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge">D3</div>
-                <div class="day-date">2/14</div>
+                <div class="day-circle">D3</div>
+                <div class="day-date-label">2/14</div>
+                <div class="day-line"></div>
             </div>
-            <div class="day-content">
-                <h3>新穗高雪景</h3>
-                <div class="img-placeholder" style="height: 100px;" onclick="changeImage('d3')">
-                    <img id="img-d3" src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Shinhotaka_ropeway01s3200.jpg" alt="Ropeway">
-                    <div class="img-caption">新穗高雙層纜車</div>
+            <div class="day-content" style="display:flex; gap:12px;">
+                <div class="img-square" onclick="changeImage('d3')">
+                    <img id="img-d3" src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Shinhotaka_ropeway01s3200.jpg">
                 </div>
-                <div class="timeline-row"><span class="timeline-time">09:00</span> 前往新穗高纜車</div>
-                <div class="timeline-row"><span class="timeline-time">10:30</span> 搭乘雙層纜車，登上展望台欣賞北阿爾卑斯山雪景</div>
-                <div class="timeline-row"><span class="timeline-time">下午</span> 返回高山市區，悠閒散步或飯店泡湯</div>
+                <div style="flex:1;">
+                    <h3>新穗高雪景</h3>
+                    <div class="timeline-item"><span class="t-time">09:00</span> <span class="t-text">搭濃飛巴士前往新穗高</span></div>
+                    <div class="timeline-item"><span class="t-time">10:30</span> <span class="t-text">搭乘 <b>雙層纜車</b>，登上展望台賞雪</span></div>
+                    <div class="timeline-item"><span class="t-time">下午</span> <span class="t-text">返回高山市區，悠閒散步或飯店泡湯</span></div>
+                </div>
+                <div class="qr-wrapper">
+                    <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://goo.gl/maps/Shinhotaka"></div>
+                    <div class="qr-caption">纜車</div>
+                </div>
             </div>
         </div>
 
         <!-- D4 -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge">D4</div>
-                <div class="day-date">2/15</div>
+                <div class="day-circle">D4</div>
+                <div class="day-date-label">2/15</div>
             </div>
-            <div class="day-content">
-                <h3>白川鄉合掌村</h3>
-                <div class="timeline-row"><span class="timeline-time">上午</span> 搭乘濃飛巴士前往白川鄉</div>
-                <div class="timeline-row"><span class="timeline-time">11:00</span> <b>城山展望台</b>：俯瞰童話般的合掌造村落</div>
-                <div class="timeline-row"><span class="timeline-time">12:30</span> 村落散步、參觀和田家/神田家</div>
-                <div class="timeline-row"><span class="timeline-time">16:00</span> 返回高山住宿</div>
+            <div class="day-content" style="display:flex; gap:12px;">
+                <div class="img-square" onclick="changeImage('d4')">
+                    <img id="img-d4" src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Shirakawago_village_and_snowy_mountain_%2813087582315%29.jpg">
+                </div>
+                <div style="flex:1;">
+                    <h3>白川鄉合掌村</h3>
+                    <div class="timeline-item"><span class="t-time">上午</span> <span class="t-text">搭巴士前往白川鄉</span></div>
+                    <div class="timeline-item"><span class="t-time">11:00</span> <span class="t-text"><b>城山展望台</b>：俯瞰童話村落全景</span></div>
+                    <div class="timeline-item"><span class="t-time">12:30</span> <span class="t-text">村落散步、參觀和田家</span></div>
+                    <div class="timeline-item"><span class="t-time">16:00</span> <span class="t-text">返回高山住宿</span></div>
+                </div>
+                <div class="qr-wrapper">
+                    <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://goo.gl/maps/ShirakawaGo"></div>
+                    <div class="qr-caption">合掌村</div>
+                </div>
             </div>
         </div>
 
         <div class="page-footer">
-            <span>2026 Nagoya Trip</span>
-            <span>Page 2 / 4</span>
+            <span>Nagoya & Hokuriku 2026</span>
+            <span class="page-num">02</span>
         </div>
     </div>
 
-    <!-- PAGE 3: DAYS 5-7 (Meeting & Split) -->
-    <div class="a4-page">
-        <div class="section-tag">ITINERARY PART 2</div>
-        <h2>全員會合與分進合擊</h2>
+    <!-- PAGE 3: MEETING & SPLIT -->
+    <div class="a4-page page-countable">
+        <div class="eng-title">PART 2: CITY & REUNION</div>
+        <h2 style="margin-top:0;"><span class="section-badge" style="background:#7e22ce;">全員</span> 會合與分進合擊</h2>
 
         <!-- D5 -->
-        <div class="day-container">
+        <div class="day-container group-a-content">
             <div class="day-sidebar">
-                <div class="day-badge">D5</div>
-                <div class="day-date">2/16</div>
+                <div class="day-circle">D5</div>
+                <div class="day-date-label">2/16</div>
+                <div class="day-line"></div>
             </div>
-            <div class="day-content">
-                <h3>A組：返回名古屋</h3>
-                <div class="timeline-row"><span class="timeline-time">08:00</span> 宮川朝市體驗 (在地農產/小吃)</div>
-                <div class="timeline-row"><span class="timeline-time">10:30</span> 搭乘 JR 飛驒號返回名古屋</div>
-                <div class="timeline-row"><span class="timeline-time">14:00</span> <span style="background:#fef2f2; color:#ef4444; padding:2px 5px; font-weight:bold;">換飯店</span> 移動至名站南 Comfort Hotel</div>
+            <div class="day-content" style="display:flex; gap:12px;">
+                <div style="flex:1;">
+                    <h3>A組：返回名古屋</h3>
+                    <div class="timeline-item"><span class="t-time">08:00</span> <span class="t-text"><b>宮川朝市</b> 體驗在地美食</span></div>
+                    <div class="timeline-item"><span class="t-time">10:30</span> <span class="t-text">搭乘 JR 飛驒號返回名古屋</span></div>
+                    <div class="timeline-item"><span class="t-time">14:00</span> <span class="t-text" style="color:#e11d48; font-weight:bold;">[換飯店] 移動至名站南 Comfort Hotel</span></div>
+                </div>
+                <div class="qr-wrapper">
+                    <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://goo.gl/maps/MiyagawaMarket"></div>
+                    <div class="qr-caption">朝市</div>
+                </div>
             </div>
         </div>
 
         <!-- D6 -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge" style="background:#9333ea;">D6</div>
-                <div class="day-date">2/17</div>
+                <div class="day-circle" style="background:#9333ea;">D6</div>
+                <div class="day-date-label">2/17</div>
+                <div class="day-line"></div>
             </div>
-            <div class="day-content" style="background: #faf5ff; border-radius: 8px; padding-right: 10px;">
+            <div class="day-content" style="background: #faf5ff; border: 1px solid #e9d5ff;">
                 <h3 style="color:#7e22ce;">感動會合日！</h3>
-                <div class="timeline-row"><b style="color:#2563eb; width:40px;">A組</b> 上午補眠 / 榮商圈逛街</div>
-                <div class="timeline-row"><b style="color:#059669; width:40px;">B組</b> 13:00 抵達機場 ➔ 15:00 飯店 Check-in</div>
-                <div style="margin: 10px 0; border-top: 1px dashed #d8b4fe;"></div>
-                <div class="timeline-row"><span class="timeline-time">16:00</span> <b style="color:#9333ea;">★ 全員集合</b> (於飯店或榮商圈)</div>
-                <div class="timeline-row"><span class="timeline-time">18:00</span> 晚餐：<b>世界的山將</b> (手羽先歡迎會)</div>
+                <div class="timeline-item group-a-content"><span class="t-time" style="color:#2563eb;">A組</span> <span class="t-text">上午補眠 / 榮商圈逛街</span></div>
+                <div class="timeline-item group-b-content"><span class="t-time" style="color:#059669;">B組</span> <span class="t-text">13:00 抵達機場 ➔ 15:00 飯店 Check-in</span></div>
+                <div style="margin: 8px 0; border-top: 1px dashed #d8b4fe;"></div>
+                <div class="timeline-item"><span class="t-time">16:00</span> <span class="t-text"><b style="color:#7e22ce;">★ 全員集合</b> (於飯店或榮商圈)</span></div>
+                <div class="timeline-item"><span class="t-time">18:00</span> <span class="t-text">自由晚餐時間</span></div>
             </div>
         </div>
 
-        <!-- D7 (Split Day) -->
+        <!-- D7 (Split) -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge">D7</div>
-                <div class="day-date">2/18</div>
+                <div class="day-circle">D7</div>
+                <div class="day-date-label">2/18</div>
             </div>
             <div class="day-content">
                 <h3>分進合擊日</h3>
                 
-                <!-- A Group Card -->
-                <div style="background: #f0f9ff; padding: 10px; border-left: 4px solid #3b82f6; margin-bottom: 10px;">
-                    <div style="font-weight:bold; color:#1d4ed8; margin-bottom:5px;">[A組] 市區悠閒</div>
-                    <div class="timeline-row">• 名古屋城 / 熱田神宮</div>
-                    <div class="timeline-row">• 午餐：蓬萊軒鰻魚飯 (需排隊)</div>
-                    <div class="timeline-row">• 大須商店街購物</div>
-                </div>
-
-                <!-- B Group Card (Highlighted) -->
-                <div style="background: #ecfdf5; padding: 10px; border-left: 4px solid #10b981; position: relative;">
-                    <div style="font-weight:bold; color:#047857; margin-bottom:5px;">[B組] 雪地一日遊 (合掌村+牧歌之里)</div>
-                    
-                    <div style="display: flex; justify-content: space-between;">
+                <!-- A Group -->
+                <div class="group-a-content" style="background: #f0f9ff; padding: 10px 12px; border-left: 4px solid #3b82f6; margin-bottom: 12px; border-radius:0 4px 4px 0;">
+                    <div style="display:flex; justify-content:space-between;">
                         <div style="flex:1;">
-                            <div class="timeline-row">
-                                <span class="timeline-time" style="color:#dc2626; font-weight:bold;">07:50</span> 
-                                <b>集合 (08:00 準時出發)</b>
-                            </div>
-                            <div class="timeline-row">• 上午：白川鄉合掌村 (含午餐)</div>
-                            <div class="timeline-row">• 下午：牧歌之里 (雪盆/甜甜圈)</div>
-                            <div class="timeline-row">• 18:00-19:00 返回名古屋解散</div>
+                            <div style="font-weight:bold; color:#1d4ed8; font-size:10pt; margin-bottom:6px;">[A組] 名古屋城 & 蓬萊軒</div>
+                            <div class="timeline-item" style="margin-bottom:2px;"><span class="t-time">•</span> <span class="t-text">名古屋城 / 熱田神宮</span></div>
+                            <div class="timeline-item" style="margin-bottom:2px;"><span class="t-time">•</span> <span class="t-text">午餐：蓬萊軒鰻魚飯 (需排隊)</span></div>
                         </div>
-                        
-                        <!-- Meeting Point QR -->
-                        <div style="text-align: center; margin-left: 10px;">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.google.com/maps?ll=35.170345,136.880617&z=17&t=m&hl=zh-TW&gl=US&mapclient=embed&cid=10564406049312809853" style="width: 50px; height: 50px;">
-                            <div style="font-size: 6pt; color: #047857; margin-top:2px;">B組集合點<br>西口交番</div>
+                        <div class="qr-wrapper">
+                            <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://goo.gl/maps/NagoyaCastle"></div>
+                            <div class="qr-caption">名城</div>
                         </div>
                     </div>
-                    
-                    <div style="font-size: 8pt; color: #b91c1c; margin-top: 5px; background: white; padding: 4px; border: 1px dashed #fca5a5;">
-                        <i class="fa-solid fa-triangle-exclamation"></i> 集合點在<b>太閣通口(西口)</b>，飯店在東側。請務必預留 <b>20分鐘</b> 步行穿越車站。
+                </div>
+
+                <!-- B Group -->
+                <div class="group-b-content" style="background: #ecfdf5; padding: 10px 12px; border-left: 4px solid #10b981; border-radius:0 4px 4px 0;">
+                    <div style="display:flex; justify-content:space-between;">
+                        <div style="flex:1;">
+                            <div style="font-weight:bold; color:#047857; font-size:10pt; margin-bottom:6px;">[B組] 合掌村 & 牧歌之里 (一日遊)</div>
+                            <div class="timeline-item" style="margin-bottom:2px;">
+                                <span class="t-time" style="color:#b91c1c;">07:50</span> 
+                                <span class="t-text"><b>集合：太閣通口 (西口交番)</b></span>
+                            </div>
+                            <div class="timeline-item" style="margin-bottom:2px;"><span class="t-time">•</span> <span class="t-text">白川鄉午餐 / 牧歌之里雪上活動</span></div>
+                            <div class="timeline-item" style="margin-bottom:2px;"><span class="t-time">•</span> <span class="t-text">約 18:00-19:00 返回名古屋站解散</span></div>
+                        </div>
+                        <div class="qr-wrapper">
+                            <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.google.com/maps?ll=35.170345,136.880617&z=17&t=m&hl=zh-TW&gl=US&mapclient=embed&cid=10564406049312809853"></div>
+                            <div class="qr-caption">集合點</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="page-footer">
-            <span>2026 Nagoya Trip</span>
-            <span>Page 3 / 4</span>
+            <span>Nagoya & Hokuriku 2026</span>
+            <span class="page-num">03</span>
         </div>
     </div>
 
-    <!-- PAGE 4: DAYS 8-10 & NOTES -->
-    <div class="a4-page">
-        <div class="section-tag">ITINERARY PART 3</div>
-        <h2>樂園時光與滿載而歸</h2>
+    <!-- PAGE 4: THEME PARKS & RETURN -->
+    <div class="a4-page page-countable">
+        <div class="eng-title">PART 3: THEME PARKS</div>
+        <h2 style="margin-top:0;">樂園時光與滿載而歸</h2>
 
         <!-- D8 -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge">D8</div>
-                <div class="day-date">2/19</div>
+                <div class="day-circle">D8</div>
+                <div class="day-date-label">2/19</div>
+                <div class="day-line"></div>
             </div>
-            <div class="day-content">
-                <h3>吉卜力公園 (Ghibli Park)</h3>
-                <div class="img-placeholder" style="height: 100px;" onclick="changeImage('d8')">
-                    <img id="img-d8" src="https://upload.wikimedia.org/wikipedia/commons/6/65/Nagoya_Castle%28Edit2%29.jpg" alt="Nagoya Castle">
-                    <div class="img-caption">名古屋 / 愛知縣周邊 (示意圖)</div>
+            <div class="day-content" style="display:flex; gap:12px;">
+                <div class="img-square" onclick="changeImage('d8')">
+                    <img id="img-d8" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Satsuki_and_Mei%27s_House.jpg/640px-Satsuki_and_Mei%27s_House.jpg">
                 </div>
-                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 5px 10px; font-size: 9pt; border-radius: 4px; margin-bottom: 8px;">
-                    <i class="fa-solid fa-check-circle"></i> <b>已預約完成</b> (Booking: 7407986758)
+                <div style="flex:1;">
+                    <h3>吉卜力公園 (Ghibli Park)</h3>
+                    <div style="background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; font-size:9pt; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:8px;">
+                        <i class="fa-solid fa-check"></i> 已預約
+                    </div>
+                    <div class="timeline-item"><span class="t-time">區域</span> <span class="t-text">吉卜力大倉庫 / 青春之丘</span></div>
+                    <div class="timeline-item"><span class="t-time">交通</span> <span class="t-text">地鐵 + 磁浮列車 (Linimo)</span></div>
+                    <div class="timeline-item"><span class="t-time">晚餐</span> <span class="t-text">豪華慶功宴 (和牛涮涮鍋或壽司)</span></div>
                 </div>
-                <div class="timeline-row"><span class="timeline-time">交通</span> 搭乘地鐵 + 磁浮列車 (Linimo)</div>
-                <div class="timeline-row"><span class="timeline-time">全日</span> 探索吉卜力大倉庫 / 青春之丘</div>
-                <div class="timeline-row"><span class="timeline-time">晚餐</span> 豪華慶功宴 (和牛涮涮鍋或壽司)</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div class="qr-wrapper" style="margin-left:0;">
+                        <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://quickticket.moala.fun/books?id=dae8c0db-0352-4531-99d0-9ebcc917eaf7"></div>
+                        <div class="qr-caption" style="color:#166534; font-weight:bold;">電子門票</div>
+                    </div>
+                    <div class="qr-wrapper" style="margin-left:0;">
+                        <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://goo.gl/maps/GhibliPark"></div>
+                        <div class="qr-caption">地圖</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- D9 -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge">D9</div>
-                <div class="day-date">2/20</div>
+                <div class="day-circle">D9</div>
+                <div class="day-date-label">2/20</div>
+                <div class="day-line"></div>
             </div>
-            <div class="day-content">
-                <h3>LEGOLAND Japan 樂高樂園</h3>
-                <div class="timeline-row"><span class="timeline-time">交通</span> 搭乘青波線 (Aonami Line) 至金城埠頭站</div>
-                <div class="timeline-row"><span class="timeline-time">全日</span> 樂高樂園遊玩 (Miniland, Factory, etc.)</div>
-                <div class="timeline-row"><span class="timeline-time">晚餐</span> Maker's Pier 商店街覓食</div>
+            <div class="day-content" style="display:flex; gap:12px;">
+                <div class="img-square" onclick="changeImage('d9')">
+                    <img id="img-d9" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Legoland_Japan_Entrance.jpg/640px-Legoland_Japan_Entrance.jpg">
+                </div>
+                <div style="flex:1;">
+                    <h3>LEGOLAND Japan 樂高樂園</h3>
+                    <div class="timeline-item"><span class="t-time">交通</span> <span class="t-text">搭乘青波線 (Aonami Line) 至金城埠頭</span></div>
+                    <div class="timeline-item"><span class="t-time">全日</span> <span class="t-text">樂高樂園遊玩 (Miniland, Factory, etc.)</span></div>
+                    <div class="timeline-item"><span class="t-time">晚餐</span> <span class="t-text">Maker's Pier 商店街覓食</span></div>
+                </div>
+                <div class="qr-wrapper">
+                    <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://goo.gl/maps/LegolandJP"></div>
+                    <div class="qr-caption">樂園</div>
+                </div>
             </div>
         </div>
 
         <!-- D10 -->
         <div class="day-container">
             <div class="day-sidebar">
-                <div class="day-badge" style="background:#333;">D10</div>
-                <div class="day-date">2/21</div>
+                <div class="day-circle" style="background:#333;">D10</div>
+                <div class="day-date-label">2/21</div>
             </div>
             <div class="day-content">
                 <h3>滿載而歸</h3>
-                <div class="timeline-row"><span class="timeline-time">上午</span> 最後補貨時間 (藥妝/電器)</div>
-                <div class="timeline-row"><span class="timeline-time">13:30</span> 整理行李，出發前往機場</div>
-                <div class="timeline-row"><span class="timeline-time">15:00</span> 機場最後採買 / 報到</div>
-                <div class="timeline-row"><span class="timeline-time">16:55</span> 起飛 (SL1399) ➔ 19:35 抵達台北</div>
-            </div>
-        </div>
-
-        <div style="margin-top: auto; border-top: 2px dashed #e2e8f0; padding-top: 15px;">
-            <h3><i class="fa-solid fa-phone"></i> 緊急聯絡資訊</h3>
-            <table class="info-table" style="margin: 0;">
-                <tr>
-                    <td width="50%"><b>外交部旅外救助</b><br>+81-80-1009-7179</td>
-                    <td><b>日本緊急電話</b><br>報警: 110 / 救護: 119</td>
-                </tr>
-            </table>
-            <div style="text-align: center; margin-top: 20px; font-size: 10pt; color: #94a3b8; font-family: cursive;">
-                Have a wonderful trip!
+                <div class="timeline-item"><span class="t-time">上午</span> <span class="t-text">最後補貨時間 (藥妝/電器)</span></div>
+                <div class="timeline-item"><span class="t-time">13:30</span> <span class="t-text">整理行李，出發前往機場</span></div>
+                <div class="timeline-item"><span class="t-time">15:00</span> <span class="t-text">機場最後採買 / 報到</span></div>
+                <div class="timeline-item"><span class="t-time">16:55</span> <span class="t-text">起飛 (SL1399) ➔ 19:35 抵達台北</span></div>
             </div>
         </div>
 
         <div class="page-footer">
-            <span>2026 Nagoya Trip</span>
-            <span>Page 4 / 4</span>
+            <span>Nagoya & Hokuriku 2026</span>
+            <span class="page-num">04</span>
         </div>
     </div>
 
-    <!-- Scripts for Image Changing -->
+    <!-- PAGE 5: CHECKLIST & APPS -->
+    <div class="a4-page page-countable">
+        <div class="eng-title">PART 4: PREPARATION</div>
+        <h2 style="margin-top:0;">行前準備 & 實用工具</h2>
+
+        <div style="display: flex; gap: 20px;">
+            <div style="flex: 1;">
+                <h3><i class="fa-solid fa-clipboard-check mr-2"></i> 行前檢查表 (點擊可修改)</h3>
+                <div class="check-grid" id="checklist-container">
+                    <!-- Javascript will render items here -->
+                </div>
+                <div class="add-btn no-print" onclick="addItem()">
+                    <i class="fa-solid fa-plus mr-1"></i> 新增項目
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <h3><i class="fa-solid fa-mobile-screen mr-2"></i> 實用 App 下載</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                <div class="app-card">
+                    <div class="app-icon" style="color:#ea4335;"><i class="fa-brands fa-google"></i></div>
+                    <div class="app-name">Google Maps</div>
+                    <div class="app-desc">找路、查電車時刻</div>
+                    <div class="qr-box" style="width:75px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://maps.google.com"></div>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon" style="color:#2563eb;"><i class="fa-solid fa-language"></i></div>
+                    <div class="app-name">Google 翻譯</div>
+                    <div class="app-desc">相機拍照翻譯菜單</div>
+                    <div class="qr-box" style="width:75px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://translate.google.com"></div>
+                </div>
+                <div class="app-card" style="border-color:#a78bfa; background:#f5f3ff;">
+                    <div class="app-icon" style="color:#7c3aed; background:#ede9fe;"><i class="fa-solid fa-camera-retro"></i></div>
+                    <div class="app-name">AI 產品拍立解</div>
+                    <div class="app-desc">購物翻譯神器</div>
+                    <div class="qr-box" style="width:75px;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://jay870122.github.io/AI-/"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: auto; border-top: 2px dashed #e2e8f0; padding-top: 25px;">
+            <h3><i class="fa-solid fa-phone-volume mr-2"></i> 緊急聯絡資訊</h3>
+            <table class="info-table" style="margin: 0;">
+                <tr>
+                    <td width="50%">
+                        <strong style="font-size:11pt;">外交部旅外救助 (日本)</strong><br>
+                        <span style="font-family:'Oswald'; font-size:14pt; color:#dc2626;">+81-80-1009-7179</span>
+                    </td>
+                    <td>
+                        <strong style="font-size:11pt;">日本當地緊急電話</strong><br>
+                        報警: <span style="font-weight:bold; color:#dc2626; font-size:12pt;">110</span> &nbsp;/&nbsp; 救護車: <span style="font-weight:bold; color:#dc2626; font-size:12pt;">119</span>
+                    </td>
+                </tr>
+            </table>
+            
+            <div style="text-align: center; margin-top: 50px; margin-bottom: 25px;">
+                <div style="font-family: 'Shippori Mincho', serif; font-size: 16pt; color: #1e3a8a; letter-spacing: 2px;">
+                    素敵な旅を！
+                </div>
+                <div style="font-family: cursive; color: #94a3b8; font-size: 11pt; margin-top: 5px;">
+                    Have a safe and wonderful trip.
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>Nagoya & Hokuriku 2026</span>
+            <span class="page-num">05</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script>
-        // Defaults
         const defaultImages = {
             'cover': 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Shirakawago_village_and_snowy_mountain_%2813087582315%29.jpg',
             'd2': 'https://upload.wikimedia.org/wikipedia/commons/5/53/Takayama_Old_Town_%28Sanmachi_Suji%29_%2835819349621%29.jpg',
             'd3': 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Shinhotaka_ropeway01s3200.jpg',
-            'd8': 'https://upload.wikimedia.org/wikipedia/commons/6/65/Nagoya_Castle%28Edit2%29.jpg'
+            'd4': 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Shirakawago_village_and_snowy_mountain_%2813087582315%29.jpg',
+            'd8': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Satsuki_and_Mei%27s_House.jpg/640px-Satsuki_and_Mei%27s_House.jpg',
+            'd9': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Legoland_Japan_Entrance.jpg/640px-Legoland_Japan_Entrance.jpg'
         };
+
+        const defaultChecklistItems = [
+            '護照 (效期>6個月)',
+            'Visit Japan Web',
+            '網卡 (Sim Card)',
+            '日幣現鈔 & 信用卡',
+            '衣物 (發熱衣/羽絨/手套/毛帽)',
+            '雪靴',
+            '個人常備藥品',
+            '行動電源 & 充電線'
+        ];
+
+        let checklistItems = [];
+
+        function initChecklist() {
+            const savedItems = localStorage.getItem('custom_checklist_items');
+            if (savedItems) {
+                checklistItems = JSON.parse(savedItems);
+            } else {
+                checklistItems = [...defaultChecklistItems];
+            }
+            renderChecklist();
+        }
+
+        function renderChecklist() {
+            const container = document.getElementById('checklist-container');
+            container.innerHTML = '';
+            
+            checklistItems.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'check-item group relative'; // Added group for hover effect
+                
+                // Content
+                div.innerHTML = `
+                    <div class="check-box"></div>
+                    <span onclick="editItem(${index})">${item}</span>
+                    <button class="delete-btn no-print" onclick="deleteItem(${index})">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addItem() {
+            const newItem = prompt("請輸入新項目名稱：");
+            if (newItem) {
+                checklistItems.push(newItem);
+                saveChecklist();
+                renderChecklist();
+            }
+        }
+
+        function editItem(index) {
+            const currentText = checklistItems[index];
+            const newText = prompt("修改項目：", currentText);
+            if (newText !== null && newText.trim() !== "") {
+                checklistItems[index] = newText;
+                saveChecklist();
+                renderChecklist();
+            }
+        }
+
+        function deleteItem(index) {
+            if(confirm(`確定要刪除 "${checklistItems[index]}" 嗎？`)) {
+                checklistItems.splice(index, 1);
+                saveChecklist();
+                renderChecklist();
+            }
+        }
+
+        function saveChecklist() {
+            localStorage.setItem('custom_checklist_items', JSON.stringify(checklistItems));
+        }
 
         function changeImage(key) {
             const currentSrc = document.getElementById(`img-${key}`).src;
-            const newUrl = prompt("請輸入新的圖片網址 (URL):", currentSrc);
-            
+            const newUrl = prompt("請輸入圖片網址 (URL):", currentSrc);
             if (newUrl && newUrl !== currentSrc) {
-                // Update DOM
                 document.getElementById(`img-${key}`).src = newUrl;
-                // Save to localStorage
                 localStorage.setItem(`custom_img_${key}`, newUrl);
             }
         }
 
-        function resetImages() {
-            if(confirm("確定要重置所有圖片為預設值嗎？")) {
+        function resetAll() {
+            if(confirm("確定要重置所有圖片和檢查表嗎？")) {
+                // Reset Images
                 Object.keys(defaultImages).forEach(key => {
                     localStorage.removeItem(`custom_img_${key}`);
                     document.getElementById(`img-${key}`).src = defaultImages[key];
                 });
+                // Reset Checklist
+                localStorage.removeItem('custom_checklist_items');
+                checklistItems = [...defaultChecklistItems];
+                renderChecklist();
             }
         }
 
-        // Initialize from localStorage
+        function setGroup(group) {
+            // Update buttons state
+            document.getElementById('btn-all').style.background = group === 'ALL' ? '#3b82f6' : 'transparent';
+            document.getElementById('btn-all').style.color = group === 'ALL' ? 'white' : '#9ca3af';
+            
+            document.getElementById('btn-a').style.background = group === 'A' ? '#3b82f6' : 'transparent';
+            document.getElementById('btn-a').style.color = group === 'A' ? 'white' : '#9ca3af';
+            
+            document.getElementById('btn-b').style.background = group === 'B' ? '#3b82f6' : 'transparent';
+            document.getElementById('btn-b').style.color = group === 'B' ? 'white' : '#9ca3af';
+
+            // Show/Hide Content
+            const aContent = document.querySelectorAll('.group-a-content');
+            const bContent = document.querySelectorAll('.group-b-content');
+            const pageMountain = document.getElementById('page-mountain');
+
+            // Reset
+            aContent.forEach(el => el.classList.remove('hidden-layout'));
+            bContent.forEach(el => el.classList.remove('hidden-layout'));
+            pageMountain.classList.remove('hidden-layout');
+
+            if (group === 'A') {
+                bContent.forEach(el => el.classList.add('hidden-layout'));
+            } else if (group === 'B') {
+                aContent.forEach(el => el.classList.add('hidden-layout'));
+                pageMountain.classList.add('hidden-layout'); // Entire Page 2
+            }
+
+            // Recalculate Page Numbers
+            updatePageNumbers();
+        }
+
+        function updatePageNumbers() {
+            const pages = document.querySelectorAll('.page-countable:not(.hidden-layout)');
+            pages.forEach((page, index) => {
+                const numSpan = page.querySelector('.page-num');
+                if (numSpan) {
+                    numSpan.innerText = '0' + (index + 1);
+                }
+            });
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
+            initChecklist(); // Initialize Checklist
+            
+            // Restore Images
             Object.keys(defaultImages).forEach(key => {
                 const savedUrl = localStorage.getItem(`custom_img_${key}`);
-                if (savedUrl) {
-                    document.getElementById(`img-${key}`).src = savedUrl;
-                }
+                if (savedUrl) document.getElementById(`img-${key}`).src = savedUrl;
             });
         });
     </script>
