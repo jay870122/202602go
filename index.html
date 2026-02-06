@@ -688,7 +688,7 @@
             activeBtn.classList.remove('text-slate-500', 'hover:bg-slate-50');
         }
 
-        // --- NEW: Update Header Date & Duration based on group ---
+        // --- Update Header Date & Duration based on group ---
         const headerDate = document.getElementById('header-date');
         const dateTexts = {
             'ALL': '2/12 (四) ~ 2/21 (六)｜共 10 天',
@@ -729,6 +729,24 @@
                 item.classList.remove('hidden-item');
             } else {
                 item.classList.add('hidden-item');
+            }
+        });
+
+        // --- NEW: Re-index Timeline Days (Start from D1 for visible days) ---
+        updateTimelineLabels();
+    }
+
+    // Function to re-index visible timeline dots
+    function updateTimelineLabels() {
+        const dots = document.querySelectorAll('#tab-itinerary .timeline-dot');
+        let count = 1;
+        dots.forEach(dot => {
+            // Find closest filterable item (the day container)
+            const parent = dot.closest('.filterable-item');
+            // Check if the parent is visible (not hidden)
+            if (parent && !parent.classList.contains('hidden-item')) {
+                dot.textContent = `D${count}`;
+                count++;
             }
         });
     }
