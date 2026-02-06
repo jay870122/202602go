@@ -62,7 +62,8 @@
                 <h1 class="text-lg font-bold flex items-center">
                    <span class="mr-2 text-xl">❄️</span> 2026 名古屋・北陸
                 </h1>
-                <p class="text-blue-100 text-xs mt-0.5 ml-8">2/12 (四) ~ 2/21 (六)｜共 10 天</p>
+                <!-- Modified: Added ID to update text dynamically -->
+                <p id="header-date" class="text-blue-100 text-xs mt-0.5 ml-8">2/12 (四) ~ 2/21 (六)｜共 10 天</p>
             </div>
             <div class="text-right">
                 <div class="bg-white/20 px-2 py-1 rounded text-xs">
@@ -686,6 +687,19 @@
             // Remove inactive style and hover effect
             activeBtn.classList.remove('text-slate-500', 'hover:bg-slate-50');
         }
+
+        // --- NEW: Update Header Date & Duration based on group ---
+        const headerDate = document.getElementById('header-date');
+        const dateTexts = {
+            'ALL': '2/12 (四) ~ 2/21 (六)｜共 10 天',
+            'A': '2/12 (四) ~ 2/21 (六)｜共 10 天',
+            'B': '2/17 (二) ~ 2/21 (六)｜共 5 天',
+            'C': '2/16 (一) ~ 2/21 (六)｜共 6 天'
+        };
+        if(headerDate && dateTexts[group]) {
+            headerDate.innerText = dateTexts[group];
+        }
+        // ---------------------------------------------------------
 
         // Filter Logic
         items.forEach(item => {
