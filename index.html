@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2026 名古屋・北陸冬之旅</title>
     
-    <!-- 網頁圖示 (Favicon) - 使用雪花 Emoji -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❄️</text></svg>">
     
-    <!-- iOS / Android Web App 設定 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563eb">
@@ -16,6 +14,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
     <style>
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f4f8; }
         .font-mono-display { font-family: 'Share Tech Mono', monospace; }
@@ -44,7 +43,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Fix for bottom nav safe area on iPhone X+ */
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 
         /* Flight Board */
@@ -52,70 +50,63 @@
         .flight-row { border-bottom: 1px solid #334155; }
         .flight-row:last-child { border-bottom: none; }
         .status-light { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-        .status-active-text { color: #4ade80; text-shadow: 0 0 5px rgba(74, 222, 128, 0.5); }
-        .status-blink { animation: blink 2s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     </style>
 </head>
 <body class="text-slate-700 bg-slate-100 h-screen flex flex-col overflow-hidden">
 
-    <!-- Header (Fixed) -->
     <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 shadow-lg shrink-0 z-50 pt-safe-top">
         <div class="max-w-3xl mx-auto flex justify-between items-center">
             <div>
                 <h1 class="text-lg font-bold flex items-center">
-                    <span class="mr-2 text-xl">❄️</span> 2026 名古屋・北陸
+                   <span class="mr-2 text-xl">❄️</span> 2026 名古屋・北陸
                 </h1>
                 <p class="text-blue-100 text-xs mt-0.5 ml-8">2/12 (四) ~ 2/21 (六)｜共 10 天</p>
             </div>
             <div class="text-right">
                 <div class="bg-white/20 px-2 py-1 rounded text-xs">
-                    <i class="fa-solid fa-users mr-1"></i>6人
+                     <i class="fa-solid fa-users mr-1"></i>8人
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Area (Scrollable) -->
     <main class="flex-1 overflow-y-auto no-scrollbar pb-24 relative" id="main-scroll">
         <div class="max-w-3xl mx-auto p-4 min-h-full">
 
-            <!-- Global Filter Controls (Sticky) -->
             <div class="sticky top-0 z-40 bg-slate-100 pb-4 pt-1 mb-2">
-                <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500">
-                    <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 rounded-md transition bg-slate-100 text-slate-800 shadow-sm" id="btn-all">
-                        全員視角
+                <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500 overflow-x-auto no-scrollbar">
+                    <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 px-2 rounded-md transition bg-slate-100 text-slate-800 shadow-sm whitespace-nowrap" id="btn-all">
+                        全員
                     </button>
-                    <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 rounded-md transition hover:bg-slate-50" id="btn-a">
+                    <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 px-2 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-a">
                         <span class="text-blue-600">A組先發</span>
                     </button>
-                    <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 rounded-md transition hover:bg-slate-50" id="btn-b">
+                    <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 px-2 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-b">
                         <span class="text-emerald-600">B組增援</span>
+                    </button>
+                    <button onclick="filterGroup('C')" class="filter-btn flex-1 py-1.5 px-2 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-c">
+                        <span class="text-orange-500">C組自由</span>
                     </button>
                 </div>
             </div>
 
-            <!-- TAB 1: 行程 (ITINERARY) - DEFAULT ACTIVE -->
             <div id="tab-itinerary" class="tab-content active space-y-6">
-                <!-- D1 -->
                 <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D1</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 border-blue-400">
                         <div class="flex justify-between items-baseline mb-2">
-                            <h3 class="font-bold text-lg">2/12 (四)</h3>
+                             <h3 class="font-bold text-lg">2/12 (四)</h3>
                             <span class="text-[10px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">A組抵達</span>
                         </div>
                         <ul class="space-y-2 text-sm text-slate-600">
                             <li class="flex items-start"><i class="fa-solid fa-plane mt-1 mr-2 text-slate-400"></i> 13:00 抵達名古屋中部機場</li>
                             <li class="flex items-start"><i class="fa-solid fa-train mt-1 mr-2 text-slate-400"></i> 搭乘 μSKY 往名古屋站</li>
-                            <li class="flex items-start"><i class="fa-solid fa-hotel mt-1 mr-2 text-slate-400"></i> Daiwa Roynet Check-in (太閣通口)</li>
-                            <li class="flex items-start"><i class="fa-solid fa-utensils mt-1 mr-2 text-slate-400"></i> 車站周邊晚餐 / 欣賞夜景</li>
+                             <li class="flex items-start"><i class="fa-solid fa-hotel mt-1 mr-2 text-slate-400"></i> Check-in 名站太閣通口</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- D2 -->
                 <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D2</div>
@@ -126,40 +117,30 @@
                         </div>
                         <ul class="space-y-2 text-sm text-slate-600">
                             <li class="flex items-start"><i class="fa-solid fa-train mt-1 mr-2 text-slate-400"></i> 搭乘 JR 飛驒號 (Hida Wide View)</li>
-                            <li class="flex items-start"><i class="fa-solid fa-suitcase mt-1 mr-2 text-slate-400"></i> 抵達高山站 / 飯店寄放行李</li>
                             <li class="flex items-start"><i class="fa-solid fa-person-walking mt-1 mr-2 text-slate-400"></i> 高山老街散策</li>
                             <li class="flex items-start">
                                 <i class="fa-solid fa-utensils mt-1 mr-2 text-red-400"></i> 
                                 <span>晚餐：<span class="font-bold text-slate-800">飛驒牛燒肉</span></span>
                             </li>
                         </ul>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Takayama+Old+Town" target="_blank" class="mt-2 block bg-slate-50 text-slate-600 text-xs py-2 rounded text-center border border-slate-200 font-medium hover:bg-slate-100">
-                            <i class="fa-solid fa-map-location-dot mr-1"></i> 老街地圖
-                        </a>
                     </div>
                 </div>
 
-                <!-- D3 -->
                 <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D3</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
-                        <div class="flex justify-between items-baseline mb-2">
+                         <div class="flex justify-between items-baseline mb-2">
                             <h3 class="font-bold text-lg">2/14 (六)</h3>
                             <span class="text-[10px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">新穗高賞雪</span>
                         </div>
                         <ul class="space-y-2 text-sm text-slate-600">
-                            <li class="flex items-start"><i class="fa-solid fa-bus mt-1 mr-2 text-slate-400"></i> 前往新穗高纜車</li>
-                            <li class="flex items-start"><i class="fa-solid fa-mountain mt-1 mr-2 text-slate-400"></i> 搭乘雙層纜車欣賞雪景</li>
-                            <li class="flex items-start"><i class="fa-solid fa-mug-hot mt-1 mr-2 text-slate-400"></i> 返回高山市區 / 飯店溫泉</li>
+                            <li class="flex items-start"><i class="fa-solid fa-mountain mt-1 mr-2 text-slate-400"></i> 新穗高雙層纜車</li>
+                            <li class="flex items-start"><i class="fa-solid fa-mug-hot mt-1 mr-2 text-slate-400"></i> 飯店溫泉</li>
                         </ul>
-                         <a href="https://www.google.com/maps/search/?api=1&query=Shinhotaka+Ropeway" target="_blank" class="mt-2 block bg-slate-50 text-slate-600 text-xs py-2 rounded text-center border border-slate-200 font-medium hover:bg-slate-100">
-                            <i class="fa-solid fa-map-location-dot mr-1"></i> 新穗高纜車地圖
-                        </a>
                     </div>
                 </div>
 
-                <!-- D4 -->
                 <div class="relative pl-8 filterable-item" data-group="A">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D4</div>
@@ -169,61 +150,71 @@
                             <span class="text-[10px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">白川鄉合掌村</span>
                         </div>
                         <ul class="space-y-2 text-sm text-slate-600">
-                            <li class="flex items-start"><i class="fa-solid fa-bus mt-1 mr-2 text-slate-400"></i> 搭乘巴士前往白川鄉</li>
-                            <li class="flex items-start"><i class="fa-solid fa-camera mt-1 mr-2 text-slate-400"></i> 展望台 / 合掌造聚落散步</li>
-                            <li class="flex items-start"><i class="fa-solid fa-rotate-left mt-1 mr-2 text-slate-400"></i> 返回高山住宿</li>
+                            <li class="flex items-start"><i class="fa-solid fa-bus mt-1 mr-2 text-slate-400"></i> 巴士前往白川鄉</li>
+                            <li class="flex items-start"><i class="fa-solid fa-camera mt-1 mr-2 text-slate-400"></i> 展望台 / 民家園</li>
                         </ul>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Shirakawa-go" target="_blank" class="mt-2 block bg-slate-50 text-slate-600 text-xs py-2 rounded text-center border border-slate-200 font-medium hover:bg-slate-100">
-                            <i class="fa-solid fa-map-location-dot mr-1"></i> 合掌村地圖
-                        </a>
                     </div>
                 </div>
 
-                <!-- D5 -->
-                <div class="relative pl-8 filterable-item" data-group="A">
+                <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
-                    <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D5</div>
+                    <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-gradient-to-br from-blue-500 to-orange-500 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D5</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
                         <div class="flex justify-between items-baseline mb-2">
-                            <h3 class="font-bold text-lg">2/16 (一)</h3>
-                            <span class="text-[10px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">A組返回名古屋</span>
+                             <h3 class="font-bold text-lg">2/16 (一)</h3>
+                            <span class="text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-1 rounded">會合日 Part 1</span>
                         </div>
-                        <ul class="space-y-2 text-sm text-slate-600">
-                            <li class="flex items-start"><i class="fa-solid fa-carrot mt-1 mr-2 text-slate-400"></i> 早上：宮川朝市</li>
-                            <li class="flex items-start"><i class="fa-solid fa-train mt-1 mr-2 text-slate-400"></i> 搭乘 JR 飛驒號回名古屋</li>
-                            <li class="flex items-start"><i class="fa-solid fa-arrow-right-arrow-left mt-1 mr-2 text-slate-400"></i> <span class="text-red-500 font-bold">換飯店</span>：移動至名站南 Comfort Hotel</li>
-                        </ul>
+                        
+                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 filterable-item" data-group="A">
+                            <span class="text-xs font-bold text-blue-500 bg-blue-50 px-1.5 py-0.5 rounded">A組</span>
+                            <ul class="space-y-1 text-sm text-slate-600 mt-1">
+                                <li class="flex items-start"><i class="fa-solid fa-carrot mt-1 mr-2 text-slate-400"></i> 宮川朝市</li>
+                                <li class="flex items-start"><i class="fa-solid fa-train mt-1 mr-2 text-slate-400"></i> JR 飛驒號回名古屋</li>
+                                <li class="flex items-start"><i class="fa-solid fa-suitcase mt-1 mr-2 text-slate-400"></i> 入住 Comfort Hotel</li>
+                            </ul>
+                        </div>
+
+                        <div class="filterable-item" data-group="C">
+                            <span class="text-xs font-bold text-orange-500 bg-orange-50 px-1.5 py-0.5 rounded">C組 (親友團)</span>
+                            <ul class="space-y-1 text-sm text-slate-600 mt-1">
+                                <li class="flex items-start"><i class="fa-solid fa-plane-arrival mt-1 mr-2 text-slate-400"></i> <span class="text-slate-800 font-bold">06:25 抵達名古屋 (MM722)</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-train mt-1 mr-2 text-slate-400"></i> 前往市區 / 飯店寄放行李</li>
+                                <li class="flex items-start"><i class="fa-solid fa-handshake mt-1 mr-2 text-slate-400"></i> 晚上與 A 組會合</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <!-- D6 -->
                 <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10 ring-4 ring-purple-100">D6</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 border-purple-500">
                         <div class="flex justify-between items-baseline mb-2">
                             <h3 class="font-bold text-lg">2/17 (二)</h3>
-                            <span class="text-[10px] font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded">感動會合日！</span>
+                            <span class="text-[10px] font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded">全員大集合</span>
                         </div>
-                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 filterable-item" data-group="A">
-                            <span class="text-xs font-bold text-blue-500">A組</span>
-                            <p class="text-sm text-slate-600 mt-1">上午補眠 / 榮商圈逛街</p>
-                        </div>
-                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200 filterable-item" data-group="B">
-                            <span class="text-xs font-bold text-emerald-500">B組</span>
-                            <p class="text-sm text-slate-600 mt-1">13:00 抵達機場 ➔ 15:00 飯店 Check-in</p>
+                        <div class="mb-3 pb-3 border-b border-dashed border-slate-200">
+                            <div class="filterable-item mb-2" data-group="A">
+                                <span class="text-xs font-bold text-blue-500">A組</span> <span class="text-xs text-slate-500">補眠 / 逛街</span>
+                            </div>
+                            <div class="filterable-item mb-2" data-group="C">
+                                <span class="text-xs font-bold text-orange-500">C組</span> <span class="text-xs text-slate-500">市區自由活動</span>
+                            </div>
+                            <div class="filterable-item" data-group="B">
+                                <span class="text-xs font-bold text-emerald-500">B組</span>
+                                <span class="text-sm text-slate-600 ml-1">13:00 抵達機場 ➔ 15:00 Check-in</span>
+                            </div>
                         </div>
                         <div>
-                            <span class="text-xs font-bold text-purple-600">★ 全員集合</span>
+                            <span class="text-xs font-bold text-purple-600">★ 晚上全員集合</span>
                             <ul class="space-y-1 text-sm text-slate-700 mt-1">
-                                <li><i class="fa-regular fa-clock text-slate-400 mr-1"></i> 16:00~17:00 飯店或榮商圈會合</li>
+                                <li><i class="fa-regular fa-clock text-slate-400 mr-1"></i> 16:00~17:00 飯店會合</li>
                                 <li><i class="fa-solid fa-beer-mug-empty text-orange-400 mr-1"></i> 晚餐：全員歡迎會 (手羽先)</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- D7 -->
                 <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-slate-700 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D7</div>
@@ -233,92 +224,84 @@
                             <span class="text-[10px] font-bold text-slate-600 bg-slate-200 px-2 py-1 rounded">分進合擊</span>
                         </div>
 
-                        <!-- Split Cards -->
                         <div class="grid grid-cols-1 gap-3">
-                            <!-- A Card -->
-                            <div class="bg-blue-50 rounded-lg p-3 border border-blue-100 filterable-item" data-group="A">
+                             <div class="bg-blue-50 rounded-lg p-3 border border-blue-100 filterable-item" data-group="A">
                                 <div class="font-bold text-blue-600 mb-2 text-sm">A組：市區悠閒</div>
                                 <ul class="text-sm space-y-1 text-slate-700 mb-2">
                                     <li>• 名古屋城 / 熱田神宮</li>
                                     <li>• 午餐：蓬萊軒鰻魚飯</li>
                                 </ul>
-                                <div class="flex gap-2">
-                                    <a href="https://www.google.com/maps/search/?api=1&query=Nagoya+Castle" target="_blank" class="flex-1 bg-white text-blue-600 border border-blue-200 text-xs py-1.5 rounded text-center font-medium">名古屋城</a>
-                                    <a href="https://www.google.com/maps/search/?api=1&query=Atsuta+Jingu" target="_blank" class="flex-1 bg-white text-blue-600 border border-blue-200 text-xs py-1.5 rounded text-center font-medium">熱田神宮</a>
-                                </div>
                             </div>
-                            <!-- B Card (Updated) -->
-                            <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100 filterable-item" data-group="B">
-                                <div class="font-bold text-emerald-600 mb-2 text-sm">B組：雪地一日遊 (合掌村+牧歌之里)</div>
-                                <div class="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-1 rounded mb-2 inline-block">行程時間：約 10 小時</div>
+                            <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100 filterable-item multi-group" data-groups="B,C">
+                                <div class="flex justify-between items-center mb-2">
+                                    <div class="font-bold text-emerald-600 text-sm">B、C組：雪地一日遊</div>
+                                    <div class="flex gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                                    </div>
+                                </div>
+                                <div class="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-1 rounded mb-2 inline-block">合掌村 + 牧歌之里</div>
                                 <ul class="text-sm space-y-3 text-slate-700">
                                     <li>
-                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-clock mr-1 text-emerald-500"></i> 07:50 集合 (08:00 準時出發)</div>
-                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">地點：JR名古屋站 太閣通口 (西口交番前)</div>
+                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-clock mr-1 text-emerald-500"></i> 07:50 集合</div>
+                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">地點：名古屋站太閣通口 (西口交番)</div>
                                     </li>
                                     <li>
-                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-house-chimney mr-1 text-emerald-500"></i> 白川鄉合掌村</div>
-                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">含自由午餐時間 (約130-150分)</div>
-                                    </li>
-                                    <li>
-                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-snowflake mr-1 text-emerald-500"></i> 牧歌之里 (C方案)</div>
-                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">雪上活動：橡皮艇/甜甜圈/雪盆 (約110-130分)</div>
-                                    </li>
-                                    <li>
-                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-bus mr-1 text-emerald-500"></i> 歸途</div>
-                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">約 18:00-19:00 抵達名古屋站解散</div>
+                                        <div class="font-bold text-emerald-800"><i class="fa-solid fa-house-chimney mr-1 text-emerald-500"></i> 合掌村 & 牧歌之里</div>
+                                        <div class="text-xs text-slate-600 pl-5 mt-0.5">玩雪活動：甜甜圈/雪盆</div>
                                     </li>
                                 </ul>
-                                <a href="https://www.google.com/maps?ll=35.170345,136.880617&z=17&t=m&hl=zh-TW&gl=US&mapclient=embed&cid=10564406049312809853" target="_blank" class="mt-3 block bg-white text-emerald-600 text-xs py-2 rounded text-center border border-emerald-200 font-bold hover:bg-emerald-50">
-                                    <i class="fa-solid fa-location-dot mr-1"></i> 集合點地圖 (西口交番)
-                                </a>
                                 <div class="mt-2 bg-red-50 text-red-600 text-[10px] p-2 rounded border border-red-100 leading-tight">
-                                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> 集合點在西口，飯店在東側。請預留 20 分鐘步行穿越車站。
+                                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> 需步行穿越車站至西口 (約20分)
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center text-sm text-slate-500 py-1">晚上兩組會合晚餐</div>
+                        <div class="text-center text-sm text-slate-500 py-1 mt-1">晚上全員會合晚餐</div>
                     </div>
                 </div>
 
-                <!-- D8 -->
                 <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D8</div>
                     <div class="bg-white rounded-xl p-4 shadow-sm ml-4">
                         <div class="flex justify-between items-baseline mb-2">
                             <h3 class="font-bold text-lg">2/19 (四)</h3>
-                            <span class="text-[10px] font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded">吉卜力公園</span>
                         </div>
                         
-                        <!-- Ticket Info -->
-                        <div class="mb-3 bg-green-50 text-green-800 text-xs p-3 rounded border border-green-200">
-                            <div class="font-bold mb-2 flex items-center text-sm">
-                                <i class="fa-solid fa-check-circle mr-1.5 text-green-600"></i> 已預約完成
+                        <div class="bg-green-50 rounded-lg p-3 border border-green-200 mb-3 filterable-item multi-group" data-groups="A,B">
+                            <div class="font-bold text-green-800 mb-2 flex items-center">
+                                <span class="bg-green-600 text-white text-[10px] px-2 py-0.5 rounded mr-2">A+B組</span>
+                                吉卜力公園
                             </div>
-                            <div class="space-y-2 opacity-90">
+                             <div class="mb-2 bg-white/60 text-green-800 text-xs p-2 rounded border border-green-100">
                                 <div class="flex justify-between border-b border-green-200 pb-1 mb-1">
                                     <span>預約編號</span>
                                     <span class="font-mono font-bold">7407986758</span>
                                 </div>
-                                <a href="https://quickticket.moala.fun/books?id=dae8c0db-0352-4531-99d0-9ebcc917eaf7" target="_blank" class="block w-full bg-green-600 text-white text-center py-2.5 rounded shadow-sm hover:bg-green-700 transition font-bold flex items-center justify-center">
-                                    <i class="fa-solid fa-qrcode mr-2"></i> 開啟電子票券 (MOALA)
+                                <a href="https://quickticket.moala.fun/books?id=dae8c0db-0352-4531-99d0-9ebcc917eaf7" target="_blank" class="block w-full bg-green-600 text-white text-center py-1.5 rounded text-xs hover:bg-green-700 transition">
+                                     開啟電子票
                                 </a>
                             </div>
+                            <ul class="space-y-1 text-sm text-slate-600">
+                                <li><i class="fa-solid fa-train mt-1 mr-2 text-slate-400"></i> 地鐵 + 磁浮列車</li>
+                                <li><i class="fa-solid fa-tree mt-1 mr-2 text-slate-400"></i> 吉卜力大倉庫 / 青春之丘</li>
+                            </ul>
                         </div>
 
-                        <ul class="space-y-2 text-sm text-slate-600">
-                            <li class="flex items-start"><i class="fa-solid fa-train mt-1 mr-2 text-slate-400"></i> 搭乘地鐵 + 磁浮列車</li>
-                            <li class="flex items-start"><i class="fa-solid fa-tree mt-1 mr-2 text-slate-400"></i> 吉卜力大倉庫 / 青春之丘</li>
-                            <li class="flex items-start"><i class="fa-solid fa-wine-glass mt-1 mr-2 text-red-400"></i> 晚餐：豪華慶功宴 (和牛/壽司)</li>
-                        </ul>
-                         <a href="https://www.google.com/maps/search/?api=1&query=Ghibli+Park" target="_blank" class="mt-2 block bg-slate-50 text-slate-600 text-xs py-2 rounded text-center border border-slate-200 font-medium hover:bg-slate-100">
-                            <i class="fa-solid fa-map-location-dot mr-1"></i> 吉卜力公園地圖
-                        </a>
+                        <div class="bg-orange-50 rounded-lg p-3 border border-orange-200 filterable-item" data-group="C">
+                            <div class="font-bold text-orange-800 mb-2 flex items-center">
+                                <span class="bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded mr-2">C組</span>
+                                市區觀光 / 自由活動
+                            </div>
+                            <p class="text-xs text-slate-600">不去吉卜力，享受名古屋市區時光（大須觀音、榮町購物等）。</p>
+                        </div>
+                         
+                         <div class="mt-3 pt-3 border-t border-slate-100">
+                            <p class="text-sm text-slate-700"><i class="fa-solid fa-wine-glass mr-2 text-red-400"></i> 晚餐：豪華慶功宴 (和牛/壽司)</p>
+                         </div>
                     </div>
                 </div>
 
-                <!-- D9 -->
                 <div class="relative pl-8 filterable-item">
                     <div class="timeline-line"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D9</div>
@@ -328,17 +311,12 @@
                             <span class="text-[10px] font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded">樂高樂園</span>
                         </div>
                         <ul class="space-y-2 text-sm text-slate-600">
-                            <li class="flex items-start"><i class="fa-solid fa-train mt-1 mr-2 text-slate-400"></i> 搭乘青波線 (Aonami Line)</li>
                             <li class="flex items-start"><i class="fa-solid fa-cube mt-1 mr-2 text-slate-400"></i> LEGOLAND Japan 全日遊</li>
                             <li class="flex items-start"><i class="fa-solid fa-shop mt-1 mr-2 text-slate-400"></i> 晚餐：Maker's Pier 商店街</li>
                         </ul>
-                         <a href="https://www.google.com/maps/search/?api=1&query=LEGOLAND+Japan" target="_blank" class="mt-2 block bg-slate-50 text-slate-600 text-xs py-2 rounded text-center border border-slate-200 font-medium hover:bg-slate-100">
-                            <i class="fa-solid fa-map-location-dot mr-1"></i> 樂高樂園地圖
-                        </a>
                     </div>
                 </div>
 
-                <!-- D10 -->
                 <div class="relative pl-8 filterable-item">
                     <div class="timeline-line bg-transparent"></div>
                     <div class="timeline-dot absolute left-0 top-1 w-10 h-10 bg-slate-800 text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D10</div>
@@ -347,98 +325,107 @@
                             <h3 class="font-bold text-lg">2/21 (六)</h3>
                             <span class="text-[10px] font-bold text-slate-600 bg-slate-200 px-2 py-1 rounded">滿載而歸</span>
                         </div>
-                        <ul class="space-y-2 text-sm text-slate-600">
-                            <li class="flex items-start"><i class="fa-solid fa-bag-shopping mt-1 mr-2 text-slate-400"></i> 上午：最後補貨 (藥妝/電器)</li>
-                            <li class="flex items-start"><i class="fa-solid fa-taxi mt-1 mr-2 text-slate-400"></i> 13:30 出發前往機場</li>
+                        
+                        <div class="mb-3 p-2 bg-orange-50 rounded border border-orange-100 filterable-item" data-group="C">
+                             <div class="flex items-center text-orange-800 font-bold text-sm mb-1">
+                                 <i class="fa-solid fa-plane-departure mr-2"></i> C組 優先出發
+                             </div>
+                             <p class="text-xs text-slate-600">14:00 班機 (SL1399)，請於 11:30 出發前往機場。</p>
+                         </div>
+
+                        <ul class="space-y-2 text-sm text-slate-600 filterable-item multi-group" data-groups="A,B">
+                            <li class="flex items-start"><i class="fa-solid fa-bag-shopping mt-1 mr-2 text-slate-400"></i> 上午：最後補貨</li>
                             <li class="flex items-start"><i class="fa-solid fa-plane-departure mt-1 mr-2 text-slate-400"></i> 16:55 起飛回家</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 2: 航班 (FLIGHTS) -->
             <div id="tab-flights" class="tab-content space-y-4">
                 <div class="bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-700">
                     <div class="bg-slate-900 p-4 flex justify-between items-center text-white border-b border-slate-700">
                         <h2 class="font-bold flex items-center">
                             <i class="fa-solid fa-plane-departure mr-2 text-yellow-400"></i> FLIGHTS
                         </h2>
-                        <div class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-300 font-mono-display border border-slate-600">
-                            TPE <i class="fa-solid fa-arrow-right mx-1"></i> NGO
-                        </div>
                     </div>
                     
                     <div class="flight-board p-0">
-                        <!-- A Group -->
-                        <div class="flight-row p-4 relative filterable-item" data-group="A" data-date="2026-02-12">
+                        <div class="flight-row p-4 relative filterable-item" data-group="A">
                             <div class="flex justify-between items-start mb-3">
                                 <div class="flex items-center">
                                     <span class="text-[10px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded mr-2">A組去程</span>
                                     <span class="font-mono-display text-xl text-yellow-400 tracking-wider">SL1398</span>
                                 </div>
-                                <div class="flight-status-text text-xs font-mono-display text-slate-400 flex items-center">
-                                    <span class="status-light bg-slate-500"></span>SCHEDULED
-                                </div>
+                                <div class="text-[10px] text-slate-500 font-mono-display">2/12</div>
                             </div>
-                            
                             <div class="flex justify-between items-center">
-                                <div class="text-center">
-                                    <div class="text-2xl font-mono-display font-bold">09:20</div>
-                                    <div class="text-[10px] text-slate-400">TPE</div>
-                                </div>
-                                <div class="flex-1 px-4 flex flex-col items-center">
-                                    <div class="w-full h-0.5 bg-slate-600 relative flex items-center">
-                                        <i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform rotate-45"></i>
-                                    </div>
-                                    <div class="text-[10px] text-slate-500 mt-1 font-mono-display">3h 40m</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-mono-display font-bold">13:00</div>
-                                    <div class="text-[10px] text-slate-400">NGO</div>
-                                </div>
+                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">09:20</div><div class="text-[10px] text-slate-400">TPE</div></div>
+                                <div class="flex-1 px-4 flex flex-col items-center"><div class="w-full h-0.5 bg-slate-600 relative"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform rotate-45"></i></div></div>
+                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">13:00</div><div class="text-[10px] text-slate-400">NGO</div></div>
                             </div>
-                            <div class="text-[10px] text-slate-500 mt-2 text-right font-mono-display border-t border-slate-700/50 pt-2 mt-2">2026/02/12 (THU)</div>
                         </div>
 
-                        <!-- B Group -->
-                        <div class="flight-row p-4 relative filterable-item" data-group="B" data-date="2026-02-17">
+                        <div class="flight-row p-4 relative filterable-item" data-group="C">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-center">
+                                    <span class="text-[10px] font-bold bg-orange-500 text-white px-2 py-0.5 rounded mr-2">C組去程</span>
+                                    <span class="font-mono-display text-xl text-purple-400 tracking-wider">MM722</span>
+                                </div>
+                                <div class="text-[10px] text-slate-500 font-mono-display">2/16 (MON)</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">02:55</div><div class="text-[10px] text-slate-400">TPE</div></div>
+                                <div class="flex-1 px-4 flex flex-col items-center"><div class="w-full h-0.5 bg-slate-600 relative"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform rotate-45"></i></div><div class="text-[10px] text-slate-500 mt-1">Peach</div></div>
+                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">06:25</div><div class="text-[10px] text-slate-400">NGO</div></div>
+                            </div>
+                        </div>
+
+                        <div class="flight-row p-4 relative filterable-item" data-group="B">
                             <div class="flex justify-between items-start mb-3">
                                 <div class="flex items-center">
                                     <span class="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded mr-2">B組去程</span>
                                     <span class="font-mono-display text-xl text-yellow-400 tracking-wider">SL1398</span>
                                 </div>
-                                <div class="flight-status-text text-xs font-mono-display text-slate-400 flex items-center">
-                                    <span class="status-light bg-slate-500"></span>SCHEDULED
+                                <div class="text-[10px] text-slate-500 font-mono-display">2/17</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">09:20</div><div class="text-[10px] text-slate-400">TPE</div></div>
+                                <div class="flex-1 px-4 flex flex-col items-center"><div class="w-full h-0.5 bg-slate-600 relative"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform rotate-45"></i></div></div>
+                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">13:00</div><div class="text-[10px] text-slate-400">NGO</div></div>
+                            </div>
+                        </div>
+
+                        <div class="flight-row p-4 relative bg-slate-800/50 filterable-item" data-group="C">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-center">
+                                    <span class="text-[10px] font-bold bg-orange-500 text-white px-2 py-0.5 rounded mr-2">C組回程</span>
+                                    <span class="font-mono-display text-xl text-yellow-400 tracking-wider">SL1399</span>
+                                </div>
+                                <div class="flight-status-text text-xs text-red-400 font-bold flex items-center">
+                                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> 時間不同
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
                                 <div class="text-center">
-                                    <div class="text-2xl font-mono-display font-bold">09:20</div>
-                                    <div class="text-[10px] text-slate-400">TPE</div>
-                                </div>
-                                <div class="flex-1 px-4 flex flex-col items-center">
-                                    <div class="w-full h-0.5 bg-slate-600 relative flex items-center">
-                                        <i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform rotate-45"></i>
-                                    </div>
-                                    <div class="text-[10px] text-slate-500 mt-1 font-mono-display">3h 40m</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-mono-display font-bold">13:00</div>
+                                    <div class="text-2xl font-mono-display font-bold text-orange-300">14:00</div>
                                     <div class="text-[10px] text-slate-400">NGO</div>
                                 </div>
+                                <div class="flex-1 px-4 flex flex-col items-center">
+                                    <div class="w-full h-0.5 bg-slate-600 relative flex items-center"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform -rotate-45"></i></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-mono-display font-bold">16:20</div>
+                                    <div class="text-[10px] text-slate-400">TPE</div>
+                                </div>
                             </div>
-                            <div class="text-[10px] text-slate-500 mt-2 text-right font-mono-display border-t border-slate-700/50 pt-2 mt-2">2026/02/17 (TUE)</div>
+                            <div class="text-[10px] text-slate-500 mt-2 text-right font-mono-display border-t border-slate-700/50 pt-2 mt-2">2026/02/21 (SAT)</div>
                         </div>
 
-                        <!-- Return -->
-                        <div class="flight-row p-4 relative bg-slate-800/50 filterable-item" data-date="2026-02-21">
+                        <div class="flight-row p-4 relative bg-slate-800/50 filterable-item multi-group" data-groups="A,B">
                             <div class="flex justify-between items-start mb-3">
                                 <div class="flex items-center">
-                                    <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded mr-2">全員回程</span>
+                                    <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded mr-2">A+B回程</span>
                                     <span class="font-mono-display text-xl text-yellow-400 tracking-wider">SL1399</span>
-                                </div>
-                                <div class="flight-status-text text-xs font-mono-display text-slate-400 flex items-center">
-                                    <span class="status-light bg-slate-500"></span>SCHEDULED
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
@@ -447,10 +434,7 @@
                                     <div class="text-[10px] text-slate-400">NGO</div>
                                 </div>
                                 <div class="flex-1 px-4 flex flex-col items-center">
-                                    <div class="w-full h-0.5 bg-slate-600 relative flex items-center">
-                                        <i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform -rotate-45"></i>
-                                    </div>
-                                    <div class="text-[10px] text-slate-500 mt-1 font-mono-display">3h 40m</div>
+                                    <div class="w-full h-0.5 bg-slate-600 relative flex items-center"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform -rotate-45"></i></div>
                                 </div>
                                 <div class="text-center">
                                     <div class="text-2xl font-mono-display font-bold">19:35</div>
@@ -461,50 +445,32 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-2 gap-3 mt-4">
-                    <a href="https://www.flightradar24.com/data/flights/sl1398" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex items-center justify-center text-slate-600 text-sm font-bold active:bg-slate-50">
-                        <i class="fa-solid fa-radar text-green-500 mr-2"></i> 去程追蹤
-                    </a>
-                    <a href="https://www.flightradar24.com/data/flights/sl1399" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex items-center justify-center text-slate-600 text-sm font-bold active:bg-slate-50">
-                        <i class="fa-solid fa-radar text-green-500 mr-2"></i> 回程追蹤
-                    </a>
-                </div>
             </div>
 
-            <!-- TAB 3: 住宿 (HOTELS) -->
             <div id="tab-hotels" class="tab-content space-y-4">
                 <div class="bg-white rounded-2xl p-5 shadow-sm">
                     <h2 class="text-lg font-bold mb-4 text-slate-800">住宿清單</h2>
                     <div class="space-y-4">
-                        <!-- Hotel 1 -->
                         <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 relative filterable-item" data-group="A">
                             <div class="absolute top-4 right-4 text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded">A組 1晚</div>
                             <h3 class="font-bold text-slate-800 pr-16 text-sm">名古屋新幹線口大和ROYNET</h3>
                             <p class="text-xs text-slate-500 mt-1">Daiwa Roynet Hotel Nagoya</p>
                             <p class="text-xs mt-2 text-slate-600"><i class="fa-regular fa-calendar mr-1"></i> 2/12 入住</p>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Daiwa+Roynet+Hotel+Nagoya+Taiko+Dori+Side" target="_blank" class="mt-3 block w-full bg-white border border-slate-200 text-slate-600 text-xs font-bold py-2 rounded text-center">
-                                <i class="fa-solid fa-location-dot mr-1 text-red-500"></i> 開啟地圖
-                            </a>
                         </div>
 
-                        <!-- Hotel 2 -->
                         <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 relative filterable-item" data-group="A">
                             <div class="absolute top-4 right-4 text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded">A組 3晚</div>
                             <h3 class="font-bold text-slate-800 pr-16 text-sm">Tokyu Stay 飛驒高山 結之湯</h3>
                             <p class="text-xs text-slate-500 mt-1">Tokyu Stay Hida Takayama</p>
                             <p class="text-xs mt-2 text-slate-600"><i class="fa-regular fa-calendar mr-1"></i> 2/13 ~ 2/16</p>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Tokyu+Stay+Hida+Takayama+Musubinoyu" target="_blank" class="mt-3 block w-full bg-white border border-slate-200 text-slate-600 text-xs font-bold py-2 rounded text-center">
-                                <i class="fa-solid fa-location-dot mr-1 text-red-500"></i> 開啟地圖
-                            </a>
                         </div>
 
-                        <!-- Hotel 3 -->
                         <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 relative filterable-item">
                             <div class="absolute top-4 right-4 text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded">全員合宿</div>
                             <h3 class="font-bold text-slate-800 pr-20 text-sm">名古屋名站南舒適飯店</h3>
                             <p class="text-xs text-slate-500 mt-1">Comfort Hotel Nagoya Meiekiminami</p>
                             <div class="mt-2 text-xs space-y-1 text-slate-600">
+                                <p><span class="text-orange-500 font-bold">C組</span> 2/16入住 (5晚)</p>
                                 <p><span class="text-blue-600 font-bold">A組</span> 2/16入住 (5晚)</p>
                                 <p><span class="text-emerald-600 font-bold">B組</span> 2/17入住 (4晚)</p>
                             </div>
@@ -516,94 +482,53 @@
                 </div>
             </div>
 
-            <!-- TAB 4: 準備 (PREP/INFO) -->
             <div id="tab-info" class="tab-content space-y-4">
-                
-                <!-- Weather Widget -->
-                <div class="bg-white rounded-2xl p-5 shadow-sm">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-lg font-bold flex items-center text-slate-800">
-                            <i class="fa-solid fa-cloud-sun mr-2 text-sky-500"></i> 旅程天氣預報
-                        </h2>
-                        <span id="forecast-status" class="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-full">歷史均溫</span>
-                    </div>
-                    <div class="flex overflow-x-auto space-x-3 pb-2 no-scrollbar" id="weather-container">
-                        <div class="w-full text-center py-4 text-slate-400 text-sm">載入中...</div>
-                    </div>
-                    <div class="mt-2 text-[10px] text-slate-400 text-center">
-                        *出發前7-14天將自動切換為真實預報
-                    </div>
-                </div>
-
-                <!-- Notes -->
                 <div class="bg-slate-800 text-white rounded-2xl p-5 shadow-lg">
                     <h2 class="text-lg font-bold mb-4 flex items-center">
                         <i class="fa-solid fa-triangle-exclamation mr-2 text-yellow-400"></i> 重要備忘錄
                     </h2>
                     <div class="space-y-4 text-sm">
-                        <div class="flex items-start filterable-item">
-                            <div class="bg-white/10 p-2 rounded mr-3 shrink-0">
-                                <i class="fa-solid fa-shoe-prints text-blue-300"></i>
-                            </div>
-                            <div>
-                                <div class="font-bold text-blue-200">鞋類穿著</div>
-                                <p class="opacity-80 text-xs mt-1">高山、合掌村、牧歌之里為雪地，務必穿著<span class="text-yellow-300 font-bold">防滑防水靴子</span>。</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start filterable-item" data-group="B">
+                        <div class="flex items-start filterable-item multi-group" data-groups="B,C">
                             <div class="bg-white/10 p-2 rounded mr-3 shrink-0">
                                 <i class="fa-solid fa-users-viewfinder text-emerald-300"></i>
                             </div>
                             <div>
-                                <div class="font-bold text-emerald-200">D7 B組集合注意</div>
+                                <div class="font-bold text-emerald-200">B/C組 D7集合注意</div>
                                 <p class="opacity-80 text-xs mt-1">Comfort Hotel 在車站東南側，集合點在西口。步行穿越車站需 <span class="text-yellow-300 font-bold">20 分鐘</span>。</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="text-center text-slate-400 text-xs pt-4">
-                    祝旅途愉快，平安順利！
-                </div>
+                <div class="text-center text-slate-400 text-xs pt-4">祝旅途愉快！</div>
             </div>
 
         </div>
     </main>
 
-    <!-- Bottom Navigation Bar -->
     <nav class="bg-white border-t border-slate-200 fixed bottom-0 w-full z-50 pb-safe">
         <div class="relative flex justify-around items-center h-16 max-w-3xl mx-auto">
-            <!-- Indicator Line -->
             <div id="nav-indicator" class="nav-indicator"></div>
-
             <button onclick="switchTab('itinerary', 0)" class="nav-item active flex-1 flex flex-col items-center justify-center h-full text-slate-400">
-                <i class="fa-solid fa-list-check text-xl mb-1"></i>
-                <span class="text-[10px] font-bold">行程</span>
+                <i class="fa-solid fa-list-check text-xl mb-1"></i><span class="text-[10px] font-bold">行程</span>
             </button>
             <button onclick="switchTab('flights', 1)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400">
-                <i class="fa-solid fa-plane text-xl mb-1"></i>
-                <span class="text-[10px] font-bold">航班</span>
+                <i class="fa-solid fa-plane text-xl mb-1"></i><span class="text-[10px] font-bold">航班</span>
             </button>
             <button onclick="switchTab('hotels', 2)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400">
-                <i class="fa-solid fa-bed text-xl mb-1"></i>
-                <span class="text-[10px] font-bold">住宿</span>
+                <i class="fa-solid fa-bed text-xl mb-1"></i><span class="text-[10px] font-bold">住宿</span>
             </button>
             <button onclick="switchTab('info', 3)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400">
-                <i class="fa-solid fa-suitcase text-xl mb-1"></i>
-                <span class="text-[10px] font-bold">準備</span>
+                <i class="fa-solid fa-suitcase text-xl mb-1"></i><span class="text-[10px] font-bold">準備</span>
             </button>
         </div>
     </nav>
 
-    <!-- Scripts -->
     <script>
         let currentFilterGroup = 'ALL';
-
-        // Filter Logic
+        
         function filterGroup(group) {
             currentFilterGroup = group;
-            const items = document.querySelectorAll('.filterable-item'); // Using the common class
-            const weatherCards = document.querySelectorAll('.weather-card');
+            const items = document.querySelectorAll('.filterable-item');
             
             // Sync UI Buttons
             const btns = document.querySelectorAll('.filter-btn');
@@ -611,43 +536,45 @@
                 btn.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
                 btn.classList.add('text-slate-500');
             });
-            
-            const activeBtnId = group === 'ALL' ? 'btn-all' : (group === 'A' ? 'btn-a' : 'btn-b');
+            const activeBtnId = 'btn-' + group.toLowerCase();
             const activeBtn = document.getElementById(activeBtnId);
             if(activeBtn) {
                 activeBtn.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
                 activeBtn.classList.remove('text-slate-500');
             }
 
-            // Logic for Items (Itinerary, Flight, Hotel, Notes)
+            // Filter Logic
             items.forEach(item => {
                 const itemGroup = item.getAttribute('data-group');
+                const multiGroups = item.getAttribute('data-groups'); // e.g., "A,B"
                 
+                let isVisible = false;
+
                 if (group === 'ALL') {
-                    item.classList.remove('hidden-item');
+                    isVisible = true;
                 } else {
-                    // Show item if it has matching group OR no group (common items)
-                    if (!itemGroup || itemGroup === group) {
-                        item.classList.remove('hidden-item');
-                    } else {
-                        item.classList.add('hidden-item');
+                    // 1. Single Group Match
+                    if (itemGroup === group) {
+                        isVisible = true;
+                    }
+                    // 2. Multi Group Match (e.g. A+B)
+                    else if (multiGroups && multiGroups.includes(group)) {
+                        isVisible = true;
+                    }
+                    // 3. No specific group (Common items)
+                    else if (!itemGroup && !multiGroups) {
+                        isVisible = true;
                     }
                 }
-            });
 
-            // Logic for Weather Cards
-            weatherCards.forEach(card => {
-                const cardGroup = card.getAttribute('data-group');
-                // B group should NOT see 'A' only days (D1-D5)
-                if (group === 'B' && cardGroup === 'A') {
-                    card.classList.add('hidden-item');
+                if (isVisible) {
+                    item.classList.remove('hidden-item');
                 } else {
-                    card.classList.remove('hidden-item');
+                    item.classList.add('hidden-item');
                 }
             });
         }
 
-        // Tab Switching Logic
         function switchTab(tabId, index) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.getElementById(`tab-${tabId}`).classList.add('active');
@@ -661,114 +588,9 @@
             document.getElementById('main-scroll').scrollTop = 0;
         }
 
-        // Weather Logic
-        const weatherCodes = {
-            0: { text: "晴天", icon: "fa-sun", color: "text-orange-500" },
-            1: { text: "多雲", icon: "fa-cloud-sun", color: "text-orange-400" },
-            2: { text: "多雲", icon: "fa-cloud", color: "text-slate-400" },
-            3: { text: "陰天", icon: "fa-cloud", color: "text-slate-500" },
-            45: { text: "霧", icon: "fa-smog", color: "text-slate-400" },
-            51: { text: "小雨", icon: "fa-cloud-rain", color: "text-blue-400" },
-            53: { text: "中雨", icon: "fa-cloud-rain", color: "text-blue-500" },
-            61: { text: "下雨", icon: "fa-cloud-showers-heavy", color: "text-blue-600" },
-            71: { text: "下雪", icon: "fa-snowflake", color: "text-sky-400" },
-            73: { text: "中雪", icon: "fa-snowflake", color: "text-sky-500" },
-            75: { text: "大雪", icon: "fa-snowflake", color: "text-sky-600" },
-            95: { text: "雷雨", icon: "fa-bolt", color: "text-yellow-500" },
-        };
-
-        const tripDates = [
-            { date: '2026-02-12', label: '2/12', day: 'D1', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 1, histHigh: 9, histCode: 1 },
-            { date: '2026-02-13', label: '2/13', day: 'D2', loc: 'Takayama', name: '高山', lat: 36.14, long: 137.25, histLow: -5, histHigh: 4, histCode: 71 },
-            { date: '2026-02-14', label: '2/14', day: 'D3', loc: 'Takayama', name: '新穗高', lat: 36.28, long: 137.57, histLow: -8, histHigh: 0, histCode: 75 },
-            { date: '2026-02-15', label: '2/15', day: 'D4', loc: 'Takayama', name: '合掌村', lat: 36.25, long: 136.90, histLow: -6, histHigh: 2, histCode: 71 },
-            { date: '2026-02-16', label: '2/16', day: 'D5', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 1, histHigh: 9, histCode: 2 },
-            { date: '2026-02-17', label: '2/17', day: 'D6', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 2, histHigh: 10, histCode: 1 },
-            { date: '2026-02-18', label: '2/18', day: 'D7', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 2, histHigh: 11, histCode: 1 },
-            { date: '2026-02-19', label: '2/19', day: 'D8', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 3, histHigh: 11, histCode: 1 },
-            { date: '2026-02-20', label: '2/20', day: 'D9', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 2, histHigh: 10, histCode: 2 },
-            { date: '2026-02-21', label: '2/21', day: 'D10', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 2, histHigh: 10, histCode: 3 }
-        ];
-
-        async function initWeather() {
-            const container = document.getElementById('weather-container');
-            const statusLabel = document.getElementById('forecast-status');
-            container.innerHTML = '';
-
-            const today = new Date();
-            let usedLive = false;
-
-            for (const item of tripDates) {
-                const tripDateObj = new Date(item.date);
-                const diffTime = tripDateObj - today;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                let low = item.histLow;
-                let high = item.histHigh;
-                let code = item.histCode;
-                let isLive = false;
-
-                if (diffDays >= 0 && diffDays <= 14) {
-                    try {
-                        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${item.lat}&longitude=${item.long}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=${item.date}&end_date=${item.date}`);
-                        const data = await response.json();
-                        if (data.daily) {
-                            low = Math.round(data.daily.temperature_2m_min[0]);
-                            high = Math.round(data.daily.temperature_2m_max[0]);
-                            code = data.daily.weather_code[0];
-                            isLive = true;
-                            usedLive = true;
-                        }
-                    } catch (e) { console.log("API fail"); }
-                }
-
-                const weatherInfo = weatherCodes[code] || { text: "未知", icon: "fa-question", color: "text-slate-400" };
-                const borderColor = item.loc === 'Takayama' ? 'border-blue-200 bg-blue-50' : 'border-orange-100 bg-orange-50';
-                
-                // Determine group for filtering weather cards
-                const isGroupAOnly = (item.day === 'D1' || item.day === 'D2' || item.day === 'D3' || item.day === 'D4' || item.day === 'D5');
-                const groupAttr = isGroupAOnly ? 'A' : 'ALL';
-
-                const card = document.createElement('div');
-                card.className = `flex-none w-28 p-3 rounded-xl border ${borderColor} flex flex-col items-center justify-between snap-center weather-card`;
-                card.setAttribute('data-group', groupAttr); // Add data attribute
-                
-                card.innerHTML = `
-                    <div class="text-xs font-bold text-slate-500">${item.label} <span class="opacity-50">(${item.day})</span></div>
-                    <div class="font-bold text-sm text-slate-700 my-1">${item.name}</div>
-                    <div class="text-2xl ${weatherInfo.color} my-1"><i class="fa-solid ${weatherInfo.icon}"></i></div>
-                    <div class="text-xs font-medium text-slate-600">${low}° ~ ${high}°</div>
-                    ${isLive ? '<div class="text-[9px] bg-red-100 text-red-600 px-1.5 rounded mt-1">Live</div>' : ''}
-                `;
-                container.appendChild(card);
-            }
-            if (usedLive) {
-                const statusLabel = document.getElementById('forecast-status');
-                statusLabel.innerText = "即時預報更新中";
-                statusLabel.className = "text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded-full font-bold animate-pulse";
-            }
-            
-            // Re-apply filter after generation to ensure consistent state
-            filterGroup(currentFilterGroup);
-        }
-
         // Init
         document.addEventListener('DOMContentLoaded', () => {
-            initWeather();
-            
-            // Auto-switch based on URL parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const groupParam = urlParams.get('group');
-            
-            let initialGroup = 'ALL';
-            if (groupParam) {
-                const upperGroup = groupParam.toUpperCase();
-                if (['A', 'B'].includes(upperGroup)) {
-                    initialGroup = upperGroup;
-                }
-            }
-            
-            filterGroup(initialGroup);
+            filterGroup('ALL');
         });
     </script>
 </body>
