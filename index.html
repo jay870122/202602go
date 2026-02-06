@@ -663,6 +663,29 @@
     </nav>
 
     <script>
+        function autoFilterFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userParam = urlParams.get('user'); // 取得網址中 user 參數的值
+        
+            if (userParam) {
+                // 定義參數值與組別代碼的對應關係
+                const userMap = {
+                    '暐傑': 'A',
+                    '偉庭': 'B',
+                    '梅玉': 'C'
+                };
+        
+                const groupCode = userMap[userParam];
+                if (groupCode) {
+                    // 呼叫網頁原有的 filterGroup 函數進行切換
+                    filterGroup(groupCode);
+                    console.log(`已自動切換至 ${userParam} (組別 ${groupCode})`);
+                }
+            }
+        }
+        
+        // 確保在 DOM 載入後執行
+        document.addEventListener('DOMContentLoaded', autoFilterFromUrl);
         let currentFilterGroup = 'ALL';
         
         function filterGroup(group) {
