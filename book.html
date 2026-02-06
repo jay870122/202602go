@@ -48,9 +48,9 @@
             border: 1px solid #cbd5e1; 
             border-left: 5px solid #3b82f6; 
             border-radius: 6px; 
-            padding: 6px 12px; 
+            padding: 6px 8px; 
             margin-bottom: 6px; 
-            font-size: 10pt; /* Increased from 8pt */
+            font-size: 9.5pt;
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -58,8 +58,9 @@
         }
         .flight-card.return { border-left-color: #7c3aed; }
         .flight-card.group-b { border-left-color: #10b981; }
+        .flight-card.group-c { border-left-color: #f97316; }
         .flight-label { font-size: 8pt; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; }
-        .flight-time { font-family: 'Oswald', sans-serif; font-size: 12pt; color: #0f172a; font-weight: 600; }
+        .flight-time { font-family: 'Oswald', sans-serif; font-size: 11pt; color: #0f172a; font-weight: 600; }
 
         /* Accommodation Table - Larger */
         .hotel-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: 10pt; /* Increased */ }
@@ -79,6 +80,43 @@
         .t-time { font-family: 'Oswald', sans-serif; color: #1e3a8a; font-weight: 600; width: 36px; flex-shrink: 0; font-size: 9pt; text-align: right; margin-right: 8px; }
         .t-text { flex-grow: 1; line-height: 1.35; }
         .t-text strong { color: #0f172a; font-weight: 700; }
+
+        /* Ticket Info Box */
+        .ticket-info {
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 6px;
+            padding: 8px 10px;
+            margin-top: 5px;
+            margin-bottom: 8px;
+            font-size: 9pt;
+        }
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 8pt;
+            margin-bottom: 4px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2px;
+        }
+        .ticket-res { font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; }
+        .ticket-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #334155;
+        }
+        .ticket-seat {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 8.5pt;
+            color: #1e3a8a;
+            font-weight: bold;
+        }
 
         /* Visual Elements */
         .img-square { 
@@ -184,8 +222,9 @@
         <!-- Group Filters -->
         <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 15px; background: #374151; padding: 5px; border-radius: 8px; display: inline-flex;">
             <button onclick="setGroup('ALL')" id="btn-all" style="padding: 6px 15px; background: #3b82f6; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">全員 (ALL)</button>
-            <button onclick="setGroup('A')" id="btn-a" style="padding: 6px 15px; background: transparent; color: #9ca3af; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">只看 A 組</button>
-            <button onclick="setGroup('B')" id="btn-b" style="padding: 6px 15px; background: transparent; color: #9ca3af; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">只看 B 組</button>
+            <button onclick="setGroup('A')" id="btn-a" style="padding: 6px 15px; background: transparent; color: #9ca3af; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">A 組 (暐/嘟)</button>
+            <button onclick="setGroup('B')" id="btn-b" style="padding: 6px 15px; background: transparent; color: #9ca3af; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">B 組 (偉/明)</button>
+            <button onclick="setGroup('C')" id="btn-c" style="padding: 6px 15px; background: transparent; color: #9ca3af; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">C 組 (梅/君)</button>
         </div>
 
         <div style="display: flex; justify-content: center; gap: 10px; border-top: 1px solid #374151; padding-top: 10px;">
@@ -206,7 +245,7 @@
             <div class="eng-title">NAGOYA & HOKURIKU TRAVEL GUIDE</div>
             <h1>2026 名古屋・北陸<br><span style="font-size: 16pt; color: #64748b; font-weight: 300; display: block; margin-top: 5px;">Winter Journey in Japan</span></h1>
             <div style="display: inline-block; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; padding: 4px 20px; margin-top: 10px; color: #475569; font-size: 8.5pt; letter-spacing: 1px;">
-                2026.02.12 - 02.21 &nbsp;•&nbsp; 10 DAYS &nbsp;•&nbsp; 6 PEOPLE
+                2026.02.12 - 02.21 &nbsp;•&nbsp; 10 DAYS &nbsp;•&nbsp; 8 PEOPLE
             </div>
         </div>
 
@@ -217,10 +256,10 @@
 
         <!-- Flight Section -->
         <h2 style="margin-top: 0;"><i class="fa-solid fa-plane-departure mr-2"></i> FLIGHTS 航班資訊</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
             <div class="flight-card group-a-content">
                 <div>
-                    <div class="flight-label">A組 (先發) • 2/12 (四)</div>
+                    <div class="flight-label">A組 (2/12)</div>
                     <div class="flight-time">SL1398</div>
                 </div>
                 <div style="text-align: right;">
@@ -228,9 +267,19 @@
                     <div style="font-size:8.5pt; color:#64748b;">13:00 NGO</div>
                 </div>
             </div>
+            <div class="flight-card group-c group-c-content">
+                <div>
+                    <div class="flight-label" style="color: #ea580c;">C組 (2/16)</div>
+                    <div class="flight-time">MM722</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size:8.5pt; color:#64748b;">02:55 TPE</div>
+                    <div style="font-size:8.5pt; color:#64748b;">06:25 NGO</div>
+                </div>
+            </div>
             <div class="flight-card group-b group-b-content">
                 <div>
-                    <div class="flight-label" style="color: #059669;">B組 (增援) • 2/17 (二)</div>
+                    <div class="flight-label" style="color: #059669;">B組 (2/17)</div>
                     <div class="flight-time">SL1398</div>
                 </div>
                 <div style="text-align: right;">
@@ -288,7 +337,7 @@
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <div>
                             <strong style="color:#7e22ce;">名站南 Comfort Hotel</strong>
-                            <div style="color:#64748b; font-size:8pt;">Nagoya Meiekiminami • A(5晚) / B(4晚)</div>
+                            <div style="color:#64748b; font-size:8pt;">Nagoya Meiekiminami • A(5)/C(5)/B(4)</div>
                         </div>
                         <div class="qr-wrapper">
                             <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://maps.app.goo.gl/uX8xJ"></div>
@@ -374,6 +423,23 @@
                 <div style="flex:1;">
                     <h3>前進高山</h3>
                     <div class="timeline-item"><span class="t-time">上午</span> <span class="t-text">搭乘 <b>JR 飛驒號</b> (Hida) 前往高山</span></div>
+                    
+                    <!-- Ticket Info Block -->
+                    <div class="ticket-info">
+                        <div class="ticket-header">
+                            <span><i class="fa-solid fa-ticket mr-1"></i> JR 指定席 (去程)</span>
+                            <span class="ticket-res">Res: 43305</span>
+                        </div>
+                        <div class="ticket-detail">
+                            <span><i class="fa-solid fa-train mr-1"></i> Hida 9</span>
+                            <span>11:43 NGO ➔ 14:14 TAKAYAMA</span>
+                        </div>
+                        <div class="ticket-detail" style="margin-top:4px;">
+                            <span style="font-size:8.5pt; color:#64748b;">Car 2</span>
+                            <span class="ticket-seat">Seat 2C / 2D</span>
+                        </div>
+                    </div>
+
                     <div class="timeline-item"><span class="t-time">14:00</span> <span class="t-text">飯店寄放行李</span></div>
                     <div class="timeline-item"><span class="t-time">15:00</span> <span class="t-text"><b>高山老街散策</b> (三之町)：飛驒牛握壽司</span></div>
                     <div class="timeline-item"><span class="t-time">18:00</span> <span class="t-text">晚餐：<b>飛驒牛燒肉</b> (記得預約)</span></div>
@@ -422,6 +488,34 @@
                 <div style="flex:1;">
                     <h3>白川鄉合掌村</h3>
                     <div class="timeline-item"><span class="t-time">上午</span> <span class="t-text">搭巴士前往白川鄉</span></div>
+                    
+                    <!-- Bus Ticket Info Block -->
+                    <div class="ticket-info">
+                        <div class="ticket-header">
+                            <span><i class="fa-solid fa-bus mr-1"></i> 濃飛巴士 (往返預約)</span>
+                        </div>
+                        <!-- Outbound -->
+                        <div style="border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px; margin-bottom: 4px;">
+                            <div class="ticket-detail">
+                                <span><span style="font-size:8pt; color:#64748b;">去程</span> 11:20 高山 ➔ 12:10 白川鄉</span>
+                            </div>
+                            <div class="ticket-detail">
+                                <span class="ticket-res" style="font-size:7.5pt; color:#94a3b8;">Res: 01192042001</span>
+                                <span class="ticket-seat">Seat 10C / 10D</span>
+                            </div>
+                        </div>
+                        <!-- Inbound -->
+                        <div>
+                            <div class="ticket-detail">
+                                <span><span style="font-size:8pt; color:#64748b;">回程</span> 17:25 白川鄉 ➔ 18:15 高山</span>
+                            </div>
+                            <div class="ticket-detail">
+                                <span class="ticket-res" style="font-size:7.5pt; color:#94a3b8;">Res: 01192042061</span>
+                                <span class="ticket-seat">Seat 6C / 8C</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="timeline-item"><span class="t-time">11:00</span> <span class="t-text"><b>城山展望台</b>：俯瞰童話村落全景</span></div>
                     <div class="timeline-item"><span class="t-time">12:30</span> <span class="t-text">村落散步、參觀和田家</span></div>
                     <div class="timeline-item"><span class="t-time">16:00</span> <span class="t-text">返回高山住宿</span></div>
@@ -445,7 +539,7 @@
         <h2 style="margin-top:0;"><span class="section-badge" style="background:#7e22ce;">全員</span> 會合與分進合擊</h2>
 
         <!-- D5 -->
-        <div class="day-container group-a-content">
+        <div class="day-container">
             <div class="day-sidebar">
                 <div class="day-circle">D5</div>
                 <div class="day-date-label">2/16</div>
@@ -453,10 +547,38 @@
             </div>
             <div class="day-content" style="display:flex; gap:12px;">
                 <div style="flex:1;">
-                    <h3>A組：返回名古屋</h3>
-                    <div class="timeline-item"><span class="t-time">08:00</span> <span class="t-text"><b>宮川朝市</b> 體驗在地美食</span></div>
-                    <div class="timeline-item"><span class="t-time">10:30</span> <span class="t-text">搭乘 JR 飛驒號返回名古屋</span></div>
-                    <div class="timeline-item"><span class="t-time">14:00</span> <span class="t-text" style="color:#e11d48; font-weight:bold;">[換飯店] 移動至名站南 Comfort Hotel</span></div>
+                    <!-- A Group -->
+                    <div class="group-a-content">
+                        <h3>A組：返回名古屋</h3>
+                        <div class="timeline-item"><span class="t-time">08:00</span> <span class="t-text"><b>宮川朝市</b> 體驗在地美食</span></div>
+                        <div class="timeline-item"><span class="t-time">10:30</span> <span class="t-text">搭乘 JR 飛驒號返回名古屋</span></div>
+                        
+                        <!-- Ticket Info Block -->
+                        <div class="ticket-info">
+                            <div class="ticket-header">
+                                <span><i class="fa-solid fa-ticket mr-1"></i> JR 指定席 (回程)</span>
+                                <span class="ticket-res">Res: 48630</span>
+                            </div>
+                            <div class="ticket-detail">
+                                <span><i class="fa-solid fa-train mr-1"></i> Hida 12</span>
+                                <span>13:35 TAKAYAMA ➔ 16:09 NGO</span>
+                            </div>
+                            <div class="ticket-detail" style="margin-top:4px;">
+                                <span style="font-size:8.5pt; color:#64748b;">Car 6</span>
+                                <span class="ticket-seat">Seat 2C / 2D</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- C Group -->
+                    <div class="group-c-content" style="margin-top: 10px; padding-top:10px; border-top:1px dashed #fed7aa;">
+                        <h3 style="color:#ea580c;">C組：抵達與會合</h3>
+                        <div class="timeline-item"><span class="t-time">06:25</span> <span class="t-text">MM722 抵達名古屋中部機場</span></div>
+                        <div class="timeline-item"><span class="t-time">上午</span> <span class="t-text">前往市區 / 飯店寄放行李</span></div>
+                        <div class="timeline-item"><span class="t-time">19:00</span> <span class="t-text">晚上與 A 組會合</span></div>
+                    </div>
+
+                    <div class="timeline-item"><span class="t-time">14:00</span> <span class="t-text" style="color:#e11d48; font-weight:bold;">[入住] 移動至名站南 Comfort Hotel</span></div>
                 </div>
                 <div class="qr-wrapper">
                     <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://goo.gl/maps/MiyagawaMarket"></div>
@@ -475,6 +597,7 @@
             <div class="day-content" style="background: #faf5ff; border: 1px solid #e9d5ff;">
                 <h3 style="color:#7e22ce;">感動會合日！</h3>
                 <div class="timeline-item group-a-content"><span class="t-time" style="color:#2563eb;">A組</span> <span class="t-text">上午補眠 / 榮商圈逛街</span></div>
+                <div class="timeline-item group-c-content"><span class="t-time" style="color:#ea580c;">C組</span> <span class="t-text">市區自由活動</span></div>
                 <div class="timeline-item group-b-content"><span class="t-time" style="color:#059669;">B組</span> <span class="t-text">13:00 抵達機場 ➔ 15:00 飯店 Check-in</span></div>
                 <div style="margin: 8px 0; border-top: 1px dashed #d8b4fe;"></div>
                 <div class="timeline-item"><span class="t-time">16:00</span> <span class="t-text"><b style="color:#7e22ce;">★ 全員集合</b> (於飯店或榮商圈)</span></div>
@@ -506,11 +629,11 @@
                     </div>
                 </div>
 
-                <!-- B Group -->
-                <div class="group-b-content" style="background: #ecfdf5; padding: 10px 12px; border-left: 4px solid #10b981; border-radius:0 4px 4px 0;">
+                <!-- B & C Group -->
+                <div class="group-b-content group-c-content" style="background: #ecfdf5; padding: 10px 12px; border-left: 4px solid #10b981; border-radius:0 4px 4px 0;">
                     <div style="display:flex; justify-content:space-between;">
                         <div style="flex:1;">
-                            <div style="font-weight:bold; color:#047857; font-size:10pt; margin-bottom:6px;">[B組] 合掌村 & 牧歌之里 (一日遊)</div>
+                            <div style="font-weight:bold; color:#047857; font-size:10pt; margin-bottom:6px;">[B & C組] 合掌村 & 牧歌之里 (一日遊)</div>
                             <div class="timeline-item" style="margin-bottom:2px;">
                                 <span class="t-time" style="color:#b91c1c;">07:50</span> 
                                 <span class="t-text"><b>集合：太閣通口 (西口交番)</b></span>
@@ -551,13 +674,23 @@
                     <img id="img-d8" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Satsuki_and_Mei%27s_House.jpg/640px-Satsuki_and_Mei%27s_House.jpg">
                 </div>
                 <div style="flex:1;">
-                    <h3>吉卜力公園 (Ghibli Park)</h3>
-                    <div style="background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; font-size:9pt; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:8px;">
-                        <i class="fa-solid fa-check"></i> 已預約
+                    <!-- A & B Group -->
+                    <div class="group-a-content group-b-content">
+                        <h3>吉卜力公園 (A & B組)</h3>
+                        <div style="background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; font-size:9pt; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:8px;">
+                            <i class="fa-solid fa-check"></i> 已預約
+                        </div>
+                        <div class="timeline-item"><span class="t-time">區域</span> <span class="t-text">吉卜力大倉庫 / 青春之丘</span></div>
+                        <div class="timeline-item"><span class="t-time">交通</span> <span class="t-text">地鐵 + 磁浮列車 (Linimo)</span></div>
                     </div>
-                    <div class="timeline-item"><span class="t-time">區域</span> <span class="t-text">吉卜力大倉庫 / 青春之丘</span></div>
-                    <div class="timeline-item"><span class="t-time">交通</span> <span class="t-text">地鐵 + 磁浮列車 (Linimo)</span></div>
-                    <div class="timeline-item"><span class="t-time">晚餐</span> <span class="t-text">豪華慶功宴 (和牛涮涮鍋或壽司)</span></div>
+                    
+                    <!-- C Group -->
+                    <div class="group-c-content" style="margin-top:10px; border-top:1px dashed #e2e8f0; padding-top:8px;">
+                        <h3 style="color:#ea580c;">市區觀光 (C組)</h3>
+                        <div class="timeline-item"><span class="t-time">全日</span> <span class="t-text">大須觀音 / 榮町購物 / 電視塔</span></div>
+                    </div>
+
+                    <div class="timeline-item" style="margin-top:8px;"><span class="t-time">晚餐</span> <span class="t-text">豪華慶功宴 (和牛涮涮鍋或壽司)</span></div>
                 </div>
                 <div style="display:flex; flex-direction:column; gap:8px;">
                     <div class="qr-wrapper" style="margin-left:0;">
@@ -808,20 +941,31 @@
             document.getElementById('btn-b').style.background = group === 'B' ? '#3b82f6' : 'transparent';
             document.getElementById('btn-b').style.color = group === 'B' ? 'white' : '#9ca3af';
 
+            document.getElementById('btn-c').style.background = group === 'C' ? '#3b82f6' : 'transparent';
+            document.getElementById('btn-c').style.color = group === 'C' ? 'white' : '#9ca3af';
+
             // Show/Hide Content
             const aContent = document.querySelectorAll('.group-a-content');
             const bContent = document.querySelectorAll('.group-b-content');
+            const cContent = document.querySelectorAll('.group-c-content');
             const pageMountain = document.getElementById('page-mountain');
 
             // Reset
             aContent.forEach(el => el.classList.remove('hidden-layout'));
             bContent.forEach(el => el.classList.remove('hidden-layout'));
+            cContent.forEach(el => el.classList.remove('hidden-layout'));
             pageMountain.classList.remove('hidden-layout');
 
             if (group === 'A') {
                 bContent.forEach(el => el.classList.add('hidden-layout'));
+                cContent.forEach(el => el.classList.add('hidden-layout'));
             } else if (group === 'B') {
                 aContent.forEach(el => el.classList.add('hidden-layout'));
+                cContent.forEach(el => el.classList.add('hidden-layout'));
+                pageMountain.classList.add('hidden-layout'); // Entire Page 2
+            } else if (group === 'C') {
+                aContent.forEach(el => el.classList.add('hidden-layout'));
+                bContent.forEach(el => el.classList.add('hidden-layout'));
                 pageMountain.classList.add('hidden-layout'); // Entire Page 2
             }
 
