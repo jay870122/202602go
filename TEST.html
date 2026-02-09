@@ -74,12 +74,17 @@
         <div class="max-w-3xl mx-auto p-4 min-h-full">
 
             <div class="sticky top-0 z-40 bg-slate-100 pb-4 pt-1 mb-2">
-                <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500 overflow-x-auto no-scrollbar">
-                    <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition bg-slate-100 text-slate-800 shadow-sm whitespace-nowrap" id="btn-all">全員視角</button>
-                    <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-a"><span class="text-blue-600">暐傑與嘟嘟</span></button>
-                    <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-b"><span class="text-emerald-600">偉庭與明娟</span></button>
-                    <button onclick="filterGroup('C')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-c"><span class="text-orange-500">梅玉與均穎</span></button>
-                </div>
+<div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500 overflow-x-auto no-scrollbar">
+    <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition bg-slate-100 text-slate-800 shadow-sm whitespace-nowrap" id="btn-all">
+        全員視角
+    </button>
+    <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-a">
+        <span class="text-blue-600">暐傑與嘟嘟</span> </button>
+    <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-b">
+        <span class="text-emerald-600">偉庭與明娟</span> </button>
+    <button onclick="filterGroup('C')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-c">
+        <span class="text-orange-500">梅玉與均穎</span> </button>
+</div>
             </div>
 
             <div id="tab-itinerary" class="tab-content active space-y-6">
@@ -432,62 +437,73 @@
     }
 
     // 5. 篩選功能
-    function filterGroup(group) {
-        currentFilterGroup = group;
-        const items = document.querySelectorAll('.filterable-item');
+function filterGroup(group) {
+    currentFilterGroup = group;
+    const items = document.querySelectorAll('.filterable-item');
 
-        // Sync UI Buttons
-        const btns = document.querySelectorAll('.filter-btn');
-        btns.forEach(btn => {
-            btn.classList.remove('bg-slate-100', 'shadow-sm', 'text-slate-800');
-            btn.classList.add('text-slate-500', 'hover:bg-slate-50');
-        });
-        const activeBtnId = 'btn-' + group.toLowerCase();
-        const activeBtn = document.getElementById(activeBtnId);
-        if(activeBtn) {
-            activeBtn.classList.add('bg-slate-100', 'shadow-sm', 'text-slate-800');
-            activeBtn.classList.remove('text-slate-500', 'hover:bg-slate-50');
-        }
-
-        // Update Header Date
-        const headerDate = document.getElementById('header-date');
-        const dateTexts = {
-            'ALL': '2/12 (四) ~ 2/21 (六)｜共 10 天',
-            'A': '2/12 (四) ~ 2/21 (六)｜共 10 天',
-            'B': '2/17 (二) ~ 2/21 (六)｜共 5 天',
-            'C': '2/16 (一) ~ 2/21 (六)｜共 6 天'
-        };
-        if(headerDate && dateTexts[group]) {
-            headerDate.innerText = dateTexts[group];
-        }
-
-        // Filter Logic
-        items.forEach(item => {
-            const itemGroup = item.getAttribute('data-group');
-            const multiGroups = item.getAttribute('data-groups'); 
-            
-            let isVisible = false;
-            if (group === 'ALL') {
-                isVisible = true;
-            } else {
-                if (!itemGroup && !multiGroups) {
-                    isVisible = true;
-                }
-                else if (itemGroup === group) {
-                    isVisible = true;
-                }
-                else if (multiGroups && multiGroups.includes(group)) {
-                    isVisible = true;
-                }
-            }
-
-            if (isVisible) {
-                item.classList.remove('hidden-item');
-            } else {
-                item.classList.add('hidden-item');
-            }
-        });
+    // 1. 更新按鈕樣式 (維持不變)
+    const btns = document.querySelectorAll('.filter-btn');
+    btns.forEach(btn => {
+        btn.classList.remove('bg-slate-100', 'shadow-sm', 'text-slate-800');
+        btn.classList.add('text-slate-500', 'hover:bg-slate-50');
+    });
+    const activeBtnId = 'btn-' + group.toLowerCase();
+    const activeBtn = document.getElementById(activeBtnId);
+    if(activeBtn) {
+        activeBtn.classList.add('bg-slate-100', 'shadow-sm', 'text-slate-800');
+        activeBtn.classList.remove('text-slate-500', 'hover:bg-slate-50');
     }
+
+    // 2. 更新標題日期 (這裡可以根據名字設定不同天數)
+    const headerDate = document.getElementById('header-date');
+    const dateTexts = {
+        'ALL': '2/12 (四) ~ 2/21 (六)｜共 10 天',
+        'A': '2/12 (四) ~ 2/21 (六)｜暐傑與嘟嘟',
+        'B': '2/17 (二) ~ 2/21 (六)｜偉庭與明娟',
+        'C': '2/16 (一) ~ 2/21 (六)｜梅玉與均穎'
+    };
+    if(headerDate && dateTexts[group]) {
+        headerDate.innerText = dateTexts[group];
+    }
+
+    // 3. 核心篩選邏輯 (修改重點！)
+    items.forEach(item => {
+        // 取得該項目的群組設定
+        // data-group 是單一群組 (舊版相容)
+        // data-groups 是多群組字串 (新版邏輯，例如 "A,ALL" 或 "A,B")
+        const itemGroup = item.getAttribute('data-group');
+        const multiGroups = item.getAttribute('data-groups'); 
+        
+        let isVisible = false;
+
+        if (group === 'ALL') {
+            // 如果按鈕選「全員視角」，就全部顯示
+            isVisible = true;
+        } else {
+            // 如果按鈕選特定人 (例如 A)
+            
+            // 情況 1: 這個行程是標記為 "ALL" 的 (例如大家一起吃飯)，永遠顯示
+            if (itemGroup === 'ALL' || (multiGroups && multiGroups.includes('ALL'))) {
+                isVisible = true;
+            }
+            // 情況 2: 這個行程剛好是該群組的 (例如 A 的班機)
+            else if (itemGroup === group) {
+                isVisible = true;
+            }
+            // 情況 3: 這個行程包含該群組 (例如 "A,B" 一起去吉卜力，選 A 時要顯示)
+            else if (multiGroups && multiGroups.includes(group)) {
+                isVisible = true;
+            }
+        }
+
+        // 控制顯示/隱藏
+        if (isVisible) {
+            item.classList.remove('hidden-item');
+        } else {
+            item.classList.add('hidden-item');
+        }
+    });
+}
 
     // Tab 切換
     function switchTab(tabId, index) {
