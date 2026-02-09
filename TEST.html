@@ -326,115 +326,138 @@
         }
     }
 
-    // 3. 渲染行程 (主結構)
-    function renderItinerary(days) {
-        const container = document.getElementById('tab-itinerary');
-        container.innerHTML = ''; 
+function renderItinerary(days) {
+    const container = document.getElementById('tab-itinerary');
+    container.innerHTML = ''; 
 
-        days.forEach(day => {
-            // 收集這一天的所有群組標籤，用於 filter
-            let allGroups = new Set();
-            day.items.forEach(item => {
-                if(item.Group) item.Group.split(',').forEach(g => allGroups.add(g.trim()));
-            });
-            const groupAttr = Array.from(allGroups).join(',');
+    days.forEach(day => {
+        // --- 新增：依照時間 (Time) 由小到大排序 ---
+        day.items.sort((a, b) => {
+            // 假設時間格式為 "08:00" 或 "13:30" (24小時制字串比較即可)
+            // 如果有些沒填時間，會被排到最後
+            if (!a.Time) return 1;
+            if (!b.Time) return -1;
+            return a.Time.localeCompare(b.Time);
+        });
+        // ----------------------------------------
 
-            // 決定 Timeline 圓點顏色
-            let dotColor = 'bg-slate-700'; // 預設
-            if (groupAttr.includes('A')) dotColor = 'bg-blue-500';
-            if (groupAttr.includes('B')) dotColor = 'bg-emerald-500';
-            if (groupAttr.includes('C')) dotColor = 'bg-orange-500';
-            // 多人重疊
-            if (groupAttr.includes('A') && groupAttr.includes('B')) dotColor = 'bg-green-600'; 
-            if (groupAttr.includes('ALL') || (groupAttr.includes('A') && groupAttr.includes('B') && groupAttr.includes('C'))) {
-                dotColor = 'bg-purple-600';
-            }
+        // 收集這一天的所有群組標籤
+        let allGroups = new Set();
+        day.items.forEach(item => {
+            if(item.Group) item.Group.split(',').forEach(g => allGroups.add(g.trim()));
+        });
+        const groupAttr = Array.from(allGroups).join(',');
 
-            const dayHtml = `
-            <div class="relative pl-8 filterable-item multi-group" data-groups="${groupAttr}">
-                <div class="timeline-line"></div>
-                <div class="timeline-dot absolute left-0 top-1 w-10 h-10 ${dotColor} text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">${day.day}</div>
+        // 決定時間軸圓點顏色
+        let dotColor = 'bg-slate-700';
+        if (groupAttr.includes('A')) dotColor = 'bg-blue-500';
+        if (groupAttr.includes('B')) dotColor = 'bg-emerald-500';
+        if (groupAttr.includes('C')) dotColor = 'bg-orange-500';
+        if (groupAttr.includes('A') && groupAttr.includes('B')) dotColor = 'bg-green-600'; 
+        if (groupAttr.includes('ALL') || (groupAttr.includes('A') && groupAttr.includes('B') && groupAttr.includes('C'))) {
+            dotColor = 'bg-purple-600';
+        }
+
+        const dayHtml = `
+        <div class="relative pl-8 filterable-item multi-group" data-groups="${groupAttr}">
+            <div class="timeline-line"></div>
+            <div class="timeline-dot absolute left-0 top-1 w-10 h-10 ${dotColor} text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">${day.day}</div>
+            
+            <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 ${dotColor.replace('bg-', 'border-')}">
+                <div class="flex justify-between items-baseline mb-2">
+                    <h3 class="font-bold text-lg">${day.date}</h3>
+                </div>
                 
-                <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 ${dotColor.replace('bg-', 'border-')}">
-                    <div class="flex justify-between items-baseline mb-2">
-                        <h3 class="font-bold text-lg">${day.date}</h3>
-                    </div>
-                    
-                    <div class="space-y-3">
-                        ${day.items.map(item => renderItem(item)).join('')}
-                    </div>
+                <div class="space-y-3">
+                    ${day.items.map(item => renderItem(item)).join('')}
                 </div>
             </div>
-            `;
-            container.insertAdjacentHTML('beforeend', dayHtml);
-        });
-    }
+        </div>
+        `;
+        container.insertAdjacentHTML('beforeend', dayHtml);
+    });
+}
 
     // 4. 渲染單一項目 (還原精美樣式)
-    function renderItem(item) {
-        // 處理群組標籤 (右上角的小標籤)
-        let groupBadge = '';
-        const g = item.Group;
-        if(g && g !== 'ALL') {
-            let badgeClass = 'bg-slate-100 text-slate-600';
-            if(g.includes('A')) badgeClass = 'bg-blue-50 text-blue-600';
-            if(g.includes('B')) badgeClass = 'bg-emerald-50 text-emerald-600';
-            if(g.includes('C')) badgeClass = 'bg-orange-50 text-orange-600';
-            if(g.includes('A') && g.includes('B')) badgeClass = 'bg-green-100 text-green-800';
-            groupBadge = `<span class="text-[10px] px-1.5 py-0.5 rounded font-bold mr-2 ${badgeClass} whitespace-nowrap">${g}</span>`;
-        }
+function renderItem(item) {
+    // --- 新增：群組代碼轉名稱對照表 ---
+    const nameMap = {
+        'A': '暐傑與嘟嘟',
+        'B': '偉庭與明娟',
+        'C': '梅玉與均穎',
+        'ALL': '全員'
+    };
 
-        // --- 樣式 A: 交通票券 (仿照原本的車票/Res樣式) ---
-        if (item.Type === 'transport' || item.Type === 'bus' || item.Type === 'flight') {
-            const themeColor = item.Type === 'bus' ? 'amber' : 'slate'; // 巴士用黃色，鐵路用灰色
-            return `
-            <div class="bg-${themeColor}-50 border border-${themeColor}-200 rounded-lg p-2.5 text-sm shadow-sm filterable-item" data-groups="${item.Group}">
-                <div class="flex justify-between items-center border-b border-${themeColor}-200 pb-1.5 mb-1.5">
-                    <span class="font-bold text-${themeColor}-800 flex items-center">
-                        <i class="fa-solid fa-${item.Icon} mr-1.5 text-${themeColor}-500"></i>${item.Title}
-                    </span>
-                    ${item.Subtitle ? `<span class="text-[10px] font-mono text-${themeColor}-700 bg-white px-1 rounded border border-${themeColor}-100">${item.Subtitle}</span>` : ''}
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="font-bold text-${themeColor}-900 text-base">${item.Time}</div>
-                    <div class="text-right flex items-center">
-                         ${groupBadge}
-                         ${item.Note ? `<span class="text-xs text-${themeColor}-600 font-bold bg-white px-1.5 py-0.5 rounded border border-${themeColor}-100">${item.Note}</span>` : ''}
-                    </div>
-                </div>
-            </div>`;
-        }
+    // 處理群組標籤顯示
+    let groupBadge = '';
+    const rawGroup = item.Group; // 原始代號 (例如 C)
+    
+    if(rawGroup && rawGroup !== 'ALL') {
+        let badgeClass = 'bg-slate-100 text-slate-600';
+        
+        // 判斷顏色
+        if(rawGroup.includes('A')) badgeClass = 'bg-blue-50 text-blue-600';
+        if(rawGroup.includes('B')) badgeClass = 'bg-emerald-50 text-emerald-600';
+        if(rawGroup.includes('C')) badgeClass = 'bg-orange-50 text-orange-600';
+        if(rawGroup.includes('A') && rawGroup.includes('B')) badgeClass = 'bg-green-100 text-green-800';
 
-        // --- 樣式 B: 備註/警告 (黃色/紅色框) ---
-        if (item.Type === 'remark') {
-            return `
-            <div class="bg-red-50 text-red-600 text-xs p-2 rounded border border-red-100 leading-tight filterable-item flex items-start" data-groups="${item.Group}">
-                 <i class="fa-solid fa-triangle-exclamation mr-1.5 mt-0.5"></i>
-                 <div><span class="font-bold">${item.Title}</span> ${item.Note || ''}</div>
-            </div>`;
-        }
+        // 轉換名稱：如果有在對照表內就用中文，沒有就用原本代號
+        let displayName = nameMap[rawGroup] || rawGroup;
 
-        // --- 樣式 C: 一般行程 (包含餐廳、景點、飯店) ---
-        let iconColor = 'text-slate-400';
-        if(item.Type === 'food') iconColor = 'text-red-400';
-        if(item.Type === 'event') iconColor = 'text-purple-500';
-        if(item.Type === 'hotel') iconColor = 'text-blue-400';
+        // 組合標籤 HTML
+        groupBadge = `<span class="text-[10px] px-1.5 py-0.5 rounded font-bold mr-2 ${badgeClass} whitespace-nowrap">${displayName}</span>`;
+    }
 
+    // --- 樣式 A: 交通票券 ---
+    if (item.Type === 'transport' || item.Type === 'bus' || item.Type === 'flight') {
+        const themeColor = item.Type === 'bus' ? 'amber' : 'slate';
         return `
-        <div class="flex items-start filterable-item" data-groups="${item.Group}">
-            <div class="mt-1 mr-2 w-5 text-center"><i class="fa-solid fa-${item.Icon} ${iconColor}"></i></div>
-            <div class="flex-1">
-                <div class="flex flex-wrap items-center">
-                    ${groupBadge}
-                    <span class="text-sm text-slate-700 font-medium ${item.Type === 'event' ? 'font-bold text-purple-700' : ''}">
-                        ${item.Title}
-                    </span>
-                </div>
-                ${item.Note ? `<div class="text-xs text-slate-500 mt-0.5 pl-1">${item.Note}</div>` : ''}
+        <div class="bg-${themeColor}-50 border border-${themeColor}-200 rounded-lg p-2.5 text-sm shadow-sm filterable-item" data-groups="${item.Group}">
+            <div class="flex justify-between items-center border-b border-${themeColor}-200 pb-1.5 mb-1.5">
+                <span class="font-bold text-${themeColor}-800 flex items-center">
+                    <i class="fa-solid fa-${item.Icon} mr-1.5 text-${themeColor}-500"></i>${item.Title}
+                </span>
+                ${item.Subtitle ? `<span class="text-[10px] font-mono text-${themeColor}-700 bg-white px-1 rounded border border-${themeColor}-100">${item.Subtitle}</span>` : ''}
             </div>
-            <div class="text-xs text-slate-400 font-mono mt-1 whitespace-nowrap">${item.Time}</div>
+            <div class="flex justify-between items-center">
+                <div></div> 
+                <div class="text-right flex items-center w-full justify-end">
+                     ${groupBadge}
+                     ${item.Note ? `<span class="text-xs text-${themeColor}-600 font-bold bg-white px-1.5 py-0.5 rounded border border-${themeColor}-100 ml-1">${item.Note}</span>` : ''}
+                </div>
+            </div>
         </div>`;
     }
+
+    // --- 樣式 B: 備註/警告 ---
+    if (item.Type === 'remark') {
+        return `
+        <div class="bg-red-50 text-red-600 text-xs p-2 rounded border border-red-100 leading-tight filterable-item flex items-start" data-groups="${item.Group}">
+             <i class="fa-solid fa-triangle-exclamation mr-1.5 mt-0.5"></i>
+             <div><span class="font-bold">${item.Title}</span> ${item.Note || ''}</div>
+        </div>`;
+    }
+
+    // --- 樣式 C: 一般行程 ---
+    let iconColor = 'text-slate-400';
+    if(item.Type === 'food') iconColor = 'text-red-400';
+    if(item.Type === 'event') iconColor = 'text-purple-500';
+    if(item.Type === 'hotel') iconColor = 'text-blue-400';
+
+    return `
+    <div class="flex items-start filterable-item" data-groups="${item.Group}">
+        <div class="mt-1 mr-2 w-5 text-center"><i class="fa-solid fa-${item.Icon} ${iconColor}"></i></div>
+        <div class="flex-1">
+            <div class="flex flex-wrap items-center">
+                ${groupBadge}
+                <span class="text-sm text-slate-700 font-medium ${item.Type === 'event' ? 'font-bold text-purple-700' : ''}">
+                    ${item.Title}
+                </span>
+            </div>
+            ${item.Note ? `<div class="text-xs text-slate-500 mt-0.5 pl-1">${item.Note}</div>` : ''}
+        </div>
+        </div>`;
+}
 
     // 5. 篩選功能
 function filterGroup(group) {
