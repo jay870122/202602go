@@ -382,50 +382,126 @@
         });
     }
 
-    function renderItem(item) {
-        const nameMap = { 'A': '暐傑與嘟嘟', 'B': '偉庭與明娟', 'C': '梅玉與均穎', 'ALL': '全員' };
+function renderItem(item) {
+    // 1. 群組名稱對照表 (用於標籤顯示)
+    const nameMap = {
+        'A': '暐傑與嘟嘟',
+        'B': '偉庭與明娟',
+        'C': '梅玉與均穎',
+        'ALL': '全員'
+    };
+
+    // 2. 中文 Icon 對照表 (你可以在這裡新增更多)
+    const iconMap = {
+        '飛機': 'plane',
+        '火車': 'train',
+        '地鐵': 'train-subway',
+        '巴士': 'bus',
+        '公車': 'bus-simple',
+        '走路': 'person-walking',
+        '景點': 'camera',
+        '相機': 'camera',
+        '餐廳': 'utensils',
+        '吃飯': 'utensils',
+        '購物': 'bag-shopping',
+        '溫泉': 'hot-tub-person',
+        '旅館': 'bed',
+        '睡覺': 'bed',
+        '集合': 'users-viewfinder',
+        '活動': 'ticket',
+        '酒': 'wine-glass',
+        '咖啡': 'mug-hot',
+        '雪': 'snowflake',
+        '樂高': 'cube',
+        '神社': 'torii-gate'
+    };
+
+    // 取得正確的 icon class (如果是中文就查表，如果是英文就直接用)
+    const iconClass = iconMap[item.Icon] || item.Icon || 'circle'; // 預設圓點
+
+    // 3. 處理群組標籤 (支援 "A,B" 這種多群組)
+    let groupBadge = '';
+    const rawGroup = item.Group; 
+    
+    if(rawGroup && rawGroup !== 'ALL') {
+        let badgeClass = 'bg-slate-100 text-slate-600';
         
-        let groupBadge = '';
-        const rawGroup = item.Group;
-        if(rawGroup && rawGroup !== 'ALL') {
-            let badgeClass = 'bg-slate-100 text-slate-600';
-            if(rawGroup.includes('A')) badgeClass = 'bg-blue-50 text-blue-600';
-            if(rawGroup.includes('B')) badgeClass = 'bg-emerald-50 text-emerald-600';
-            if(rawGroup.includes('C')) badgeClass = 'bg-orange-50 text-orange-600';
-            let displayName = nameMap[rawGroup] || rawGroup;
-            groupBadge = `<span class="text-[10px] px-1.5 py-0.5 rounded font-bold mr-2 ${badgeClass} whitespace-nowrap">${displayName}</span>`;
+        // 判斷顏色 (只要包含該組代號就變色)
+        if(rawGroup.includes('A')) badgeClass = 'bg-blue-50 text-blue-600';
+        if(rawGroup.includes('B')) badgeClass = 'bg-emerald-50 text-emerald-600';
+        if(rawGroup.includes('C')) badgeClass = 'bg-orange-50 text-orange-600';
+        // 如果同時包含 A 和 B (例如 A,B)
+        if(rawGroup.includes('A') && rawGroup.includes('B')) badgeClass = 'bg-green-100 text-green-800';
+
+        // ★ 核心修改：處理 "A,B" 轉成 "名字/名字" ★
+        let displayName = rawGroup;
+        // 如果有逗號 (例如 "A,B")，就切開來分別查名字，再接起來
+        if (rawGroup.includes(',')) {
+            const parts = rawGroup.split(','); // 切割
+            // 把 A 變成 暐傑...，把 B 變成 偉庭... (簡化顯示以免太長，這裡取前兩個字或是自定義)
+            // 這裡為了版面好看，建議多群組時顯示簡稱，如下：
+            const shortNameMap = {'A':'暐傑', 'B':'偉庭', 'C':'梅玉'};
+            const translatedParts = parts.map(p => shortNameMap[p.trim()] || nameMap[p.trim()] || p.trim());
+            displayName = translatedParts.join(' & ');
+        } else {
+            // 單一群組直接查表
+            displayName = nameMap[rawGroup] || rawGroup;
         }
 
-        if (item.Type === 'transport' || item.Type === 'bus' || item.Type === 'flight') {
-            const themeColor = item.Type === 'bus' ? 'amber' : 'slate';
-            return `
-            <div class="bg-${themeColor}-50 border border-${themeColor}-200 rounded-lg p-2.5 text-sm shadow-sm filterable-item" data-groups="${item.Group}">
-                <div class="flex justify-between items-center border-b border-${themeColor}-200 pb-1.5 mb-1.5">
-                    <span class="font-bold text-${themeColor}-800 flex items-center"><i class="fa-solid fa-${item.Icon} mr-1.5 text-${themeColor}-500"></i>${item.Title}</span>
-                    ${item.Subtitle ? `<span class="text-[10px] font-mono text-${themeColor}-700 bg-white px-1 rounded border border-${themeColor}-100">${item.Subtitle}</span>` : ''}
-                </div>
-                <div class="flex justify-between items-center">
-                    <div></div>
-                    <div class="text-right flex items-center w-full justify-end">${groupBadge}${item.Note ? `<span class="text-xs text-${themeColor}-600 font-bold bg-white px-1.5 py-0.5 rounded border border-${themeColor}-100 ml-1">${item.Note}</span>` : ''}</div>
-                </div>
-            </div>`;
-        }
-        if (item.Type === 'remark') {
-            return `<div class="bg-red-50 text-red-600 text-xs p-2 rounded border border-red-100 leading-tight filterable-item flex items-start" data-groups="${item.Group}"><i class="fa-solid fa-triangle-exclamation mr-1.5 mt-0.5"></i><div><span class="font-bold">${item.Title}</span> ${item.Note || ''}</div></div>`;
-        }
-        let iconColor = 'text-slate-400';
-        if(item.Type === 'food') iconColor = 'text-red-400';
-        if(item.Type === 'event') iconColor = 'text-purple-500';
-        if(item.Type === 'hotel') iconColor = 'text-blue-400';
+        groupBadge = `<span class="text-[10px] px-1.5 py-0.5 rounded font-bold mr-2 ${badgeClass} whitespace-nowrap">${displayName}</span>`;
+    }
+
+    // --- 樣式 A: 交通票券 (修正：加入時間顯示) ---
+    if (item.Type === 'transport' || item.Type === 'bus' || item.Type === 'flight') {
+        const themeColor = item.Type === 'bus' ? 'amber' : 'slate';
         return `
-        <div class="flex items-start filterable-item" data-groups="${item.Group}">
-            <div class="mt-1 mr-2 w-5 text-center"><i class="fa-solid fa-${item.Icon} ${iconColor}"></i></div>
-            <div class="flex-1">
-                <div class="flex flex-wrap items-center">${groupBadge}<span class="text-sm text-slate-700 font-medium ${item.Type === 'event' ? 'font-bold text-purple-700' : ''}">${item.Title}</span></div>
-                ${item.Note ? `<div class="text-xs text-slate-500 mt-0.5 pl-1">${item.Note}</div>` : ''}
+        <div class="bg-${themeColor}-50 border border-${themeColor}-200 rounded-lg p-2.5 text-sm shadow-sm filterable-item" data-groups="${item.Group}">
+            <div class="flex justify-between items-center border-b border-${themeColor}-200 pb-1.5 mb-1.5">
+                <span class="font-bold text-${themeColor}-800 flex items-center">
+                    <i class="fa-solid fa-${iconClass} mr-1.5 text-${themeColor}-500"></i>${item.Title}
+                </span>
+                ${item.Subtitle ? `<span class="text-[10px] font-mono text-${themeColor}-700 bg-white px-1 rounded border border-${themeColor}-100">${item.Subtitle}</span>` : ''}
+            </div>
+            <div class="flex justify-between items-center">
+                <div class="font-bold text-${themeColor}-900 text-base">${item.Time}</div>
+                
+                <div class="text-right flex items-center justify-end flex-1">
+                     ${groupBadge}
+                     ${item.Note ? `<span class="text-xs text-${themeColor}-600 font-bold bg-white px-1.5 py-0.5 rounded border border-${themeColor}-100 ml-1">${item.Note}</span>` : ''}
+                </div>
             </div>
         </div>`;
     }
+
+    // --- 樣式 B: 備註/警告 ---
+    if (item.Type === 'remark') {
+        return `
+        <div class="bg-red-50 text-red-600 text-xs p-2 rounded border border-red-100 leading-tight filterable-item flex items-start" data-groups="${item.Group}">
+             <i class="fa-solid fa-triangle-exclamation mr-1.5 mt-0.5"></i>
+             <div><span class="font-bold">${item.Title}</span> ${item.Note || ''}</div>
+        </div>`;
+    }
+
+    // --- 樣式 C: 一般行程 ---
+    let iconColor = 'text-slate-400';
+    if(item.Type === 'food') iconColor = 'text-red-400';
+    if(item.Type === 'event') iconColor = 'text-purple-500';
+    if(item.Type === 'hotel') iconColor = 'text-blue-400';
+
+    return `
+    <div class="flex items-start filterable-item" data-groups="${item.Group}">
+        <div class="mt-1 mr-2 w-5 text-center"><i class="fa-solid fa-${iconClass} ${iconColor}"></i></div>
+        <div class="flex-1">
+            <div class="flex flex-wrap items-center">
+                ${groupBadge}
+                <span class="text-sm text-slate-700 font-medium ${item.Type === 'event' ? 'font-bold text-purple-700' : ''}">
+                    ${item.Title}
+                </span>
+            </div>
+            ${item.Note ? `<div class="text-xs text-slate-500 mt-0.5 pl-1">${item.Note}</div>` : ''}
+        </div>
+        </div>`;
+}
 
     function renderMemos(allDays) {
         const container = document.getElementById('memo-container');
