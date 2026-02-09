@@ -4,52 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2026 名古屋・北陸冬之旅</title>
-    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❄️</text></svg>">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#2563eb">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  
     <style>
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f4f8; }
         .font-mono-display { font-family: 'Share Tech Mono', monospace; }
-        
-        /* App Navigation Styles */
-        .nav-item { transition: all 0.3s ease; }
         .nav-item.active { color: #2563eb; transform: translateY(-2px); }
-        .nav-item.active i { transform: scale(1.1); }
         .nav-indicator { position: absolute; top: 0; left: 0; width: 25%; height: 3px; background: #2563eb; transition: all 0.3s ease; }
-
-        /* Content Transition */
         .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Filter Animations */
-        .filterable-item { transition: all 0.3s ease; }
         .hidden-item { display: none !important; }
-
-        /* Specific Component Styles */
-        .map-btn { transition: all 0.2s; }
-        .map-btn:active { transform: scale(0.95); }
         .timeline-line { position: absolute; left: 18px; top: 20px; bottom: -20px; width: 2px; background-color: #cbd5e1; z-index: 0; }
-        .timeline-dot { z-index: 10; }
-        
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-
-        /* Flight Board */
         .flight-board { background-color: #1e293b; color: #e2e8f0; }
         .flight-row { border-bottom: 1px solid #334155; }
-        .flight-row:last-child { border-bottom: none; }
-        .status-light { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
     </style>
 </head>
 <body class="text-slate-700 bg-slate-100 h-screen flex flex-col overflow-hidden">
@@ -57,16 +29,10 @@
     <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 shadow-lg shrink-0 z-50 pt-safe-top">
         <div class="max-w-3xl mx-auto flex justify-between items-center">
             <div>
-                <h1 class="text-lg font-bold flex items-center">
-                   <span class="mr-2 text-xl">❄️</span> 2026 名古屋・北陸
-                </h1>
-                <p id="header-date" class="text-blue-100 text-xs mt-0.5 ml-8">2/12 (四) ~ 2/21 (六)｜共 10 天</p>
+                <h1 class="text-lg font-bold flex items-center"><span class="mr-2 text-xl">❄️</span> 2026 名古屋・北陸</h1>
+                <p id="header-date" class="text-blue-100 text-xs mt-0.5 ml-8">載入中...</p>
             </div>
-            <div class="text-right">
-                <div class="bg-white/20 px-2 py-1 rounded text-xs">
-                    <i class="fa-solid fa-users mr-1"></i>8人
-                </div>
-            </div>
+            <div class="text-right"><div class="bg-white/20 px-2 py-1 rounded text-xs"><i class="fa-solid fa-users mr-1"></i>Trip</div></div>
         </div>
     </header>
 
@@ -74,193 +40,44 @@
         <div class="max-w-3xl mx-auto p-4 min-h-full">
 
             <div class="sticky top-0 z-40 bg-slate-100 pb-4 pt-1 mb-2">
-<div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500 overflow-x-auto no-scrollbar">
-    <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition bg-slate-100 text-slate-800 shadow-sm whitespace-nowrap" id="btn-all">
-        全員視角
-    </button>
-    <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-a">
-        <span class="text-blue-600">暐傑與嘟嘟</span> </button>
-    <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-b">
-        <span class="text-emerald-600">偉庭與明娟</span> </button>
-    <button onclick="filterGroup('C')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-c">
-        <span class="text-orange-500">梅玉與均穎</span> </button>
-</div>
+                <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-200 flex text-xs font-bold text-slate-500 overflow-x-auto no-scrollbar">
+                    <button onclick="filterGroup('ALL')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition bg-slate-100 text-slate-800 shadow-sm whitespace-nowrap" id="btn-all">全員視角</button>
+                    <button onclick="filterGroup('A')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-a"><span class="text-blue-600">暐傑與嘟嘟</span></button>
+                    <button onclick="filterGroup('B')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-b"><span class="text-emerald-600">偉庭與明娟</span></button>
+                    <button onclick="filterGroup('C')" class="filter-btn flex-1 py-1.5 px-3 rounded-md transition hover:bg-slate-50 whitespace-nowrap" id="btn-c"><span class="text-orange-500">梅玉與均穎</span></button>
+                </div>
             </div>
 
             <div id="tab-itinerary" class="tab-content active space-y-6">
-                <div id="loading-indicator" class="text-center py-10 text-slate-500">
-                    <i class="fa-solid fa-spinner fa-spin mr-2 text-blue-500 text-2xl"></i>
-                    <p class="mt-2 text-sm">正在載入最新行程...</p>
-                </div>
+                <div id="loading-indicator" class="text-center py-10 text-slate-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i> 正在同步雲端行程...</div>
             </div>
 
             <div id="tab-flights" class="tab-content space-y-4">
-                <div class="bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-700">
-                    <div class="bg-slate-900 p-4 flex justify-between items-center text-white border-b border-slate-700">
-                        <h2 class="font-bold flex items-center">
-                            <i class="fa-solid fa-plane-departure mr-2 text-yellow-400"></i> FLIGHTS
-                        </h2>
-                    </div>
-                    
-                    <div class="flight-board p-0">
-                        <div class="flight-row p-4 relative filterable-item" data-group="A">
-                            <div class="flex justify-between items-start mb-3">
-                                <div class="flex items-center">
-                                    <span class="text-[10px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded mr-2">暐傑與嘟嘟 去程</span>
-                                    <span class="font-mono-display text-xl text-yellow-400 tracking-wider">SL1398</span>
-                                </div>
-                                <div class="text-[10px] text-slate-500 font-mono-display">2/12</div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">09:20</div><div class="text-[10px] text-slate-400">TPE</div></div>
-                                <div class="flex-1 px-4 flex flex-col items-center"><div class="w-full h-0.5 bg-slate-600 relative"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform rotate-45"></i></div></div>
-                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">13:00</div><div class="text-[10px] text-slate-400">NGO</div></div>
-                            </div>
-                            <div class="text-right mt-3">
-                                <a href="https://tw.trip.com/actualtime/detail.html?flightNo=SL1398&departCity=TPE&arriveCity=NGO&date=2026-02-12&locale=zh-TW" target="_blank" class="text-[10px] text-blue-300 hover:text-white transition border border-blue-500/50 hover:bg-blue-600/50 px-2 py-1 rounded inline-flex items-center">
-                                    Trip.com 航班資訊 <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="flight-row p-4 relative filterable-item" data-group="C">
-                            <div class="flex justify-between items-start mb-3">
-                                <div class="flex items-center">
-                                    <span class="text-[10px] font-bold bg-orange-500 text-white px-2 py-0.5 rounded mr-2">梅玉與均穎 去程</span>
-                                    <span class="font-mono-display text-xl text-purple-400 tracking-wider">MM722</span>
-                                </div>
-                                <div class="text-[10px] text-slate-500 font-mono-display">2/16 (MON)</div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">02:55</div><div class="text-[10px] text-slate-400">TPE</div></div>
-                                <div class="flex-1 px-4 flex flex-col items-center"><div class="w-full h-0.5 bg-slate-600 relative"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform rotate-45"></i></div><div class="text-[10px] text-slate-500 mt-1">Peach</div></div>
-                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">06:25</div><div class="text-[10px] text-slate-400">NGO</div></div>
-                            </div>
-                        </div>
-
-                        <div class="flight-row p-4 relative filterable-item" data-group="B">
-                            <div class="flex justify-between items-start mb-3">
-                                <div class="flex items-center">
-                                    <span class="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded mr-2">偉庭與明娟 去程</span>
-                                    <span class="font-mono-display text-xl text-yellow-400 tracking-wider">SL1398</span>
-                                </div>
-                                <div class="text-[10px] text-slate-500 font-mono-display">2/17</div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">09:20</div><div class="text-[10px] text-slate-400">TPE</div></div>
-                                <div class="flex-1 px-4 flex flex-col items-center"><div class="w-full h-0.5 bg-slate-600 relative"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform rotate-45"></i></div></div>
-                                <div class="text-center"><div class="text-2xl font-mono-display font-bold">13:00</div><div class="text-[10px] text-slate-400">NGO</div></div>
-                            </div>
-                        </div>
-
-                        <div class="flight-row p-4 relative bg-slate-800/50">
-                            <div class="flex justify-between items-start mb-3">
-                                <div class="flex items-center">
-                                    <span class="text-[10px] font-bold bg-indigo-600 text-white px-2 py-0.5 rounded mr-2">全員 回程</span>
-                                    <span class="font-mono-display text-xl text-yellow-400 tracking-wider">SL1399</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="text-center">
-                                    <div class="text-2xl font-mono-display font-bold">16:55</div>
-                                    <div class="text-[10px] text-slate-400">NGO</div>
-                                </div>
-                                <div class="flex-1 px-4 flex flex-col items-center">
-                                    <div class="w-full h-0.5 bg-slate-600 relative flex items-center"><i class="fa-solid fa-plane absolute text-slate-300 text-xs left-1/2 -top-1.5 -ml-1.5 transform -rotate-45"></i></div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-mono-display font-bold">19:35</div>
-                                    <div class="text-[10px] text-slate-400">TPE</div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-end mt-2 pt-2 border-t border-slate-700/50">
-                                <div class="text-[10px] text-slate-500 font-mono-display">2026/02/21 (SAT)</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                 <div class="text-center text-slate-400 py-10">請貼回原本的航班 HTML 程式碼</div>
             </div>
 
             <div id="tab-hotels" class="tab-content space-y-4">
-                <div class="bg-white rounded-2xl p-5 shadow-sm">
-                    <h2 class="text-lg font-bold mb-4 text-slate-800">住宿清單</h2>
-                    <div class="space-y-4">
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 relative filterable-item" data-group="A">
-                            <div class="absolute top-4 right-4 text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded">暐傑與嘟嘟 1晚</div>
-                            <h3 class="font-bold text-slate-800 pr-16 text-sm">名古屋新幹線口大和ROYNET</h3>
-                            <p class="text-xs text-slate-500 mt-1">Daiwa Roynet Hotel Nagoya Taiko dori Side</p>
-                            <p class="text-xs mt-2 text-slate-600"><i class="fa-regular fa-calendar mr-1"></i> 2/12 入住</p>
-                            <a href="https://maps.google.com/?q=Daiwa+Roynet+Hotel+Nagoya+Taiko+dori+Side" target="_blank" class="mt-3 block w-full bg-blue-600 text-white text-xs font-bold py-2 rounded text-center shadow-md active:bg-blue-700 transition">
-                                <i class="fa-solid fa-location-dot mr-1"></i> 導航至飯店
-                            </a>
-                        </div>
-
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 relative filterable-item" data-group="A">
-                            <div class="absolute top-4 right-4 text-[10px] font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded">暐傑與嘟嘟 3晚</div>
-                            <h3 class="font-bold text-slate-800 pr-16 text-sm">Tokyu Stay 飛驒高山 結之湯</h3>
-                            <p class="text-xs text-slate-500 mt-1">Tokyu Stay Hida Takayama Musubinoyu</p>
-                            <p class="text-xs mt-2 text-slate-600"><i class="fa-regular fa-calendar mr-1"></i> 2/13 ~ 2/16</p>
-                            <a href="https://maps.google.com/?q=Tokyu+Stay+Hida+Takayama+Musubinoyu" target="_blank" class="mt-3 block w-full bg-blue-600 text-white text-xs font-bold py-2 rounded text-center shadow-md active:bg-blue-700 transition">
-                                <i class="fa-solid fa-location-dot mr-1"></i> 導航至飯店
-                            </a>
-                        </div>
-
-                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 relative filterable-item">
-                            <div class="absolute top-4 right-4 text-[10px] font-bold bg-purple-100 text-purple-600 px-2 py-1 rounded">全員合宿</div>
-                            <h3 class="font-bold text-slate-800 pr-20 text-sm">名古屋名站南舒適飯店</h3>
-                            <p class="text-xs text-slate-500 mt-1">Comfort Hotel Nagoya Meiekiminami</p>
-                            <div class="mt-2 text-xs space-y-1 text-slate-600">
-                                <p><span class="text-orange-500 font-bold">梅玉與均穎</span> 2/16入住 (5晚)</p>
-                                <p><span class="text-blue-600 font-bold">暐傑與嘟嘟</span> 2/16入住 (5晚)</p>
-                                <p><span class="text-emerald-600 font-bold">偉庭與明娟</span> 2/17入住 (4晚)</p>
-                            </div>
-                            <a href="https://maps.google.com/?q=Comfort+Hotel+Nagoya+Meiekiminami" target="_blank" class="mt-3 block w-full bg-indigo-600 text-white text-xs font-bold py-2 rounded text-center shadow-md active:bg-indigo-700 transition">
-                                <i class="fa-solid fa-location-dot mr-1"></i> 導航至最後據點
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <div class="text-center text-slate-400 py-10">請貼回原本的住宿 HTML 程式碼</div>
             </div>
 
             <div id="tab-info" class="tab-content space-y-4">
                 <div class="bg-white rounded-2xl p-5 shadow-sm">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-lg font-bold flex items-center text-slate-800">
-                            <i class="fa-solid fa-cloud-sun mr-2 text-sky-500"></i> 旅程天氣預報
-                        </h2>
-                        <span id="forecast-status" class="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-full">歷史均溫</span>
+                        <h2 class="text-lg font-bold flex items-center text-slate-800"><i class="fa-solid fa-cloud-sun mr-2 text-sky-500"></i> 旅程天氣預報</h2>
                     </div>
                     <div class="flex overflow-x-auto space-x-3 pb-2 no-scrollbar" id="weather-container">
-                        <div class="w-full text-center py-4 text-slate-400 text-sm">載入中...</div>
-                    </div>
-                    <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-end">
-                        <div class="text-[10px] text-slate-400 leading-relaxed">
-                            <i class="fa-solid fa-circle-info mr-1"></i>資料來源：Open-Meteo<br>
-                            <span class="opacity-75 pl-3">(整合 JMA 日本氣象廳數值)</span>
                         </div>
-                        <a href="https://www.jma.go.jp/bosai/forecast/" target="_blank" class="text-[10px] text-blue-500 hover:text-blue-700 font-bold bg-blue-50 px-2 py-1.5 rounded transition">
-                            前往 JMA 官網 <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
-                        </a>
+                    <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-end">
+                        <div class="text-[10px] text-slate-400">JMA 模型整合</div>
+                        <a href="https://www.jma.go.jp/bosai/forecast/" target="_blank" class="text-[10px] text-blue-500 bg-blue-50 px-2 py-1 rounded">JMA 官網</a>
                     </div>
                 </div>
 
                 <div class="bg-slate-800 text-white rounded-2xl p-5 shadow-lg">
-                    <h2 class="text-lg font-bold mb-4 flex items-center">
-                        <i class="fa-solid fa-triangle-exclamation mr-2 text-yellow-400"></i> 重要備忘錄
-                    </h2>
-                    <div class="space-y-4 text-sm">
-                        <div class="flex items-start filterable-item multi-group" data-groups="B,C">
-                            <div class="bg-white/10 p-2 rounded mr-3 shrink-0">
-                                <i class="fa-solid fa-users-viewfinder text-emerald-300"></i>
-                            </div>
-                            <div>
-                                <div class="font-bold text-emerald-200">偉庭/明娟/梅玉/均穎 D7集合</div>
-                                <p class="opacity-80 text-xs mt-1">Comfort Hotel 在車站東南側，集合點在西口。步行穿越車站需 <span class="text-yellow-300 font-bold">20 分鐘</span>。</p>
-                            </div>
+                    <h2 class="text-lg font-bold mb-4 flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2 text-yellow-400"></i> 重要備忘錄</h2>
+                    <div class="space-y-4 text-sm" id="memo-container">
                         </div>
-                    </div>
                 </div>
-                <div class="text-center text-slate-400 text-xs pt-4">祝旅途愉快！</div>
             </div>
 
         </div>
@@ -269,339 +86,307 @@
     <nav class="bg-white border-t border-slate-200 fixed bottom-0 w-full z-50 pb-safe">
         <div class="relative flex justify-around items-center h-16 max-w-3xl mx-auto">
             <div id="nav-indicator" class="nav-indicator"></div>
-            <button onclick="switchTab('itinerary', 0)" class="nav-item active flex-1 flex flex-col items-center justify-center h-full text-slate-400">
-                <i class="fa-solid fa-list-check text-xl mb-1"></i><span class="text-[10px] font-bold">行程</span>
-            </button>
-            <button onclick="switchTab('flights', 1)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400">
-                <i class="fa-solid fa-plane text-xl mb-1"></i><span class="text-[10px] font-bold">航班</span>
-            </button>
-            <button onclick="switchTab('hotels', 2)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400">
-                <i class="fa-solid fa-bed text-xl mb-1"></i><span class="text-[10px] font-bold">住宿</span>
-            </button>
-            <button onclick="switchTab('info', 3)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400">
-                <i class="fa-solid fa-suitcase text-xl mb-1"></i><span class="text-[10px] font-bold">準備</span>
-            </button>
+            <button onclick="switchTab('itinerary', 0)" class="nav-item active flex-1 flex flex-col items-center justify-center h-full text-slate-400"><i class="fa-solid fa-list-check text-xl mb-1"></i><span class="text-[10px] font-bold">行程</span></button>
+            <button onclick="switchTab('flights', 1)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400"><i class="fa-solid fa-plane text-xl mb-1"></i><span class="text-[10px] font-bold">航班</span></button>
+            <button onclick="switchTab('hotels', 2)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400"><i class="fa-solid fa-bed text-xl mb-1"></i><span class="text-[10px] font-bold">住宿</span></button>
+            <button onclick="switchTab('info', 3)" class="nav-item flex-1 flex flex-col items-center justify-center h-full text-slate-400"><i class="fa-solid fa-suitcase text-xl mb-1"></i><span class="text-[10px] font-bold">準備</span></button>
         </div>
     </nav>
 
 <script>
     // ============================================
-    // 設定區 (請在此處填入你的 Apps Script 網址)
+    // 設定區
     // ============================================
     const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbwk_mdLI-MdJfERNoU2QMlXDluMDvMKSAz2jRuJSSZS4brkvxe-Oi-81qQN03hENzVMuQ/exec'; 
-    // 例如: const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbwk_mdLI-MdJfERNoU2QMlXDluMDvMKSAz2jRuJSSZS4brkvxe-Oi-81qQN03hENzVMuQ/exec';
 
     let currentFilterGroup = 'ALL';
+    let allData = []; // 儲存原始資料
 
-    // 1. 初始化
+    // 天氣資料庫 (包含所有日期)
+    const weatherDb = [
+        { date: '2026-02-12', label: '2/12', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histCode: 1, temp: '1°~9°' },
+        { date: '2026-02-13', label: '2/13', loc: 'Takayama', name: '高山', lat: 36.14, long: 137.25, histCode: 71, temp: '-5°~4°' },
+        { date: '2026-02-14', label: '2/14', loc: 'Takayama', name: '新穗高', lat: 36.28, long: 137.57, histCode: 75, temp: '-8°~0°' },
+        { date: '2026-02-15', label: '2/15', loc: 'Takayama', name: '合掌村', lat: 36.25, long: 136.90, histCode: 71, temp: '-6°~2°' },
+        { date: '2026-02-16', label: '2/16', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histCode: 2, temp: '1°~9°' },
+        { date: '2026-02-17', label: '2/17', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histCode: 1, temp: '2°~10°' },
+        { date: '2026-02-18', label: '2/18', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histCode: 1, temp: '2°~11°' },
+        { date: '2026-02-19', label: '2/19', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histCode: 1, temp: '3°~11°' },
+        { date: '2026-02-20', label: '2/20', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histCode: 2, temp: '2°~10°' },
+        { date: '2026-02-21', label: '2/21', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histCode: 3, temp: '2°~10°' }
+    ];
+
+    // 各組開始日期設定
+    const groupStartDates = {
+        'ALL': '2026-02-12',
+        'A': '2026-02-12',
+        'C': '2026-02-16',
+        'B': '2026-02-17'
+    };
+
+    const weatherCodes = {
+        0: { icon: "fa-sun", color: "text-orange-500" },
+        1: { icon: "fa-cloud-sun", color: "text-orange-400" },
+        2: { icon: "fa-cloud", color: "text-slate-400" },
+        3: { icon: "fa-cloud", color: "text-slate-500" },
+        71: { icon: "fa-snowflake", color: "text-sky-400" },
+        75: { icon: "fa-snowflake", color: "text-sky-600" }
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
-        initWeather();
-        fetchItinerary(); // 啟動讀取行程
-
-        // 檢查網址參數 (?user=暐傑)
+        fetchData();
+        
+        // 網址參數偵測
         const urlParams = new URLSearchParams(window.location.search);
         const userParam = urlParams.get('user');
         const userMap = { '暐傑': 'A', '偉庭': 'B', '梅玉': 'C' };
-
         if (userParam && userMap[userParam]) {
             filterGroup(userMap[userParam]);
         }
     });
 
-    // 2. 從 Google Sheet 讀取資料
-    async function fetchItinerary() {
-        if(GAS_API_URL.includes('請將這裡替換')) {
-            document.getElementById('loading-indicator').innerHTML = '<span class="text-red-500">請編輯 HTML 檔案，填入正確的 GAS_API_URL。</span>';
-            return;
-        }
-
+    async function fetchData() {
         try {
             const response = await fetch(GAS_API_URL);
-            const daysData = await response.json();
-            renderItinerary(daysData);
-            filterGroup(currentFilterGroup); // 讀取完畢後重新套用篩選
+            allData = await response.json();
+            
+            // 分離資料：行程 vs 備忘錄
+            const itineraryData = allData.filter(day => {
+                // 這裡有點 trick，因為 GAS 回傳是按天分組的
+                // 我們要檢查這一天的 items 裡面有沒有非 memo 的
+                // 但簡單的做法是 render 時再過濾
+                return true; 
+            });
+
+            renderItinerary(itineraryData);
+            renderMemos(allData); // 傳入整包資料去撈備忘錄
+            
+            filterGroup(currentFilterGroup); // 初始化篩選
         } catch (error) {
-            console.error('Error:', error);
-            document.getElementById('loading-indicator').innerHTML = '<span class="text-red-500">載入失敗，請檢查網路連線。</span>';
+            console.error(error);
+            document.getElementById('loading-indicator').innerText = '載入失敗，請檢查網址或網路';
         }
     }
 
-function renderItinerary(days) {
-    const container = document.getElementById('tab-itinerary');
-    container.innerHTML = ''; 
+    // 渲染行程表
+    function renderItinerary(days) {
+        const container = document.getElementById('tab-itinerary');
+        container.innerHTML = ''; 
 
-    days.forEach(day => {
-        // --- 新增：依照時間 (Time) 由小到大排序 ---
-        day.items.sort((a, b) => {
-            // 假設時間格式為 "08:00" 或 "13:30" (24小時制字串比較即可)
-            // 如果有些沒填時間，會被排到最後
-            if (!a.Time) return 1;
-            if (!b.Time) return -1;
-            return a.Time.localeCompare(b.Time);
-        });
-        // ----------------------------------------
+        days.forEach(day => {
+            // 過濾掉 Type 是 memo 的項目，不顯示在行程表
+            const items = day.items.filter(i => i.Type !== 'memo');
+            if(items.length === 0) return; // 如果這天只有備忘錄，行程表不顯示這天
 
-        // 收集這一天的所有群組標籤
-        let allGroups = new Set();
-        day.items.forEach(item => {
-            if(item.Group) item.Group.split(',').forEach(g => allGroups.add(g.trim()));
-        });
-        const groupAttr = Array.from(allGroups).join(',');
+            // 時間排序
+            items.sort((a, b) => (a.Time || '99:99').localeCompare(b.Time || '99:99'));
 
-        // 決定時間軸圓點顏色
-        let dotColor = 'bg-slate-700';
-        if (groupAttr.includes('A')) dotColor = 'bg-blue-500';
-        if (groupAttr.includes('B')) dotColor = 'bg-emerald-500';
-        if (groupAttr.includes('C')) dotColor = 'bg-orange-500';
-        if (groupAttr.includes('A') && groupAttr.includes('B')) dotColor = 'bg-green-600'; 
-        if (groupAttr.includes('ALL') || (groupAttr.includes('A') && groupAttr.includes('B') && groupAttr.includes('C'))) {
-            dotColor = 'bg-purple-600';
-        }
+            let allGroups = new Set();
+            items.forEach(item => {
+                if(item.Group) item.Group.split(',').forEach(g => allGroups.add(g.trim()));
+            });
+            const groupAttr = Array.from(allGroups).join(',');
 
-        const dayHtml = `
-        <div class="relative pl-8 filterable-item multi-group" data-groups="${groupAttr}">
-            <div class="timeline-line"></div>
-            <div class="timeline-dot absolute left-0 top-1 w-10 h-10 ${dotColor} text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">${day.day}</div>
-            
-            <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 ${dotColor.replace('bg-', 'border-')}">
-                <div class="flex justify-between items-baseline mb-2">
-                    <h3 class="font-bold text-lg">${day.date}</h3>
-                </div>
+            // 圓點顏色
+            let dotColor = 'bg-slate-700';
+            if (groupAttr.includes('A')) dotColor = 'bg-blue-500';
+            if (groupAttr.includes('B')) dotColor = 'bg-emerald-500';
+            if (groupAttr.includes('C')) dotColor = 'bg-orange-500';
+            if (groupAttr.includes('A') && groupAttr.includes('B')) dotColor = 'bg-green-600'; 
+            if (groupAttr.includes('ALL')) dotColor = 'bg-purple-600';
+
+            const dayHtml = `
+            <div class="relative pl-8 day-container multi-group" data-groups="${groupAttr}" data-date="${day.date}">
+                <div class="timeline-line"></div>
+                <div class="timeline-dot absolute left-0 top-1 w-10 h-10 ${dotColor} text-white rounded-full flex items-center justify-center font-bold shadow-md z-10">D?</div>
                 
-                <div class="space-y-3">
-                    ${day.items.map(item => renderItem(item)).join('')}
+                <div class="bg-white rounded-xl p-4 shadow-sm ml-4 border-l-4 ${dotColor.replace('bg-', 'border-')}">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <h3 class="font-bold text-lg">${day.date}</h3>
+                    </div>
+                    <div class="space-y-3">
+                        ${items.map(item => renderItem(item)).join('')}
+                    </div>
                 </div>
-            </div>
-        </div>
-        `;
-        container.insertAdjacentHTML('beforeend', dayHtml);
-    });
-}
-
-    // 4. 渲染單一項目 (還原精美樣式)
-function renderItem(item) {
-    // --- 新增：群組代碼轉名稱對照表 ---
-    const nameMap = {
-        'A': '暐傑與嘟嘟',
-        'B': '偉庭與明娟',
-        'C': '梅玉與均穎',
-        'ALL': '全員'
-    };
-
-    // 處理群組標籤顯示
-    let groupBadge = '';
-    const rawGroup = item.Group; // 原始代號 (例如 C)
-    
-    if(rawGroup && rawGroup !== 'ALL') {
-        let badgeClass = 'bg-slate-100 text-slate-600';
-        
-        // 判斷顏色
-        if(rawGroup.includes('A')) badgeClass = 'bg-blue-50 text-blue-600';
-        if(rawGroup.includes('B')) badgeClass = 'bg-emerald-50 text-emerald-600';
-        if(rawGroup.includes('C')) badgeClass = 'bg-orange-50 text-orange-600';
-        if(rawGroup.includes('A') && rawGroup.includes('B')) badgeClass = 'bg-green-100 text-green-800';
-
-        // 轉換名稱：如果有在對照表內就用中文，沒有就用原本代號
-        let displayName = nameMap[rawGroup] || rawGroup;
-
-        // 組合標籤 HTML
-        groupBadge = `<span class="text-[10px] px-1.5 py-0.5 rounded font-bold mr-2 ${badgeClass} whitespace-nowrap">${displayName}</span>`;
+            </div>`;
+            container.insertAdjacentHTML('beforeend', dayHtml);
+        });
     }
 
-    // --- 樣式 A: 交通票券 ---
-    if (item.Type === 'transport' || item.Type === 'bus' || item.Type === 'flight') {
-        const themeColor = item.Type === 'bus' ? 'amber' : 'slate';
-        return `
-        <div class="bg-${themeColor}-50 border border-${themeColor}-200 rounded-lg p-2.5 text-sm shadow-sm filterable-item" data-groups="${item.Group}">
-            <div class="flex justify-between items-center border-b border-${themeColor}-200 pb-1.5 mb-1.5">
-                <span class="font-bold text-${themeColor}-800 flex items-center">
-                    <i class="fa-solid fa-${item.Icon} mr-1.5 text-${themeColor}-500"></i>${item.Title}
-                </span>
-                ${item.Subtitle ? `<span class="text-[10px] font-mono text-${themeColor}-700 bg-white px-1 rounded border border-${themeColor}-100">${item.Subtitle}</span>` : ''}
-            </div>
-            <div class="flex justify-between items-center">
-                <div></div> 
-                <div class="text-right flex items-center w-full justify-end">
-                     ${groupBadge}
-                     ${item.Note ? `<span class="text-xs text-${themeColor}-600 font-bold bg-white px-1.5 py-0.5 rounded border border-${themeColor}-100 ml-1">${item.Note}</span>` : ''}
+    // 渲染單項
+    function renderItem(item) {
+        const nameMap = { 'A': '暐傑與嘟嘟', 'B': '偉庭與明娟', 'C': '梅玉與均穎', 'ALL': '全員' };
+        
+        let groupBadge = '';
+        const rawGroup = item.Group;
+        if(rawGroup && rawGroup !== 'ALL') {
+            let badgeClass = 'bg-slate-100 text-slate-600';
+            if(rawGroup.includes('A')) badgeClass = 'bg-blue-50 text-blue-600';
+            if(rawGroup.includes('B')) badgeClass = 'bg-emerald-50 text-emerald-600';
+            if(rawGroup.includes('C')) badgeClass = 'bg-orange-50 text-orange-600';
+            let displayName = nameMap[rawGroup] || rawGroup;
+            groupBadge = `<span class="text-[10px] px-1.5 py-0.5 rounded font-bold mr-2 ${badgeClass} whitespace-nowrap">${displayName}</span>`;
+        }
+
+        if (item.Type === 'transport' || item.Type === 'bus' || item.Type === 'flight') {
+            const themeColor = item.Type === 'bus' ? 'amber' : 'slate';
+            return `
+            <div class="bg-${themeColor}-50 border border-${themeColor}-200 rounded-lg p-2.5 text-sm shadow-sm filterable-item" data-groups="${item.Group}">
+                <div class="flex justify-between items-center border-b border-${themeColor}-200 pb-1.5 mb-1.5">
+                    <span class="font-bold text-${themeColor}-800 flex items-center"><i class="fa-solid fa-${item.Icon} mr-1.5 text-${themeColor}-500"></i>${item.Title}</span>
+                    ${item.Subtitle ? `<span class="text-[10px] font-mono text-${themeColor}-700 bg-white px-1 rounded border border-${themeColor}-100">${item.Subtitle}</span>` : ''}
                 </div>
-            </div>
-        </div>`;
-    }
-
-    // --- 樣式 B: 備註/警告 ---
-    if (item.Type === 'remark') {
+                <div class="flex justify-between items-center">
+                    <div></div>
+                    <div class="text-right flex items-center w-full justify-end">${groupBadge}${item.Note ? `<span class="text-xs text-${themeColor}-600 font-bold bg-white px-1.5 py-0.5 rounded border border-${themeColor}-100 ml-1">${item.Note}</span>` : ''}</div>
+                </div>
+            </div>`;
+        }
+        if (item.Type === 'remark') {
+            return `<div class="bg-red-50 text-red-600 text-xs p-2 rounded border border-red-100 leading-tight filterable-item flex items-start" data-groups="${item.Group}"><i class="fa-solid fa-triangle-exclamation mr-1.5 mt-0.5"></i><div><span class="font-bold">${item.Title}</span> ${item.Note || ''}</div></div>`;
+        }
+        let iconColor = 'text-slate-400';
+        if(item.Type === 'food') iconColor = 'text-red-400';
+        if(item.Type === 'event') iconColor = 'text-purple-500';
+        if(item.Type === 'hotel') iconColor = 'text-blue-400';
         return `
-        <div class="bg-red-50 text-red-600 text-xs p-2 rounded border border-red-100 leading-tight filterable-item flex items-start" data-groups="${item.Group}">
-             <i class="fa-solid fa-triangle-exclamation mr-1.5 mt-0.5"></i>
-             <div><span class="font-bold">${item.Title}</span> ${item.Note || ''}</div>
-        </div>`;
-    }
-
-    // --- 樣式 C: 一般行程 ---
-    let iconColor = 'text-slate-400';
-    if(item.Type === 'food') iconColor = 'text-red-400';
-    if(item.Type === 'event') iconColor = 'text-purple-500';
-    if(item.Type === 'hotel') iconColor = 'text-blue-400';
-
-    return `
-    <div class="flex items-start filterable-item" data-groups="${item.Group}">
-        <div class="mt-1 mr-2 w-5 text-center"><i class="fa-solid fa-${item.Icon} ${iconColor}"></i></div>
-        <div class="flex-1">
-            <div class="flex flex-wrap items-center">
-                ${groupBadge}
-                <span class="text-sm text-slate-700 font-medium ${item.Type === 'event' ? 'font-bold text-purple-700' : ''}">
-                    ${item.Title}
-                </span>
+        <div class="flex items-start filterable-item" data-groups="${item.Group}">
+            <div class="mt-1 mr-2 w-5 text-center"><i class="fa-solid fa-${item.Icon} ${iconColor}"></i></div>
+            <div class="flex-1">
+                <div class="flex flex-wrap items-center">${groupBadge}<span class="text-sm text-slate-700 font-medium ${item.Type === 'event' ? 'font-bold text-purple-700' : ''}">${item.Title}</span></div>
+                ${item.Note ? `<div class="text-xs text-slate-500 mt-0.5 pl-1">${item.Note}</div>` : ''}
             </div>
-            ${item.Note ? `<div class="text-xs text-slate-500 mt-0.5 pl-1">${item.Note}</div>` : ''}
-        </div>
         </div>`;
-}
-
-    // 5. 篩選功能
-function filterGroup(group) {
-    currentFilterGroup = group;
-    const items = document.querySelectorAll('.filterable-item');
-
-    // 1. 更新按鈕樣式 (維持不變)
-    const btns = document.querySelectorAll('.filter-btn');
-    btns.forEach(btn => {
-        btn.classList.remove('bg-slate-100', 'shadow-sm', 'text-slate-800');
-        btn.classList.add('text-slate-500', 'hover:bg-slate-50');
-    });
-    const activeBtnId = 'btn-' + group.toLowerCase();
-    const activeBtn = document.getElementById(activeBtnId);
-    if(activeBtn) {
-        activeBtn.classList.add('bg-slate-100', 'shadow-sm', 'text-slate-800');
-        activeBtn.classList.remove('text-slate-500', 'hover:bg-slate-50');
     }
 
-    // 2. 更新標題日期 (這裡可以根據名字設定不同天數)
-    const headerDate = document.getElementById('header-date');
-    const dateTexts = {
-        'ALL': '2/12 (四) ~ 2/21 (六)｜共 10 天',
-        'A': '2/12 (四) ~ 2/21 (六)｜暐傑與嘟嘟',
-        'B': '2/17 (二) ~ 2/21 (六)｜偉庭與明娟',
-        'C': '2/16 (一) ~ 2/21 (六)｜梅玉與均穎'
-    };
-    if(headerDate && dateTexts[group]) {
-        headerDate.innerText = dateTexts[group];
-    }
-
-    // 3. 核心篩選邏輯 (修改重點！)
-    items.forEach(item => {
-        // 取得該項目的群組設定
-        // data-group 是單一群組 (舊版相容)
-        // data-groups 是多群組字串 (新版邏輯，例如 "A,ALL" 或 "A,B")
-        const itemGroup = item.getAttribute('data-group');
-        const multiGroups = item.getAttribute('data-groups'); 
+    // 渲染備忘錄 (從 Sheet 讀取 Type=memo)
+    function renderMemos(allDays) {
+        const container = document.getElementById('memo-container');
+        container.innerHTML = '';
         
-        let isVisible = false;
+        let hasMemo = false;
+        allDays.forEach(day => {
+            day.items.forEach(item => {
+                if (item.Type === 'memo') {
+                    hasMemo = true;
+                    const html = `
+                    <div class="flex items-start filterable-item multi-group" data-groups="${item.Group}">
+                        <div class="bg-white/10 p-2 rounded mr-3 shrink-0"><i class="fa-solid fa-${item.Icon || 'circle-info'} text-emerald-300"></i></div>
+                        <div>
+                            <div class="font-bold text-emerald-200">${item.Title}</div>
+                            <p class="opacity-80 text-xs mt-1">${item.Note || ''}</p>
+                        </div>
+                    </div>`;
+                    container.insertAdjacentHTML('beforeend', html);
+                }
+            });
+        });
 
-        if (group === 'ALL') {
-            // 如果按鈕選「全員視角」，就全部顯示
-            isVisible = true;
-        } else {
-            // 如果按鈕選特定人 (例如 A)
+        if (!hasMemo) container.innerHTML = '<div class="text-center opacity-50">暫無備忘錄</div>';
+    }
+
+    // 渲染天氣 (根據組別過濾日期)
+    function renderWeather(group) {
+        const container = document.getElementById('weather-container');
+        container.innerHTML = '';
+        
+        const startDate = groupStartDates[group];
+        // 過濾出該組別開始日期之後的天氣
+        const filteredWeather = weatherDb.filter(w => w.date >= startDate);
+
+        // 用來計算該組別的第幾天 (D1, D2...)
+        let dayCount = 1;
+
+        filteredWeather.forEach(w => {
+            const info = weatherCodes[w.histCode] || weatherCodes[2];
+            const borderColor = w.loc === 'Takayama' ? 'border-blue-200 bg-blue-50' : 'border-orange-100 bg-orange-50';
             
-            // 情況 1: 這個行程是標記為 "ALL" 的 (例如大家一起吃飯)，永遠顯示
-            if (itemGroup === 'ALL' || (multiGroups && multiGroups.includes('ALL'))) {
-                isVisible = true;
-            }
-            // 情況 2: 這個行程剛好是該群組的 (例如 A 的班機)
-            else if (itemGroup === group) {
-                isVisible = true;
-            }
-            // 情況 3: 這個行程包含該群組 (例如 "A,B" 一起去吉卜力，選 A 時要顯示)
-            else if (multiGroups && multiGroups.includes(group)) {
-                isVisible = true;
-            }
+            const card = `
+            <div class="flex-none w-28 p-3 rounded-xl border ${borderColor} flex flex-col items-center justify-between snap-center">
+                <div class="text-xs font-bold text-slate-500">${w.label} <span class="opacity-50">(D${dayCount})</span></div>
+                <div class="font-bold text-sm text-slate-700 my-1">${w.name}</div>
+                <div class="text-2xl ${info.color} my-1"><i class="fa-solid ${info.icon}"></i></div>
+                <div class="text-xs font-medium text-slate-600">${w.temp}</div>
+            </div>`;
+            container.insertAdjacentHTML('beforeend', card);
+            dayCount++;
+        });
+    }
+
+    // 主篩選功能
+    function filterGroup(group) {
+        currentFilterGroup = group;
+        
+        // 1. 更新按鈕
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('bg-slate-100', 'shadow-sm', 'text-slate-800');
+            btn.classList.add('text-slate-500', 'hover:bg-slate-50');
+        });
+        const activeBtn = document.getElementById('btn-' + group.toLowerCase());
+        if(activeBtn) {
+            activeBtn.classList.add('bg-slate-100', 'shadow-sm', 'text-slate-800');
+            activeBtn.classList.remove('text-slate-500', 'hover:bg-slate-50');
         }
 
-        // 控制顯示/隱藏
-        if (isVisible) {
-            item.classList.remove('hidden-item');
-        } else {
-            item.classList.add('hidden-item');
-        }
-    });
-}
+        // 2. 更新 Header 文字
+        const headerText = {
+            'ALL': '2/12 (四) ~ 2/21 (六)｜共 10 天',
+            'A': '2/12 (四) ~ 2/21 (六)｜暐傑與嘟嘟',
+            'B': '2/17 (二) ~ 2/21 (六)｜偉庭與明娟',
+            'C': '2/16 (一) ~ 2/21 (六)｜梅玉與均穎'
+        };
+        document.getElementById('header-date').innerText = headerText[group] || 'Trip';
 
-    // Tab 切換
+        // 3. 篩選行程項目
+        const items = document.querySelectorAll('.filterable-item');
+        items.forEach(item => {
+            const itemGroup = item.getAttribute('data-group'); // 舊版相容
+            const multiGroups = item.getAttribute('data-groups'); // 主要判斷依據
+            
+            let isVisible = false;
+            if (group === 'ALL') {
+                isVisible = true;
+            } else {
+                if (itemGroup === 'ALL' || (multiGroups && multiGroups.includes('ALL'))) isVisible = true;
+                else if (itemGroup === group) isVisible = true;
+                else if (multiGroups && multiGroups.includes(group)) isVisible = true;
+            }
+
+            if (isVisible) item.classList.remove('hidden-item');
+            else item.classList.add('hidden-item');
+        });
+
+        // 4. 處理天數容器 (如果該天沒有任何可見行程，隱藏整天)
+        // 同時重算 D1, D2...
+        const dayContainers = document.querySelectorAll('.day-container');
+        let dayIndex = 1;
+
+        dayContainers.forEach(day => {
+            // 檢查這一天裡面有沒有「非 hidden」的 item
+            const visibleItems = day.querySelectorAll('.filterable-item:not(.hidden-item)');
+            
+            if (visibleItems.length > 0) {
+                day.classList.remove('hidden-item');
+                // 更新該天的圓點數字
+                const dot = day.querySelector('.timeline-dot');
+                if (dot) dot.innerText = `D${dayIndex}`;
+                dayIndex++;
+            } else {
+                day.classList.add('hidden-item');
+            }
+        });
+
+        // 5. 更新天氣卡片 (傳入 group 讓它重畫)
+        renderWeather(group);
+    }
+
     function switchTab(tabId, index) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.getElementById(`tab-${tabId}`).classList.add('active');
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.nav-item')[index].classList.add('active');
-
-        const indicator = document.getElementById('nav-indicator');
-        indicator.style.left = `${index * 25}%`;
+        document.getElementById('nav-indicator').style.left = `${index * 25}%`;
         document.getElementById('main-scroll').scrollTop = 0;
-    }
-
-    // Weather Logic (保持原樣，並整合 filter)
-    const weatherCodes = {
-        0: { text: "晴天", icon: "fa-sun", color: "text-orange-500" },
-        1: { text: "多雲", icon: "fa-cloud-sun", color: "text-orange-400" },
-        2: { text: "多雲", icon: "fa-cloud", color: "text-slate-400" },
-        3: { text: "陰天", icon: "fa-cloud", color: "text-slate-500" },
-        45: { text: "霧", icon: "fa-smog", color: "text-slate-400" },
-        51: { text: "小雨", icon: "fa-cloud-rain", color: "text-blue-400" },
-        53: { text: "中雨", icon: "fa-cloud-rain", color: "text-blue-500" },
-        61: { text: "下雨", icon: "fa-cloud-showers-heavy", color: "text-blue-600" },
-        71: { text: "下雪", icon: "fa-snowflake", color: "text-sky-400" },
-        73: { text: "中雪", icon: "fa-snowflake", color: "text-sky-500" },
-        75: { text: "大雪", icon: "fa-snowflake", color: "text-sky-600" },
-        95: { text: "雷雨", icon: "fa-bolt", color: "text-yellow-500" },
-    };
-    const tripDates = [
-        { date: '2026-02-12', label: '2/12', day: 'D1', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 1, histHigh: 9, histCode: 1 },
-        { date: '2026-02-13', label: '2/13', day: 'D2', loc: 'Takayama', name: '高山', lat: 36.14, long: 137.25, histLow: -5, histHigh: 4, histCode: 71 },
-        { date: '2026-02-14', label: '2/14', day: 'D3', loc: 'Takayama', name: '新穗高', lat: 36.28, long: 137.57, histLow: -8, histHigh: 0, histCode: 75 },
-        { date: '2026-02-15', label: '2/15', day: 'D4', loc: 'Takayama', name: '合掌村', lat: 36.25, long: 136.90, histLow: -6, histHigh: 2, histCode: 71 },
-        { date: '2026-02-16', label: '2/16', day: 'D5', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 1, histHigh: 9, histCode: 2 },
-        { date: '2026-02-17', label: '2/17', day: 'D6', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 2, histHigh: 10, histCode: 1 },
-        { date: '2026-02-18', label: '2/18', day: 'D7', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 2, histHigh: 11, histCode: 1 },
-        { date: '2026-02-19', label: '2/19', day: 'D8', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 3, histHigh: 11, histCode: 1 },
-        { date: '2026-02-20', label: '2/20', day: 'D9', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 2, histHigh: 10, histCode: 2 },
-        { date: '2026-02-21', label: '2/21', day: 'D10', loc: 'Nagoya', name: '名古屋', lat: 35.18, long: 136.90, histLow: 2, histHigh: 10, histCode: 3 }
-    ];
-
-    async function initWeather() {
-        const container = document.getElementById('weather-container');
-        const statusLabel = document.getElementById('forecast-status');
-        container.innerHTML = '';
-        const today = new Date();
-        let usedLive = false;
-
-        for (const item of tripDates) {
-            let groupsAttr = "";
-            if (['2/12','2/13','2/14','2/15'].includes(item.label)) groupsAttr = 'data-group="A"';
-            else if (item.label === '2/16') groupsAttr = 'data-groups="A,C"';
-            
-            // ... (省略部分天氣 API 邏輯以節省空間，功能與之前相同) ...
-            
-            // 這裡為了讓代碼完整，簡易模擬卡片生成
-            const weatherInfo = weatherCodes[item.histCode];
-            const borderColor = item.loc === 'Takayama' ? 'border-blue-200 bg-blue-50' : 'border-orange-100 bg-orange-50';
-            const card = document.createElement('div');
-            card.className = `flex-none w-28 p-3 rounded-xl border ${borderColor} flex flex-col items-center justify-between snap-center weather-card filterable-item`;
-            
-            if (groupsAttr) {
-               if(groupsAttr.includes('data-groups')) card.setAttribute('data-groups', groupsAttr.split('"')[1]);
-               else card.setAttribute('data-group', groupsAttr.split('"')[1]);
-            }
-
-            card.innerHTML = `
-                <div class="text-xs font-bold text-slate-500">${item.label} <span class="opacity-50">(${item.day})</span></div>
-                <div class="font-bold text-sm text-slate-700 my-1">${item.name}</div>
-                <div class="text-2xl ${weatherInfo.color} my-1"><i class="fa-solid ${weatherInfo.icon}"></i></div>
-                <div class="text-xs font-medium text-slate-600">${item.histLow}° ~ ${item.histHigh}°</div>
-            `;
-            container.appendChild(card);
-        }
-        filterGroup(currentFilterGroup);
     }
 </script>
 </body>
